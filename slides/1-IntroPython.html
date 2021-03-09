@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>1. Intro a Python</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ana BVA" />
+    <script src="libs/header-attrs-2.7/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# 1. Intro a Python
+### Ana BVA
+### 24/2/2021
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+&lt;/style&gt;
+
+
+# Historia
+
+
+
+.full-width[.content-box-blue[Creador de Python: **Guido van Rossum**]]
+
+.pull-left[
+
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Guido_van_Rossum_OSCON_2006.jpg" width="200px" style="display: block; margin: auto;" /&gt;
+
+.tiny[[Entrevista](https://www.youtube.com/watch?v=J0Aq44Pze-w)]
+
+]
+
+
+.pull-right[
+
+- Originario de los Paises Bajos 
+
+- Titulo: Matemáticas y computación 
+
+- Investigador del Centrum Wiskunde &amp; Informatics (CWI)
+
+
+&lt;img src="https://pbs.twimg.com/media/EpSJbFwWEAQWebe.jpg" width="250px" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+
+## Ideas de Python 
+
+Python fue creado para ser:
+
+&lt;img src="img/ideaspy.png" width="850px" style="display: block; margin: auto;" /&gt;
+
+
+
+.full-width[.content-box-red[Busca tener: **Legibilidad**]]
+
+---
+## ¿Qué es python?
+
+
+- Lenguaje de programación interpretado
+
+--
+
+- Sintaxis de código legible
+
+--
+
+- Lenguaje de programación multiparadigma
+
+--
+
+&lt;img src="img/multipara.png" width="550px" style="display: block; margin: auto;" /&gt;
+
+
+.tiny[
+[Mas información](https://www.python.org/about/gettingstarted)
+]
+
+
+---
+## Versiones de python
+
+Python tuvo su primera verisión al público en 1991, y a continuado versionando de forma similar.
+
+&lt;img src="img/v.0.9.0.png" width="750px" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Python ¿2 o 3?
+
+- ¿Qué versión de python nos conviene? 
+
+--
+
+- ¿Porqué?
+
+---
+## Python ¿2 o 3?
+
+&lt;img src="https://res.cloudinary.com/practicaldev/image/fetch/s--SFU6R2gs--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/2agzfyqp1t6iqjrdihfv.png" height="550px" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Python ¿2 o 3?
+
+&lt;img src="https://qph.fs.quoracdn.net/main-qimg-63812ebf5569d8d6e875f34de05f057b" width="750px" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Intalación
+
+Puedes leer los requisitos en [github](https://github.com/AnaBVA/pythonCCG_2021) y seguir los pasos para la instalación. 
+
+En este curso usaremos:
+
+- Python 3 
+
+&lt;img src="https://miro.medium.com/max/2560/0*8aY8pX5CoNGImZU4.png" width="200px" style="display: block; margin: auto;" /&gt;
+
+- PyCharm
+
+&lt;img src="https://resources.jetbrains.com/storage/products/pycharm-edu/img/meta/pycharm-edu_logo_300x300.png" width="100px" style="display: block; margin: auto;" /&gt;
+
+---
+## ¿Tienes python?
+
+
+1. Abre una terminal 
+
+--
+
+2. Escribe `python` o `python3`
+
+
+
+---
+
+## ¿Qué versión tenemos?
+
+Podemos checar la **versión** y el **PATH** de `python` de distintas maneras:
+
+- Bash:
+
+
+```bash
+python3 --version
+
+which python3
+```
+
+```
+## Python 3.7.3
+## /usr/bin/python3
+```
+
+---
+
+## ¿Qué versión tenemos?
+
+Podemos checar la **versión** y el **PATH** de `python` de distintas maneras:
+
+--
+
+- En python:
+
+  1. Abre una terminal 
+
+  2. Escribe `python` o `python3`
+
+
+Checamos la **versión**
+
+```python
+import sys
+sys.version
+```
+
+```
+## '3.6.13 | packaged by conda-forge | (default, Feb 19 2021, 05:38:47) \n[GCC Clang 11.0.1]'
+```
+
+--
+Checamos el **PATH**
+
+```python
+print(sys.path)
+```
+
+```
+## ['', '/Users/user/opt/anaconda3/envs/r-reticulate/bin', '/Users/user/opt/anaconda3/envs/r-reticulate/lib/python36.zip', '/Users/user/opt/anaconda3/envs/r-reticulate/lib/python3.6', '/Users/user/opt/anaconda3/envs/r-reticulate/lib/python3.6/lib-dynload', '/Users/user/opt/anaconda3/envs/r-reticulate/lib/python3.6/site-packages', '/Library/Frameworks/R.framework/Versions/4.0/Resources/library/reticulate/python']
+```
+
+---
+## PyCharm
+
+Tips:
+
+- Agregar un interpretador de python (puedes usar conda env o virtual env)
+
+--
+
+- Executar el codigo en la *Consola Python* usando **Ctrl/Alt + Shift + E**
+
+--
+
+- Cambiar el nombre de la variable en todo el script utilizando `Refactor` 
+
+  - Seleciona la  variable -&gt; Click derecho -&gt; `Refactor` -&gt; `Rename`
+
+  - **Shift + F6**
+
+--
+
+- Buscador **Cmd/Ctrl + F**
+
+--
+
+- Cambios recientes en tu archivo o projecto **Alt + Shift + C**
+
+--
+
+- Duplicar la lína de código **Cmd/Ctrl + D**
+
+--
+
+- `# todo`: Permite crear comentarios para saber donde te quedaste
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

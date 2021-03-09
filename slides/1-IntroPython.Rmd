@@ -1,0 +1,252 @@
+---
+title: '1. Intro a Python'
+author: "Ana BVA"
+date: "24/2/2021"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+```
+
+
+# Historia
+
+
+
+.full-width[.content-box-blue[Creador de Python: **Guido van Rossum**]]
+
+.pull-left[
+
+```{r, out.width = "200px",fig.align='center'}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/6/66/Guido_van_Rossum_OSCON_2006.jpg")
+```
+
+.tiny[[Entrevista](https://www.youtube.com/watch?v=J0Aq44Pze-w)]
+
+]
+
+
+.pull-right[
+
+- Originario de los Paises Bajos 
+
+- Titulo: Matemáticas y computación 
+
+- Investigador del Centrum Wiskunde & Informatics (CWI)
+
+
+```{r, out.width = "250px",fig.align='center'}
+knitr::include_graphics("https://pbs.twimg.com/media/EpSJbFwWEAQWebe.jpg")
+```
+
+]
+
+
+---
+
+## Ideas de Python 
+
+Python fue creado para ser:
+
+```{r, out.width = "850px",fig.align='center'}
+knitr::include_graphics("img/ideaspy.png")
+```
+
+
+
+.full-width[.content-box-red[Busca tener: **Legibilidad**]]
+
+---
+## ¿Qué es python?
+
+
+- Lenguaje de programación interpretado
+
+--
+
+- Sintaxis de código legible
+
+--
+
+- Lenguaje de programación multiparadigma
+
+--
+
+```{r, out.width = "550px",fig.align='center'}
+knitr::include_graphics("img/multipara.png")
+```
+
+
+.tiny[
+[Mas información](https://www.python.org/about/gettingstarted)
+]
+
+
+---
+## Versiones de python
+
+Python tuvo su primera verisión al público en 1991, y a continuado versionando de forma similar.
+
+```{r, out.width = "750px",fig.align='center'}
+knitr::include_graphics("img/v.0.9.0.png")
+```
+
+
+---
+## Python ¿2 o 3?
+
+- ¿Qué versión de python nos conviene? 
+
+--
+
+- ¿Porqué?
+
+---
+## Python ¿2 o 3?
+
+```{r, out.height = "550px",fig.align='center'}
+knitr::include_graphics("https://res.cloudinary.com/practicaldev/image/fetch/s--SFU6R2gs--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/2agzfyqp1t6iqjrdihfv.png")
+```
+
+
+---
+## Python ¿2 o 3?
+
+```{r, out.width = "750px",fig.align='center'}
+knitr::include_graphics("https://qph.fs.quoracdn.net/main-qimg-63812ebf5569d8d6e875f34de05f057b")
+```
+
+
+---
+## Intalación
+
+Puedes leer los requisitos en [github](https://github.com/AnaBVA/pythonCCG_2021) y seguir los pasos para la instalación. 
+
+En este curso usaremos:
+
+- Python 3 
+
+```{r, out.width = "200px",fig.align='center'}
+knitr::include_graphics("https://miro.medium.com/max/2560/0*8aY8pX5CoNGImZU4.png")
+```
+
+- PyCharm
+
+```{r, out.width = "100px",fig.align='center'}
+knitr::include_graphics("https://resources.jetbrains.com/storage/products/pycharm-edu/img/meta/pycharm-edu_logo_300x300.png")
+```
+
+---
+## ¿Tienes python?
+
+
+1. Abre una terminal 
+
+--
+
+2. Escribe `python` o `python3`
+
+
+
+---
+
+## ¿Qué versión tenemos?
+
+Podemos checar la **versión** y el **PATH** de `python` de distintas maneras:
+
+- Bash:
+
+```{bash echo = TRUE}
+python3 --version
+
+which python3
+```
+
+---
+
+## ¿Qué versión tenemos?
+
+Podemos checar la **versión** y el **PATH** de `python` de distintas maneras:
+
+--
+
+- En python:
+
+  1. Abre una terminal 
+
+  2. Escribe `python` o `python3`
+
+
+Checamos la **versión**
+```{python echo=TRUE}
+import sys
+sys.version
+```
+
+--
+Checamos el **PATH**
+```{python echo=TRUE}
+print(sys.path)
+```
+
+---
+## PyCharm
+
+Tips:
+
+- Agregar un interpretador de python (puedes usar conda env o virtual env)
+
+--
+
+- Executar el codigo en la *Consola Python* usando **Ctrl/Alt + Shift + E**
+
+--
+
+- Cambiar el nombre de la variable en todo el script utilizando `Refactor` 
+
+  - Seleciona la  variable -> Click derecho -> `Refactor` -> `Rename`
+
+  - **Shift + F6**
+
+--
+
+- Buscador **Cmd/Ctrl + F**
+
+--
+
+- Cambios recientes en tu archivo o projecto **Alt + Shift + C**
+
+--
+
+- Duplicar la lína de código **Cmd/Ctrl + D**
+
+--
+
+- `# todo`: Permite crear comentarios para saber donde te quedaste
+
