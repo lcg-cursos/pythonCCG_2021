@@ -1,0 +1,15 @@
+---
+title: "Untitled"
+author: "Ana BVA"
+date: "3/9/2021"
+output: html_document
+---
+
+## Material del curso
+
+Aquí encontrarás las slides del curso
+
+| Día | Tema   |
+|:---:|:------:|
+| 1   | [Intro a python](slides/1-IntroPython.html)
+
