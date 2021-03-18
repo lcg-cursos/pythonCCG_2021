@@ -218,6 +218,15 @@ print(sys.path)
 ---
 ## PyCharm
 
+
+```{r, out.width = "500px",fig.align='center'}
+knitr::include_graphics("https://resources.jetbrains.com/storage/products/pycharm/img/meta/pycharm_logo_300x300.png")
+```
+
+
+---
+## PyCharm
+
 Tips:
 
 - Agregar un interpretador de python (puedes usar conda env o virtual env)
@@ -249,4 +258,49 @@ Tips:
 --
 
 - `# todo`: Permite crear comentarios para saber donde te quedaste
+
+---
+
+## Ecosistema de Python
+
+```{r, out.width = "600px",fig.align='center'}
+knitr::include_graphics("https://www.researchgate.net/publication/332799309/figure/fig1/AS:753947908272130@1556766597837/Schematic-view-of-the-Python-scientific-software-ecosystem-Figure-taken-from-Jake.png")
+```
+
+---
+
+## Anaconda
+
+```{r, out.width = "600px",fig.align='center'}
+knitr::include_graphics("https://miro.medium.com/max/3624/1*O5Jgl-KFuvUyujAZhXHYlQ.png")
+```
+
+---
+
+## Bioconda
+
+```{r, out.width = "300px",fig.align='center'}
+knitr::include_graphics("https://cdn-ak.f.st-hatena.com/images/fotolife/b/biodata/20170113/20170113232841.png")
+```
+
+```{r, out.width = "700px",fig.align='center'}
+knitr::include_graphics("https://media.springernature.com/m685/springer-static/image/art%3A10.1038%2Fs41592-018-0046-7/MediaObjects/41592_2018_46_Fig1_HTML.jpg")
+```
+
+.tiny[
+[Grüning, Björn, et al. "Bioconda: sustainable and comprehensive software distribution for the life sciences." Nature methods 15.7 (2018): 475-476.](https://www.nature.com/articles/s41592-018-0046-7)
+]
+
+---
+##  Rosalind
+
+.tiny[
+[Pagina web de Rosalind](http://rosalind.info/problems/locations/)
+]
+
+```{r, out.width = "700px",fig.align='center'}
+knitr::include_graphics("https://i.pinimg.com/originals/44/d7/4f/44d74fdeb808d07087b8ed3e1756bf50.png")
+```
+
+
 
