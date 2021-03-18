@@ -1,3 +1,9 @@
+# Material del Curso
+
+[Liga para el material del curso](https://anabva.github.io/pythonCCG_2021/): cada semana se actualizará para que tengan el material de esa semana. 
+
+
+
 # Requisitos para el Curso
 
 - Python > 3.6 
