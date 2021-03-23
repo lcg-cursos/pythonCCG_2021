@@ -1,0 +1,359 @@
+---
+title: '2. Strings'
+author: "Ana BVA"
+date: "25/3/2021"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+```
+
+
+# Strings
+
+Cadena de caracteres: objeto de una serie de signos o caracteres.
+
+```{python, echo=TRUE}
+mensaje = "Hola Mundo"
+print(mensaje)
+```
+
+
+---
+
+## Operadores de cadenas de caracteres
+
+Los *operadores de cadenas de caracteres* ayudan a manipular los strings
+
+.full-width[.content-box-red[+, -, *, / , =]]
+
+---
+
+### Concatenar (+)
+
+Se pueden juntar strings utilizando el operador de suma `+`.
+
+```{python, echo=TRUE}
+saludo = "Buenos días"
+```
+
+--
+
+```{python, echo=TRUE}
+nombre = "Andrea"
+```
+
+--
+
+```{python, echo=TRUE}
+print(saludo + ' ' + nombre)
+```
+
+---
+
+## Multiplicar (*)
+
+Se puede duplicar un string con el caracter de multiplicación `*`.
+
+--
+
+```{python, echo=TRUE}
+print("#" * 10)
+```
+
+--
+
+```{python, echo=TRUE}
+print("Hola " * 3 + "mundo")
+```
+
+---
+
+## Añadir
+
+Puedes agregar más strings al final del último caracter con `+=`.
+
+--
+
+```{python, echo=TRUE}
+saludo2 = 'Hola'
+saludo2 += ' '
+saludo2 += 'Mundo' 
+print(saludo2)
+```
+
+
+---
+
+Podemos hacerlo con variables de tipo string
+
+```{python, echo=TRUE}
+print(saludo)
+print(nombre)
+```
+
+--
+
+```{python, echo=TRUE}
+mensaje = saludo + ' ' + nombre
+mensaje += '!' 
+print(mensaje)
+
+```
+
+
+---
+
+## Métodos
+
+Para ver la información completa de los métodos que se pueden ocupar en un string
+consulta la [página oficial de python](https://docs.python.org/2/library/stdtypes.html#string-methods).
+
+---
+
+### Longitud del string
+
+Puedes saber la longitud de un string
+
+```{python, echo=TRUE}
+mensaje
+print(len(mensaje))
+
+```
+
+---
+
+### Buscar
+
+Puedes buscar dentro de un string
+
+```{python, echo=TRUE}
+print(mensaje)
+print(mensaje.find("Andrea"))
+```
+
+--
+```{python, echo=TRUE}
+print(mensaje.find("Kevin"))
+```
+
+---
+## Ejercicio
+
+.content-box-blue[
+¿Dónde empieza el codón inical `AUG` en la secuencia 
+
+`dna = 'AAGGAUGTCGCGCGTTATTAGCCTAA'`?
+]
+
+- Escribe un programa que te regrese la posición del codón inicial
+
+- Output: un mensaje y el resultado
+
+--
+
+```{python echo=FALSE}
+# Secuencia de DNA
+dna = 'AAGGAUGTCGCGCGTTATTAGCCTAAUAA'
+
+# Codon de inicio
+met_ini = 'AUG'
+
+# Busqueda del patron
+inicio = dna.find(met_ini)
+print('El codon AUG empieza en la posicion: ',inicio)
+
+
+# print('El codon AUG empieza en la posicion: ')  
+# print(inicio)
+
+#print('El codon AUG empieza en la posicion: '+ str(inicio)) 
+```
+
+---
+
+### Minúsculas/Mayusculas
+
+Puedes convertir todo a minúsculas o mayúsculas.
+
+```{python, echo=TRUE}
+print(mensaje)
+print(mensaje.lower())
+```
+
+--
+
+```{python, echo=TRUE}
+print(mensaje.upper())
+```
+
+---
+### Remplazar
+
+Se pueden replazar los caracteres usando `replace`
+
+```{python, echo=TRUE}
+print(mensaje)
+print(mensaje.replace('días','noches'))
+```
+
+---
+### Cortar
+
+Se pueden elegir partes del string
+
+```{python, echo=TRUE}
+print(mensaje)
+print(mensaje[1:5])
+```
+
+---
+
+### Posición en python
+
+```{r, out.width = "500px",fig.align='center'}
+knitr::include_graphics("https://i.stack.imgur.com/BWTW0.png")
+```
+
+```{python, echo=TRUE}
+saludo3 = "Hello"
+print(saludo3[0])
+print(saludo3[-5])
+```
+
+---
+## Ejercicio de Rosalind 
+
+.content-box-blue[
+Hacer el ejercico de [Rosalind: Strings and lists](http://rosalind.info/problems/ini3/)
+]
+
+---
+## Ejercicio 
+
+.content-box-blue[
+¿Dónde empieza el codón inical `AUG` en la secuencia 
+
+`dna = 'AAGGAUGTCGCGCGTTATTAGCCTAA'`?
+]
+
+- Escribe un programa que te regrese la posición del codón inicial
+
+- Output: un mensaje y el resultado
+
+--
+
+.content-box-blue[
+¿Cuál es la secuencia que se transcribe?
+]
+
+- Output: donde empieza el codón inicial `AUG` y la secuencia que se transcribe 
+(asumiendo codon de paro `UAA`)
+
+---
+Resultado del ejercicio
+
+```{python echo=FALSE}
+# Secuencia de DNA
+dna = 'AAGGAUGTCGCGCGTTATTAGCCTAAUAA'
+
+# Codon de inicio
+met_ini = 'AUG'
+
+# Codon de paro
+codon_paro = 'UAA'
+
+# Busqueda del patron
+inicio = dna.find(met_ini)
+fin = dna.find(codon_paro)
+
+
+# Cortar la secuencia 
+mrna = dna[inicio:fin]
+print('El codon AUG empieza en la posicion ',inicio, ' y termina en ',fin)
+print(f'\nFragmento de RNA transcrito {met_ini}: \n{mrna}')
+
+
+
+# print('El codon AUG empieza en la posicion: ')  
+# print(inicio)
+
+#print('El codon AUG empieza en la posicion: '+ str(inicio)) 
+```
+
+
+### Secuencias de escape
+
+Para incluir comillas en nuestros mensajes podemos usar `\`
+
+```{python, echo=TRUE}
+print('El programa imprime \"Hola Mundo\"')
+```
+
+--
+
+Para incluir una nueva linea puedes ocupar `\n`
+
+```{python, echo=TRUE}
+print('Buenos días \nBuenas noches')
+```
+
+--
+
+Incluir una variable dentro de un string puedes usar `f` al inicio y `{}`
+
+```{python, echo=TRUE}
+print(f'\nFragmento de RNA iniciando por {met_ini}: \n{mrna}')
+```
+
+### Contar 
+
+Podemos contar caracteres usando `count`
+
+```{python, echo=TRUE}
+print(saludo3)
+print(saludo3.count('l'))
+```
+
+---
+## Ejercicio 
+
+.content-box-blue[
+¿Cuantas `A`, `T`, `C` y `G` hay en la secuencia
+
+`dna = 'AAGGAUGTCGCGCGTTATTAGCCTAA'`?
+
+Resuelve el problema de [Rosalind: Counting DNA Nucleotides](http://rosalind.info/problems/dna/)
+
+]
+
+- Escribe un programa que te regrese la cantidad de nucleotidos
+
+- Output: un mensaje y el resultado
+
