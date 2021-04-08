@@ -302,5 +302,40 @@ knitr::include_graphics("https://media.springernature.com/m685/springer-static/i
 knitr::include_graphics("https://i.pinimg.com/originals/44/d7/4f/44d74fdeb808d07087b8ed3e1756bf50.png")
 ```
 
+---
+## Ejercicio de Rosalind 
 
+.content-box-blue[
+Hacer el ejercico de [Rosalind:Installing Python](http://rosalind.info/problems/ini1/)
+]
 
+---
+## Python como calculadora
+
+Python sirve como calculadora y te permite hacer operaciones
+--
+```{python echo=TRUE}
+50 - 5*6 / 4
+(50 - 5*6) / 4
+```
+
+--
+```{python echo=TRUE}
+5 ** 2 # potencias
+```
+
+---
+## Python como calculadora
+
+```{python echo=TRUE}
+ancho = 20
+alto = 5 * 9
+ancho * alto
+```
+
+---
+## Ejercicio de Rosalind 
+
+.content-box-blue[
+Hacer el ejercico de [Rosalind: Variables and Some Arithmetic](http://rosalind.info/problems/ini2/)
+]
