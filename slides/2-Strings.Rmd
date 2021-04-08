@@ -349,9 +349,11 @@ print(saludo3.count('l'))
 ## Ejercicio 
 
 .content-box-blue[
-¿Cuantas `A`, `C`, `G` y `T` hay en la secuencia
+¿Cuantas `A`, `C`, `G` y `T` hay en la secuencia?
 
-`dna = 'AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC'`?
+.tiny[
+`dna = 'AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC'`
+] 
 
 Resuelve el problema de [Rosalind: Counting DNA Nucleotides](http://rosalind.info/problems/dna/)
 
