@@ -173,7 +173,7 @@ print(mensaje.find("Kevin"))
 .content-box-blue[
 ¿Dónde empieza el codón inical `AUG` en la secuencia 
 
-`dna = 'AAGGAUGTCGCGCGTTATTAGCCTAA'`?
+`dna = 'AAGGTACGTCGCGCGTTATTAGCCTAAT'`?
 ]
 
 - Escribe un programa que te regrese la posición del codón inicial
@@ -184,20 +184,20 @@ print(mensaje.find("Kevin"))
 
 ```{python echo=FALSE}
 # Secuencia de DNA
-dna = 'AAGGAUGTCGCGCGTTATTAGCCTAAUAA'
+dna = 'AAGGTACGTCGCGCGTTATTAGCCTAAT'
 
 # Codon de inicio
-met_ini = 'AUG'
+met_ini = 'TAC'
 
 # Busqueda del patron
 inicio = dna.find(met_ini)
-print('El codon AUG empieza en la posicion: ',inicio)
+print('El codon TAC empieza en la posicion: ',inicio)
 
 
-# print('El codon AUG empieza en la posicion: ')  
+# print('El codon TAC empieza en la posicion: ')  
 # print(inicio)
 
-#print('El codon AUG empieza en la posicion: '+ str(inicio)) 
+#print('El codon TAC empieza en la posicion: '+ str(inicio)) 
 ```
 
 ---
@@ -264,7 +264,7 @@ Hacer el ejercico de [Rosalind: Strings and lists](http://rosalind.info/problems
 .content-box-blue[
 ¿Dónde empieza el codón inical `AUG` en la secuencia 
 
-`dna = 'AAGGAUGTCGCGCGTTATTAGCCTAA'`?
+`dna = 'AAGGTACGTCGCGCGTTATTAGCCTAAT'`?
 ]
 
 - Escribe un programa que te regrese la posición del codón inicial
@@ -285,13 +285,13 @@ Resultado del ejercicio
 
 ```{python echo=FALSE}
 # Secuencia de DNA
-dna = 'AAGGAUGTCGCGCGTTATTAGCCTAAUAA'
+dna = 'AAGGTACGTCGCGCGTTATTAGCCTAAT'
 
 # Codon de inicio
-met_ini = 'AUG'
+met_ini = 'TAC'
 
 # Codon de paro
-codon_paro = 'UAA'
+codon_paro = 'TAA'
 
 # Busqueda del patron
 inicio = dna.find(met_ini)
@@ -300,8 +300,8 @@ fin = dna.find(codon_paro)
 
 # Cortar la secuencia 
 mrna = dna[inicio:fin]
-print('El codon AUG empieza en la posicion ',inicio, ' y termina en ',fin)
-print(f'\nFragmento de RNA transcrito {met_ini}: \n{mrna}')
+print('El codon TAC empieza en la posicion ',inicio, ' y termina en ',fin)
+print(f'\nFragmento que será RNA  (codón inicio: {met_ini}, codón de paro ={codon_paro}) es: \n{mrna}')
 
 
 
@@ -311,7 +311,7 @@ print(f'\nFragmento de RNA transcrito {met_ini}: \n{mrna}')
 #print('El codon AUG empieza en la posicion: '+ str(inicio)) 
 ```
 
-
+---
 ### Secuencias de escape
 
 Para incluir comillas en nuestros mensajes podemos usar `\`

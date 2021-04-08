@@ -247,7 +247,7 @@ print(mensaje.find("Kevin"))
 .content-box-blue[
 ¿Dónde empieza el codón inical `AUG` en la secuencia 
 
-`dna = 'AAGGAUGTCGCGCGTTATTAGCCTAA'`?
+`dna = 'AAGGTACGTCGCGCGTTATTAGCCTAAT'`?
 ]
 
 - Escribe un programa que te regrese la posición del codón inicial
@@ -258,7 +258,7 @@ print(mensaje.find("Kevin"))
 
 
 ```
-## El codon AUG empieza en la posicion:  4
+## El codon TAC empieza en la posicion:  4
 ```
 
 ---
@@ -376,7 +376,7 @@ Hacer el ejercico de [Rosalind: Strings and lists](http://rosalind.info/problems
 .content-box-blue[
 ¿Dónde empieza el codón inical `AUG` en la secuencia 
 
-`dna = 'AAGGAUGTCGCGCGTTATTAGCCTAA'`?
+`dna = 'AAGGTACGTCGCGCGTTATTAGCCTAAT'`?
 ]
 
 - Escribe un programa que te regrese la posición del codón inicial
@@ -397,16 +397,16 @@ Resultado del ejercicio
 
 
 ```
-## El codon AUG empieza en la posicion  4  y termina en  26
+## El codon TAC empieza en la posicion  4  y termina en  24
 ```
 
 ```
 ## 
-## Fragmento de RNA transcrito AUG: 
-## AUGTCGCGCGTTATTAGCCTAA
+## Fragmento que será RNA  (codón inicio: TAC, codón de paro =TAA) es: 
+## TACGTCGCGCGTTATTAGCC
 ```
 
-
+---
 ### Secuencias de escape
 
 Para incluir comillas en nuestros mensajes podemos usar `\`
@@ -445,8 +445,8 @@ print(f'\nFragmento de RNA iniciando por {met_ini}: \n{mrna}')
 
 ```
 ## 
-## Fragmento de RNA iniciando por AUG: 
-## AUGTCGCGCGTTATTAGCCTAA
+## Fragmento de RNA iniciando por TAC: 
+## TACGTCGCGCGTTATTAGCC
 ```
 
 ### Contar 
