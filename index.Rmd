@@ -12,4 +12,4 @@ Aquí encontrarás las slides del curso
 | Día | Tema   |
 |:---:|:------:|
 | 1   | [Intro a python](slides/1-IntroPython.html)
-| 2   | [Strings](slides/2-Strings.html)
+| 2   | [Strings](slides/2-Strings.html) 
