@@ -13,3 +13,4 @@ Aquí encontrarás las slides del curso
 |:---:|:------:|
 | 1   | [Intro a python](slides/1-IntroPython.html)
 | 2   | [Strings](slides/2-Strings.html) 
+| 3   | [Lectura de archivos](slides/3-LecturaArchivos.html) 
