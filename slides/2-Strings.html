@@ -434,21 +434,23 @@ print('Buenos días \nBuenas noches')
 ## Buenas noches
 ```
 
---
+---
+### Variable + string
 
 Incluir una variable dentro de un string puedes usar `f` al inicio y `{}`
 
 
 ```python
-print(f'\nFragmento de RNA iniciando por {met_ini}: \n{mrna}')
+print(f'\nFragmento de RNA inicia por {met_ini}: \n{exon}')
 ```
 
 ```
 ## 
-## Fragmento de RNA iniciando por TAC: 
+## Fragmento de RNA inicia por TAC: 
 ## TACGTCGCGCGTTATTAGCC
 ```
 
+---
 ### Contar 
 
 Podemos contar caracteres usando `count`
@@ -469,6 +471,52 @@ print(saludo3.count('l'))
 ```
 ## 2
 ```
+
+---
+### Variable + numero
+
+¿Qué pasa con los números?
+
+
+```python
+print('La longitud del exon es ' + len(exon))
+```
+
+--
+
+
+```python
+print('La longitud del exon es ' + str(len(exon)))
+```
+
+```
+## La longitud del exon es 20
+```
+
+--
+
+
+```python
+print('La longitud del exon es ', len(exon))
+```
+
+```
+## La longitud del exon es  20
+```
+
+--
+
+
+```python
+print(f'\nLa longitud del exon es {len(exon)}')
+```
+
+```
+## 
+## La longitud del exon es 20
+```
+
+
 
 ---
 ## Ejercicio 

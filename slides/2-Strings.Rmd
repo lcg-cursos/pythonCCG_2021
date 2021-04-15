@@ -299,9 +299,9 @@ fin = dna.find(codon_paro)
 
 
 # Cortar la secuencia 
-mrna = dna[inicio:fin]
+exon = dna[inicio:fin]
 print('El codon TAC empieza en la posicion ',inicio, ' y termina en ',fin)
-print(f'\nFragmento que será RNA  (codón inicio: {met_ini}, codón de paro ={codon_paro}) es: \n{mrna}')
+print(f'\nFragmento que será RNA  (codón inicio: {met_ini}, codón de paro ={codon_paro}) es: \n{exon}')
 
 
 
@@ -328,14 +328,16 @@ Para incluir una nueva linea puedes ocupar `\n`
 print('Buenos días \nBuenas noches')
 ```
 
---
+---
+### Variable + string
 
 Incluir una variable dentro de un string puedes usar `f` al inicio y `{}`
 
 ```{python, echo=TRUE}
-print(f'\nFragmento de RNA iniciando por {met_ini}: \n{mrna}')
+print(f'\nFragmento de RNA inicia por {met_ini}: \n{exon}')
 ```
 
+---
 ### Contar 
 
 Podemos contar caracteres usando `count`
@@ -344,6 +346,35 @@ Podemos contar caracteres usando `count`
 print(saludo3)
 print(saludo3.count('l'))
 ```
+
+---
+### Variable + numero
+
+¿Qué pasa con los números?
+
+```{python, echo=T, eval = F}
+print('La longitud del exon es ' + len(exon))
+```
+
+--
+
+```{python, echo=TRUE}
+print('La longitud del exon es ' + str(len(exon)))
+```
+
+--
+
+```{python, echo=TRUE}
+print('La longitud del exon es ', len(exon))
+```
+
+--
+
+```{python, echo=TRUE}
+print(f'\nLa longitud del exon es {len(exon)}')
+```
+
+
 
 ---
 ## Ejercicio 
