@@ -339,3 +339,12 @@ ancho * alto
 .content-box-blue[
 Hacer el ejercico de [Rosalind: Variables and Some Arithmetic](http://rosalind.info/problems/ini2/)
 ]
+
+---
+## Ligas
+
+- [Python for Biologist](https://pythonforbiologists.com/introduction)
+  - [Ejercicios](https://pythonforbiologists.com/exercise-files)
+  
+
+- [Advanced Python for Biologist](file:///Users/user/Documents/Doctorado/Courses/Taught/pythonCCG_2021/References/advanced-python-biologists.pdf)

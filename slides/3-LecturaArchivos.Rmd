@@ -72,7 +72,7 @@ print('La secuencia de DNA es: {dna}')
 .center[.content-box-green[**Vamos a pyCharm**]]
 
 ---
-## Ejercicio 
+## Ejercicio para entregar
 
 .content-box-blue[
 
