@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>3. Lectura/escritura de archios</title>
+    <title>3. Lectura/escritura de archivos</title>
     <meta charset="utf-8" />
     <meta name="author" content="Ana BVA" />
     <script src="libs/header-attrs-2.7/header-attrs.js"></script>
@@ -13,9 +13,9 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# 3. Lectura/escritura de archios
+# 3. Lectura/escritura de archivos
 ### Ana BVA
-### 25/3/2021
+### 13/04/2021
 
 ---
 
@@ -74,7 +74,7 @@ print('La secuencia de DNA es: {dna}')
 .center[.content-box-green[**Vamos a pyCharm**]]
 
 ---
-## Ejercicio 
+## Ejercicio para entregar
 
 .content-box-blue[
 
@@ -165,6 +165,42 @@ Archivos que contienten bytes
 - A demás de los archivos comprimidos (eg. `ZIP files`)
 
 ---
+class: inverse, center, middle
+
+# `os.getcwd()`: Directorio de trabajo
+
+---
+# Directorio de trabajo
+
+- En pyCharm podemos configurar cada script para que corra en distintos directorios.
+
+--
+
+
+```python
+# checar la ruta donde me encuentro
+import os
+print(os.getcwd())
+
+# Cambiar la ruta
+os.chdir("/Users/user/Documents/Doctorado/Courses/Taught/pythonCCG_2021")
+print(os.getcwd())
+```
+
+--
+
+- O crear un Template para que se corra siempre desde el working directory.
+
+Edit configurations... -&gt; Edit templates -&gt; Templates -&gt; Python -&gt; working directory
+
+
+---
+class: inverse, center, middle
+
+# `open()`: Leyendo archivos 
+
+
+---
 ## Leer un archivo
 
 - Podemos acceder un archivo usando `open()`. Necesita como argumento el archivo de texto que deseamos leer. 
@@ -177,7 +213,12 @@ my_file = open("dna.txt")
 ```
 
 --
-&lt;br&gt;&lt;br&gt;
+
+Tip: `os.getcwd()`te permite ver donde estás (path). Recuerda importar la paquetería que se requiere `import os`.
+
+--
+
+&lt;br&gt;
 
 .center[.content-box-green[**Vamos a pyCharm**]]
 
@@ -213,7 +254,7 @@ my_file = open("dna.txt")
 my_file_contents = my_file.read()
 ```
 
---
+---
 
 Se puede guardar el nombre del archivo en una variable.
 
@@ -430,6 +471,9 @@ class: inverse, center, middle
 
 # `.close()`: Cerrar 
 
+---
+# `.close()`: Cerrar 
+
 Es importante cerrar cuando hayamos terminado de **leer** o **escribir**. 
 
 --
@@ -454,7 +498,7 @@ Ejemplo de un archivo fasta:
 ```
 &gt;sequence_name
 ATCGACTGATCGATCGTACGAT
-````
+```
 
 ]
 
@@ -463,8 +507,6 @@ ATCGACTGATCGATCGTACGAT
 - Input: `dna.txt` Secuencia de DNA
 
 - Output: `dna.fasta` Archivo de texto con formato fasta
-
-
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

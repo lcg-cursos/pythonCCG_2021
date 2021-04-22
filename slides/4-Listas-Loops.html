@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>4. Listas y Loops</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ana BVA" />
+    <script src="libs/header-attrs-2.7/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# 4. Listas y Loops
+### Ana BVA
+### 22 April, 2021
+
+---
+
+
+
+
+# ¿Qué hemos visto?
+
+- Intro a Python.
+
+&lt;img src="https://files.realpython.com/media/Newbie_Watermarked.a9319218252a.jpg" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+# ¿Qué hemos visto?
+
+- Diferencias entre python 2 vs 3.
+
+&lt;img src="https://files.realpython.com/media/Introduction-to-Python-3_Watermarked.62d7d13b7a96.jpg" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+# ¿Qué hemos visto?
+
+- Variables.
+
+&lt;img src="https://robocrop.realpython.net/?url=https%3A//files.realpython.com/media/Variables-in-Python_Watermarked.e1578a030053.jpg&amp;w=960&amp;sig=91154c2d5b36749d1b5687033c4617e7f13de07e" width="600px" style="display: block; margin: auto;" /&gt;
+
+
+---
+# ¿Qué hemos visto?
+
+- Números `int` y `float`.
+
+&lt;img src="https://robocrop.realpython.net/?url=https%3A//files.realpython.com/media/Python-Basics-Chapter-Numbers-in-Python_Watermarked.f90ea9a4afd7.jpg&amp;w=960&amp;sig=c5cc13bd7a40c90e65665543ac8ba10b10901618" width="600px" style="display: block; margin: auto;" /&gt;
+
+
+---
+# ¿Qué hemos visto?
+
+- Strings o cadena de caracteres `str`
+
+&lt;img src="https://robocrop.realpython.net/?url=https%3A//files.realpython.com/media/Strings-and-Character-Data-in-Python_Watermarked.296b2b518ae5.jpg&amp;w=960&amp;sig=31027fe40a5343c1662dfa987fd6d312047a6e45" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+# ¿Qué hemos visto?
+
+- Trabajar con archivos `open`.
+
+&lt;img src="https://robocrop.realpython.net/?url=https%3A//files.realpython.com/media/Reading-and-Writing-Files-in-Python_Watermarked.0d394921fd90.jpg&amp;w=960&amp;sig=94845fb3d4886b5eecc127e7f43be622e76f0140" width="600px" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# ¿Qué hemos visto?
+
+- Intro a Python.
+- Diferencias entre python 2 vs 3.
+- Variables.
+- Números `int` y `float`.
+- Strings o cadena de caracteres `str`
+- Trabajar con archivos `open`.
+
+
+--
+
+Sin embargo, que pasa si quiero leer varias secuencias `dna_sequences.txt` 
+
+```
+seq_1 = "ATCGTACGATCGATCGATCGCTAGACGTATCG"
+seq_2 = "actgatcgacgatcgatcgatcacgact"
+seq_3 = "ACTGAC-ACTGT—ACTGTA----CATGTG"
+````
+
+---
+# Leer un archivo fastq
+
+¿Sería algo como esto? 
+
+
+```python
+my_file = open("../../data/dna_sequences.txt", "r")
+my_file_contents = my_file.read()
+print(my_file_contents)
+```
+
+--
+
+¿Podríamos saber la longitud de cada secuencia?
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Leer un archivo fastq
+
+Sin embargo, que pasa si quiero leer varias secuencias `dna_sequences.txt` y además ponerlos en formato `fastq`. 
+
+```
+seq_1 = "ATCGTACGATCGATCGATCGCTAGACGTATCG"
+seq_2 = "actgatcgacgatcgatcgatcacgact"
+seq_3 = "ACTGAC-ACTGT—ACTGTA----CATGTG"
+````
+
+--
+
+Con lo que sabemos tendríamos que poner cada secuencia en un archivo y después abrirlos:
+
+
+```
+seq_1 = open(header_1 + ".fasta", "w") 
+seq_2 = open(header_2 + ".fasta", "w") 
+seq_3 = open(header_3 + ".fasta", "w")
+```
+
+--
+
+¡Termina siendo repetitivo!
+
+---
+class: inverse, center, middle
+
+# `list`: Listas 
+
+---
+# Listas
+
+Podemos almacenar diferentes valores en listas
+
+&lt;img src="https://robocrop.realpython.net/?url=https%3A//files.realpython.com/media/Lists-and-Tuples-in-Python_Watermarked.4d655c81a78b.jpg&amp;w=960&amp;sig=48f6610dc237ee9b83748820d61615624f8e3007" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+# Listas
+
+Cada objeto dentro de la lista se le conoce como **elemento**.
+
+
+```python
+# Lista de strings
+apes = ["Homo sapiens", "Pan troglodytes", "Gorilla gorilla"]
+
+#Lista de numeros
+conserved_sites = [24, 56, 132]
+```
+
+--
+
+Podemos acceder a cada **elemento** usando **[]**.
+
+
+```python
+print(apes[2])
+first_site = conserved_sites[2]
+```
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+
+---
+# Listas
+
+También podemos obtener la posición del **elemento** con `index()`.
+
+
+```python
+apes.index("Pan troglodytes")
+```
+
+--
+
+Podemos ocupar posiciones inversas como en los *strings*.
+
+
+```python
+# Ultimo en la lista
+apes[-1]
+```
+
+--
+
+Podemos selecionar un **rango**.
+
+
+```python
+# Ultimo en la lista
+apes[0:2]
+```
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+
+Podemos selecionar un rango y/o **alternar** valores.
+
+
+&lt;img src="https://files.realpython.com/media/t.8a1e853f9509.png" width="400px" style="display: block; margin: auto;" /&gt;
+
+
+```python
+# Ultimo en la lista
+apes[::2]
+```
+
+
+--
+
+NOTA : también funciona en *strings*
+
+
+
+```python
+s = 'foobar'
+s[0:6:2]
+```
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+
+---
+# Elementos de las listas
+
+Podemos añadir un nuevo elemento con el método `append()`.
+
+
+```python
+apes.append("Pan paniscus")
+print(apes)
+```
+
+--
+
+Podemos ocupar la función `len()`.
+
+
+```python
+print("There are " + str(len(apes)) + " apes")
+```
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+
+---
+
+Podemos concatenar listas usando `+`.
+
+
+```python
+#Crear listas
+apes = ["Homo sapiens", "Pan troglodytes", "Gorilla gorilla"]
+monkeys = ["Papio ursinus", "Macaca mulatta"]
+
+# Unir dos listas
+primates = apes + monkeys
+
+#Imprimir cantidad de elementos
+print(str(len(apes)) + " apes")
+print(str(len(monkeys)) + " monkeys")
+print(str(len(primates)) + " primates")
+```
+
+--
+ 
+O también podemos añadir los elementos de una lista al final de otra usando el método `extend()`.
+
+
+
+```python
+apes.extend(monkeys)
+```
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Orden en las listas
+
+Podemos cambiar el orden con `reverse()`.
+
+
+```python
+primates.reverse()
+```
+
+--
+
+Podemos ordenarlos por orden alfabetico usando `sort()`.
+
+
+```python
+primates.sort
+```
+
+--
+Para imprimir listas tenemos que convertirlo con `str()`.
+
+
+```python
+primates
+print("at the start : " + str(primates))
+
+primates.reverse()
+print("after reversing : " + str(primates))
+
+primates.sort()
+print("after sorting : " + str(primates))
+```
+
+---
+## Ejercicio de Rosalind 
+
+¿Se te ocurre otra forma de generar el inverso?
+
+Tip: ¿Qué pasa cuando pones [::-1]?
+
+.content-box-blue[
+Hacer el ejercico de [Rosalind:Complementing a Strand of DNA](http://rosalind.info/problems/revc/)
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Loops 
+
+---
+# Loops 
+
+Nos permiten generar operaciones repetidamente 
+
+&lt;img src="https://files.realpython.com/media/Python-for-Loops-Definite-Iteration_Watermarked.b38126d495e1.jpg" width="600px" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Loops 
+
+Tiene esta estructura:
+
+.content-box-green[
+
+
+```python
+for &lt;var&gt; in &lt;iterable&gt;:
+    &lt;statement(s)&gt;
+```
+
+]
+
+---
+# Loops
+
+Podemos imprimir desde la lista 
+
+
+```python
+# La lista
+apes = ["Homo sapiens", "Pan troglodytes", "Gorilla gorilla"]
+
+# Imprimir una oración 
+print(apes[0] + " is an ape")
+print(apes[1] + " is an ape")
+print(apes[2] + " is an ape")
+```
+
+--
+Usando **loops** con `for`.
+
+
+```python
+for ape in apes:
+  print(ape + " is an ape")
+```
+
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Loops
+
+¿Qué pasa con los strigns en **loops**?
+
+
+```python
+name = "python"
+for character in name:
+    print("one character is " + character)
+```
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Identaciones
+
+Es importante respetar los espacios de las identaciones, veamos que pasa utilizando el siguente código:
+
+
+```python
+# La lista
+apes = ["Homo sapiens", "Pan troglodytes", "Gorilla gorilla"]
+
+for ape in apes:
+    name_length = len(ape)
+  first_letter = ape[0]
+    print(ape + " is an ape. Its name starts with " + first_letter)
+    print("Its name has " + str(name_length) + " letters")
+```
+
+---
+# Cortar un string
+
+Podemos cortar un string y el resultado nos dará una `lista` usando `split()` y como argumento el caracter que se usará para cortar `","`.
+
+
+```python
+names = "melanogaster,simulans,yakuba,ananassae"
+species = names.split(",")
+print(str(species))
+```
+
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Loops en archivos
+
+Podemos ocupar los loops para leer varias lineas de un archivo `dna_sequences.txt`.
+
+```
+seq_1 = "ATCGTACGATCGATCGATCGCTAGACGTATCG"
+seq_2 = "actgatcgacgatcgatcgatcacgact"
+seq_3 = "ACTGAC-ACTGT—ACTGTA----CATGTG"
+```
+
+
+```python
+# Abir archivo
+file = open("dna_sequences.txt")
+
+# Leer las lineas
+for line in file:
+  print("Length: " + str(len(line))  + line)
+
+# Cerrar archivo
+file.close()
+```
+
+
+---
+# Leer con `readlines()`
+
+Podemos leer todas las lineas de un archivo y guardarlas en una `lista` para después ocuparla dentro de un loop. 
+
+
+```python
+# Abir archivo
+file = open("dna_sequences.txt")
+
+# Leer todas las lineas y guardarlas en una lista
+all_lines = file.readlines()
+
+# Cerrar archivo
+file.close()
+
+# Usar esas lineas en un loop
+for line in all_lines:
+  print("Length: " + str(len(line)) )
+
+# Usar esas lineas en otro loop 
+for line in all_lines:
+  print(line[:5] )
+```
+
+---
+## Ejercicio: fasta files
+
+.content-box-blue[
+Convertir las secuencias en formato fasta
+
+```
+seq_1 = "ATCGTACGATCGATCGATCGCTAGACGTATCG"
+seq_2 = "actgatcgacgatcgatcgatcacgact"
+seq_3 = "ACTGAC-ACTGT—ACTGTA----CATGTG"
+```
+
+]
+
+- Input: Archivo `dna_sequences.txt` con las secuencias.
+
+- Output: Archivo `.fasta`
+
+```
+&gt; seq_1
+ATCGTACGATCGATCGATCGCTAGACGTATCG
+&gt; seq_2
+ACTGATCGACGATCGATCGATCACGACT
+&gt; seq_3
+ACTGACACTGTACTGTACATGTG
+```
+
+---
+
+## Ejercicio: trimmig
+
+.content-box-blue[
+Cortar adaptadores de la secuencia `4_input_adapters.txt`, sabiendo que se encuentran en la posición 14. 
+
+```
+ATTCGATTATAAGCTCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATC
+ATTCGATTATAAGCACTGATCGATCGATCGATCGATCGATGCTATCGTCGT
+ATTCGATTATAAGCATCGATCACGATCTATCGTACGTATGCATATCGATATCGATCGTAGTC
+ATTCGATTATAAGCACTATCGATGATCTAGCTACGATCGTAGCTGTA
+ATTCGATTATAAGCACTAGCTAGTCTCGATGCATGATCAGCTTAGCTGATGATGCTATGCA
+```
+
+]
+
+- Input: Archivo `4_input_adapters.txtt` con las secuencias.
+
+- Output: Archivo con las secuencias sin adaptadores
+
+---
+
+## Ejercicio: exons
+
+.content-box-blue[
+Cortar los intrones y juntar los exones de un gen dada la secuenca en `4_genomic_dna.txt`. 
+
+```
+TCGATCGTACCGTCGACGATGCTACGATCGTCGATCGTAGTCGATCATCGATCGATCGACTGATCGATCGATCGATCGATCGATATCGATCGATATCATCGATGCATCGATCATCGATCGATCGATCGATCGATCGATCATATGTCAGTCGATGCATCGTAGCATCGTATAGTAGCTACGTAGCTACGATCGATCGATCGATCGTAGCTAGCTAGCTAGATCGATCATCATCGTAGCTAGCTCGACTAGCTACGTACGATCGATGCATCGATCGTAGCTAGTACGATCGCGTAGCTAGCATGCTACGTAGATCGATCGATGCATGCTAGCTAGCTAGCTACGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGTAGCTAGCTACGATCGATGCTACGTAGATCGATCGCTAGTAGATCGATCGCTAGCTAGCTGACTAGTACGCTGCTAGTAGTCAGCTAGATCGATGCTAGTCA
+```
+
+Asumiendo que los exones se encuentran en `exons.txt`:
+
+```
+5,58
+72,133
+190,276
+340,398
+```
+
+]
+
+- Input: Archivo `3_genomic_dna.txt` con las secuencias y `exons.txt` con los exones.
+
+- Output: Secuencia con solo exones
+
+```
+CGTACCGTCGACGATGCTACGATCGTCGATCGTAGTCGATCATCGATCGATCGCGATCGATCGATATCGATCGATATCATCGATGCATCGATCATCGATCGATCGATCGATCGACGATCGATCGATCGTAGCTAGCTAGCTAGATCGATCATCATCGTAGCTAGCTCGACTAGCTACGTACGATCGATGCATCGATCGTACGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGTAGCTAGCTACGATCG
+```
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,597 @@
+---
+title: '4. Listas y Loops'
+author: "Ana BVA"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# ¿Qué hemos visto?
+
+- Intro a Python.
+
+```{r, out.width = "600px", fig.align = "center"}
+knitr::include_graphics("https://files.realpython.com/media/Newbie_Watermarked.a9319218252a.jpg")
+```
+
+---
+# ¿Qué hemos visto?
+
+- Diferencias entre python 2 vs 3.
+
+```{r, out.width = "600px", fig.align = "center"}
+knitr::include_graphics("https://files.realpython.com/media/Introduction-to-Python-3_Watermarked.62d7d13b7a96.jpg")
+```
+
+---
+# ¿Qué hemos visto?
+
+- Variables.
+
+```{r, out.width = "600px", fig.align = "center"}
+knitr::include_graphics("https://robocrop.realpython.net/?url=https%3A//files.realpython.com/media/Variables-in-Python_Watermarked.e1578a030053.jpg&w=960&sig=91154c2d5b36749d1b5687033c4617e7f13de07e")
+```
+
+
+---
+# ¿Qué hemos visto?
+
+- Números `int` y `float`.
+
+```{r, out.width = "600px", fig.align = "center"}
+knitr::include_graphics("https://robocrop.realpython.net/?url=https%3A//files.realpython.com/media/Python-Basics-Chapter-Numbers-in-Python_Watermarked.f90ea9a4afd7.jpg&w=960&sig=c5cc13bd7a40c90e65665543ac8ba10b10901618")
+```
+
+
+---
+# ¿Qué hemos visto?
+
+- Strings o cadena de caracteres `str`
+
+```{r, out.width = "600px", fig.align = "center"}
+knitr::include_graphics("https://robocrop.realpython.net/?url=https%3A//files.realpython.com/media/Strings-and-Character-Data-in-Python_Watermarked.296b2b518ae5.jpg&w=960&sig=31027fe40a5343c1662dfa987fd6d312047a6e45")
+```
+
+---
+# ¿Qué hemos visto?
+
+- Trabajar con archivos `open`.
+
+```{r, out.width = "600px", fig.align = "center"}
+knitr::include_graphics("https://robocrop.realpython.net/?url=https%3A//files.realpython.com/media/Reading-and-Writing-Files-in-Python_Watermarked.0d394921fd90.jpg&w=960&sig=94845fb3d4886b5eecc127e7f43be622e76f0140")
+```
+
+
+
+---
+# ¿Qué hemos visto?
+
+- Intro a Python.
+- Diferencias entre python 2 vs 3.
+- Variables.
+- Números `int` y `float`.
+- Strings o cadena de caracteres `str`
+- Trabajar con archivos `open`.
+
+
+--
+
+Sin embargo, que pasa si quiero leer varias secuencias `dna_sequences.txt` 
+
+```
+seq_1 = "ATCGTACGATCGATCGATCGCTAGACGTATCG"
+seq_2 = "actgatcgacgatcgatcgatcacgact"
+seq_3 = "ACTGAC-ACTGT—ACTGTA----CATGTG"
+````
+
+---
+# Leer un archivo fastq
+
+¿Sería algo como esto? 
+
+```{python, eval=F, echo = T}
+my_file = open("../../data/dna_sequences.txt", "r")
+my_file_contents = my_file.read()
+print(my_file_contents)
+```
+
+--
+
+¿Podríamos saber la longitud de cada secuencia?
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Leer un archivo fastq
+
+Sin embargo, que pasa si quiero leer varias secuencias `dna_sequences.txt` y además ponerlos en formato `fastq`. 
+
+```
+seq_1 = "ATCGTACGATCGATCGATCGCTAGACGTATCG"
+seq_2 = "actgatcgacgatcgatcgatcacgact"
+seq_3 = "ACTGAC-ACTGT—ACTGTA----CATGTG"
+````
+
+--
+
+Con lo que sabemos tendríamos que poner cada secuencia en un archivo y después abrirlos:
+
+
+```
+seq_1 = open(header_1 + ".fasta", "w") 
+seq_2 = open(header_2 + ".fasta", "w") 
+seq_3 = open(header_3 + ".fasta", "w")
+```
+
+--
+
+¡Termina siendo repetitivo!
+
+---
+class: inverse, center, middle
+
+# `list`: Listas 
+
+---
+# Listas
+
+Podemos almacenar diferentes valores en listas
+
+```{r, out.width = "600px", fig.align = "center"}
+knitr::include_graphics("https://robocrop.realpython.net/?url=https%3A//files.realpython.com/media/Lists-and-Tuples-in-Python_Watermarked.4d655c81a78b.jpg&w=960&sig=48f6610dc237ee9b83748820d61615624f8e3007")
+```
+
+---
+# Listas
+
+Cada objeto dentro de la lista se le conoce como **elemento**.
+
+```{python, eval=F, echo = T}
+# Lista de strings
+apes = ["Homo sapiens", "Pan troglodytes", "Gorilla gorilla"]
+
+#Lista de numeros
+conserved_sites = [24, 56, 132]
+```
+
+--
+
+Podemos acceder a cada **elemento** usando **[]**.
+
+```{python, eval=F, echo = T}
+print(apes[2])
+first_site = conserved_sites[2]
+```
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+
+---
+# Listas
+
+También podemos obtener la posición del **elemento** con `index()`.
+
+```{python, eval=F, echo = T}
+apes.index("Pan troglodytes")
+```
+
+--
+
+Podemos ocupar posiciones inversas como en los *strings*.
+
+```{python, eval=F, echo = T}
+# Ultimo en la lista
+apes[-1]
+```
+
+--
+
+Podemos selecionar un **rango**.
+
+```{python, eval=F, echo = T}
+# Ultimo en la lista
+apes[0:2]
+```
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+
+Podemos selecionar un rango y/o **alternar** valores.
+
+
+```{r, out.width = "400px", fig.align = "center"}
+knitr::include_graphics("https://files.realpython.com/media/t.8a1e853f9509.png")
+```
+
+```{python, eval=F, echo = T}
+# Ultimo en la lista
+apes[::2]
+```
+
+
+--
+
+NOTA : también funciona en *strings*
+
+
+```{python, eval=F, echo = T}
+s = 'foobar'
+s[0:6:2]
+```
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+
+---
+# Elementos de las listas
+
+Podemos añadir un nuevo elemento con el método `append()`.
+
+```{python, eval=F, echo = T}
+apes.append("Pan paniscus")
+print(apes)
+```
+
+--
+
+Podemos ocupar la función `len()`.
+
+```{python, eval=F, echo = T}
+print("There are " + str(len(apes)) + " apes")
+```
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+
+---
+
+Podemos concatenar listas usando `+`.
+
+```{python, eval=F, echo = T}
+#Crear listas
+apes = ["Homo sapiens", "Pan troglodytes", "Gorilla gorilla"]
+monkeys = ["Papio ursinus", "Macaca mulatta"]
+
+# Unir dos listas
+primates = apes + monkeys
+
+#Imprimir cantidad de elementos
+print(str(len(apes)) + " apes")
+print(str(len(monkeys)) + " monkeys")
+print(str(len(primates)) + " primates")
+```
+
+--
+ 
+O también podemos añadir los elementos de una lista al final de otra usando el método `extend()`.
+
+
+```{python, eval=F, echo = T}
+apes.extend(monkeys)
+```
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Orden en las listas
+
+Podemos cambiar el orden con `reverse()`.
+
+```{python, eval=F, echo = T}
+primates.reverse()
+```
+
+--
+
+Podemos ordenarlos por orden alfabetico usando `sort()`.
+
+```{python, eval=F, echo = T}
+primates.sort
+```
+
+--
+Para imprimir listas tenemos que convertirlo con `str()`.
+
+```{python, eval=F, echo = T}
+primates
+print("at the start : " + str(primates))
+
+primates.reverse()
+print("after reversing : " + str(primates))
+
+primates.sort()
+print("after sorting : " + str(primates))
+```
+
+---
+## Ejercicio de Rosalind 
+
+¿Se te ocurre otra forma de generar el inverso?
+
+Tip: ¿Qué pasa cuando pones [::-1]?
+
+.content-box-blue[
+Hacer el ejercico de [Rosalind:Complementing a Strand of DNA](http://rosalind.info/problems/revc/)
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Loops 
+
+---
+# Loops 
+
+Nos permiten generar operaciones repetidamente 
+
+```{r, out.width = "600px", fig.align = "center"}
+knitr::include_graphics("https://files.realpython.com/media/Python-for-Loops-Definite-Iteration_Watermarked.b38126d495e1.jpg")
+```
+
+
+---
+# Loops 
+
+Tiene esta estructura:
+
+.content-box-green[
+
+```{python, eval=F, echo = T}
+for <var> in <iterable>:
+    <statement(s)>
+```
+
+]
+
+---
+# Loops
+
+Podemos imprimir desde la lista 
+
+```{python, eval=F, echo = T}
+# La lista
+apes = ["Homo sapiens", "Pan troglodytes", "Gorilla gorilla"]
+
+# Imprimir una oración 
+print(apes[0] + " is an ape")
+print(apes[1] + " is an ape")
+print(apes[2] + " is an ape")
+```
+
+--
+Usando **loops** con `for`.
+
+```{python, eval=F, echo = T}
+for ape in apes:
+  print(ape + " is an ape")
+```
+
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Loops
+
+¿Qué pasa con los strigns en **loops**?
+
+```{python, eval=F, echo = T}
+name = "python"
+for character in name:
+    print("one character is " + character)
+```
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Identaciones
+
+Es importante respetar los espacios de las identaciones, veamos que pasa utilizando el siguente código:
+
+```{python, eval=F, echo = T}
+# La lista
+apes = ["Homo sapiens", "Pan troglodytes", "Gorilla gorilla"]
+
+for ape in apes:
+    name_length = len(ape)
+  first_letter = ape[0]
+    print(ape + " is an ape. Its name starts with " + first_letter)
+    print("Its name has " + str(name_length) + " letters")
+```
+
+---
+# Cortar un string
+
+Podemos cortar un string y el resultado nos dará una `lista` usando `split()` y como argumento el caracter que se usará para cortar `","`.
+
+```{python, eval=F, echo = T}
+names = "melanogaster,simulans,yakuba,ananassae"
+species = names.split(",")
+print(str(species))
+```
+
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Loops en archivos
+
+Podemos ocupar los loops para leer varias lineas de un archivo `dna_sequences.txt`.
+
+```
+seq_1 = "ATCGTACGATCGATCGATCGCTAGACGTATCG"
+seq_2 = "actgatcgacgatcgatcgatcacgact"
+seq_3 = "ACTGAC-ACTGT—ACTGTA----CATGTG"
+```
+
+```{python, eval=F, echo = T}
+# Abir archivo
+file = open("dna_sequences.txt")
+
+# Leer las lineas
+for line in file:
+  print("Length: " + str(len(line))  + line)
+
+# Cerrar archivo
+file.close()
+```
+
+
+---
+# Leer con `readlines()`
+
+Podemos leer todas las lineas de un archivo y guardarlas en una `lista` para después ocuparla dentro de un loop. 
+
+```{python, eval=F, echo = T}
+# Abir archivo
+file = open("dna_sequences.txt")
+
+# Leer todas las lineas y guardarlas en una lista
+all_lines = file.readlines()
+
+# Cerrar archivo
+file.close()
+
+# Usar esas lineas en un loop
+for line in all_lines:
+  print("Length: " + str(len(line)) )
+
+# Usar esas lineas en otro loop 
+for line in all_lines:
+  print(line[:5] )
+
+```
+
+---
+## Ejercicio: fasta files
+
+.content-box-blue[
+Convertir las secuencias en formato fasta
+
+```
+seq_1 = "ATCGTACGATCGATCGATCGCTAGACGTATCG"
+seq_2 = "actgatcgacgatcgatcgatcacgact"
+seq_3 = "ACTGAC-ACTGT—ACTGTA----CATGTG"
+```
+
+]
+
+- Input: Archivo `dna_sequences.txt` con las secuencias.
+
+- Output: Archivo `.fasta`
+
+```
+> seq_1
+ATCGTACGATCGATCGATCGCTAGACGTATCG
+> seq_2
+ACTGATCGACGATCGATCGATCACGACT
+> seq_3
+ACTGACACTGTACTGTACATGTG
+```
+
+---
+
+## Ejercicio: trimmig
+
+.content-box-blue[
+Cortar adaptadores de la secuencia `4_input_adapters.txt`, sabiendo que se encuentran en la posición 14. 
+
+```
+ATTCGATTATAAGCTCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATC
+ATTCGATTATAAGCACTGATCGATCGATCGATCGATCGATGCTATCGTCGT
+ATTCGATTATAAGCATCGATCACGATCTATCGTACGTATGCATATCGATATCGATCGTAGTC
+ATTCGATTATAAGCACTATCGATGATCTAGCTACGATCGTAGCTGTA
+ATTCGATTATAAGCACTAGCTAGTCTCGATGCATGATCAGCTTAGCTGATGATGCTATGCA
+```
+
+]
+
+- Input: Archivo `4_input_adapters.txtt` con las secuencias.
+
+- Output: Archivo con las secuencias sin adaptadores
+
+---
+
+## Ejercicio: exons
+
+.content-box-blue[
+Cortar los intrones y juntar los exones de un gen dada la secuenca en `4_genomic_dna.txt`. 
+
+```
+TCGATCGTACCGTCGACGATGCTACGATCGTCGATCGTAGTCGATCATCGATCGATCGACTGATCGATCGATCGATCGATCGATATCGATCGATATCATCGATGCATCGATCATCGATCGATCGATCGATCGATCGATCATATGTCAGTCGATGCATCGTAGCATCGTATAGTAGCTACGTAGCTACGATCGATCGATCGATCGTAGCTAGCTAGCTAGATCGATCATCATCGTAGCTAGCTCGACTAGCTACGTACGATCGATGCATCGATCGTAGCTAGTACGATCGCGTAGCTAGCATGCTACGTAGATCGATCGATGCATGCTAGCTAGCTAGCTACGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGTAGCTAGCTACGATCGATGCTACGTAGATCGATCGCTAGTAGATCGATCGCTAGCTAGCTGACTAGTACGCTGCTAGTAGTCAGCTAGATCGATGCTAGTCA
+```
+
+Asumiendo que los exones se encuentran en `exons.txt`:
+
+```
+5,58
+72,133
+190,276
+340,398
+```
+
+]
+
+- Input: Archivo `3_genomic_dna.txt` con las secuencias y `exons.txt` con los exones.
+
+- Output: Secuencia con solo exones
+
+```
+CGTACCGTCGACGATGCTACGATCGTCGATCGTAGTCGATCATCGATCGATCGCGATCGATCGATATCGATCGATATCATCGATGCATCGATCATCGATCGATCGATCGATCGACGATCGATCGATCGTAGCTAGCTAGCTAGATCGATCATCATCGTAGCTAGCTCGACTAGCTACGTACGATCGATGCATCGATCGTACGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGTAGCTAGCTACGATCG
+```
+
+
+
+
+

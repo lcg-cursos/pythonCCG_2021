@@ -1,7 +1,7 @@
 ---
-title: '3. Lectura/escritura de archios'
+title: '3. Lectura/escritura de archivos'
 author: "Ana BVA"
-date: "25/3/2021"
+date: "13/04/2021"
 output:
   xaringan::moon_reader:
     css: ["default", "default-fonts", "hygge"]
@@ -167,6 +167,41 @@ knitr::include_graphics("https://edteam-media.s3.amazonaws.com/community/origina
 - A demás de los archivos comprimidos (eg. `ZIP files`)
 
 ---
+class: inverse, center, middle
+
+# `os.getcwd()`: Directorio de trabajo
+
+---
+# Directorio de trabajo
+
+- En pyCharm podemos configurar cada script para que corra en distintos directorios.
+
+--
+
+```{python, eval=F, echo = T}
+# checar la ruta donde me encuentro
+import os
+print(os.getcwd())
+
+# Cambiar la ruta
+os.chdir("/Users/user/Documents/Doctorado/Courses/Taught/pythonCCG_2021")
+print(os.getcwd())
+```
+
+--
+
+- O crear un Template para que se corra siempre desde el working directory.
+
+Edit configurations... -> Edit templates -> Templates -> Python -> working directory
+
+
+---
+class: inverse, center, middle
+
+# `open()`: Leyendo archivos 
+
+
+---
 ## Leer un archivo
 
 - Podemos acceder un archivo usando `open()`. Necesita como argumento el archivo de texto que deseamos leer. 
@@ -178,7 +213,12 @@ my_file = open("dna.txt")
 ```
 
 --
-<br><br>
+
+Tip: `os.getcwd()`te permite ver donde estás (path). Recuerda importar la paquetería que se requiere `import os`.
+
+--
+
+<br>
 
 .center[.content-box-green[**Vamos a pyCharm**]]
 
@@ -215,7 +255,7 @@ my_file = open("dna.txt")
 my_file_contents = my_file.read()
 ```
 
---
+---
 
 Se puede guardar el nombre del archivo en una variable.
 
@@ -428,6 +468,9 @@ class: inverse, center, middle
 
 # `.close()`: Cerrar 
 
+---
+# `.close()`: Cerrar 
+
 Es importante cerrar cuando hayamos terminado de **leer** o **escribir**. 
 
 --
@@ -451,7 +494,7 @@ Ejemplo de un archivo fasta:
 ```
 >sequence_name
 ATCGACTGATCGATCGTACGAT
-````
+```
 
 ]
 
@@ -460,6 +503,4 @@ ATCGACTGATCGATCGTACGAT
 - Input: `dna.txt` Secuencia de DNA
 
 - Output: `dna.fasta` Archivo de texto con formato fasta
-
-
 
