@@ -1,0 +1,435 @@
+---
+title: '5. Funciones'
+author: "Ana BVA"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# ¿Porqué necesitamos funciones?
+
+Ya sabemos contar el contenido de `AT` en na secuencia 
+
+
+```{python, eval=F, echo = T}
+my_dna = "ACTGATCGATTACGTATAGTATTTGCTATCATACATATATATCGATGCGTTCAT" 
+
+length = len(my_dna) 
+a_count = my_dna.count('A') 
+t_count = my_dna.count('T') 
+at_content = (a_count + t_count) / length 
+
+print("AT content is " + str(at_content))
+```
+
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+
+---
+# Sintaxis
+
+Podemos definir una función utilizando esta sintaxis:
+
+
+```{python, eval=F, echo = T}
+def my_function():
+    print("Hello From My Function!")
+```
+
+--
+
+- `def` viene de *define* o definir nuestra función.
+
+--
+
+- Importante cuidar la identación.
+
+--
+
+- Variables locales.
+
+--
+
+`return` nos regresa el valor que elijamos.
+
+--
+
+Es importante primero *definir* la función y luego *llamarla*.
+
+---
+
+Podemos crear una función que calcule el contenido de `AT`.
+
+```{python, eval=F, echo = T}
+def get_at_content(dna): 
+    length = len(dna) 
+    a_count = dna.count('A') 
+    t_count = dna.count('T') 
+    at_content = (a_count + t_count) / length 
+    return at_content
+```
+
+--
+Una función puede no tener argumentos como entrada, a veces es útil pero no en este momento. 
+
+```{python, eval=F, echo = T}
+def get_at_content():
+    dna = "ACTGATGCTAGCTA"
+    length = len(dna) 
+    a_count = dna.count('A') 
+    t_count = dna.count('T') 
+    at_content = (a_count + t_count) / length 
+    return at_content
+```
+
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Imprimir el resultado 
+
+Ejecutar la función no almacena la información, necesitamos almacenarla en una variable. 
+
+
+```{python, eval=F, echo = T}
+get_at_content("ATGACTGGACCA")
+
+at_content = get_at_content("ATGACTGGACCA")
+
+print("AT content is " + str(get_at_content("ATGACTGGACCA")))
+```
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Imprimir el resultado 
+
+Ni las variables locales.
+
+```{python, eval=F, echo = T}
+def get_at_content(dna): 
+    length = len(dna) 
+    a_count = dna.count('A')
+    t_count = dna.count('T') 
+    at_content = (a_count + t_count) / length 
+    return at_content 
+
+print(a_count)
+```
+
+--
+Probar el `Debug` en pyCharm.
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Probar la función
+
+Vamos a probar la función utilizando varias secuencias de DNA.
+
+```{python, eval=F, echo = T}
+print(get_at_content("ATGCGCGATCGATCGAATCG"))
+print(get_at_content("ATGCATGCAACTGTAGC"))
+print(get_at_content("aactgtagctagctagcagcgta"))
+```
+
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Redondear el output
+
+Podemos redondear el outputcon `round` para el resultado sea similar.
+
+
+```{python, eval=F, echo = T}
+def get_at_content(dna): 
+    length = len(dna) 
+    a_count = dna.upper().count('A')
+    t_count = dna.upper().count('T') 
+    at_content = (a_count + t_count) / length 
+    return round(at_content, 2) # usamos round()
+
+print(get_at_content("ATGCGCGATCGATCGAATCG"))
+print(get_at_content("ATGCATGCAACTGTAGC"))
+print(get_at_content("aactgtagctagctagcagcgta"))
+
+```
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Output de las funciones
+
+Las funciones no siempre necesitan regresar un valor con `return`, también podemos imprimir el resultado `print`.
+
+```{python, eval=F, echo = T}
+def print_at_content(dna): 
+    length = len(dna) 
+    a_count = dna.upper().count('A') 
+    t_count = dna.upper().count('T') 
+    at_content = (a_count + t_count) / length 
+    print(str(round(at_content, 2)))
+
+```
+
+---
+# Argumentos
+
+Podemos agregar más argumentos a nuestras funciones para poder cambiar el output.
+
+```{python, eval=F, echo = T}
+def get_at_content(dna, sig_figs): # declaramos una variable como argumento
+    length = len(dna) 
+    a_count = dna.upper().count('A') 
+    t_count = dna.upper().count('T') 
+    at_content = (a_count + t_count) / length 
+    return round(at_content, sig_figs) # la usamos
+
+test_dna = "ATGCATGCAACTGTAGC"
+print(get_at_content(test_dna, 1))
+print(get_at_content(test_dna, 2))
+print(get_at_content(test_dna, 3))
+```
+
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Argumentos
+
+Podemos llamar a los argumentos por su nombre.
+
+```{python, eval=F, echo = T}
+get_at_content("ATCGTGACTCG", 2)
+get_at_content(dna="ATCGTGACTCG", sig_figs=2)
+```
+
+--
+
+Y el orden no es necesario cuando se ocupa el nombre del argumento.
+
+```{python, eval=F, echo = T}
+get_at_content(dna="ATCGTGACTCG", sig_figs=2)
+get_at_content(sig_figs=2, dna="ATCGTGACTCG")
+```
+
+--
+
+¿Todos estas variaciones funcionan?
+
+```{python, eval=F, echo = T}
+get_at_content(dna="ATCGTGACTCG", sig_figs=2)
+get_at_content("ATCGTGACTCG", sig_figs=2)
+get_at_content(dna="ATCGTGACTCG", 2)
+```
+
+---
+# Argumentos
+
+Podemos definir valores *default*.
+
+```{python, eval=F, echo = T}
+def get_at_content(dna, sig_figs=2): # default value
+    length = len(dna) 
+    a_count = dna.upper().count('A') 
+    t_count = dna.upper().count('T') 
+    at_content = (a_count + t_count) / length 
+    return round(at_content, sig_figs)
+    
+get_at_content("ATCGTGACTCG")
+```
+
+
+---
+# Testing
+
+Es importante checar nuestro código, podemos hacerlo imprimiendo mensajes `print`.
+
+--
+
+También podemos probarlo para corroborar que nuestro resultado sea lo esperado con `assert`. El cual checa que el valor resultante sea al `==` al esperado.
+
+```{python, eval=F, echo = T}
+assert get_at_content("ATGC") == 0.5
+```
+
+--
+Si no es igual, arroja un error `AssertionError`.
+
+```{python, eval=F, echo = T}
+assert get_at_content("ATGC") == 0.4
+```
+
+---
+# Testing
+
+Nos ayuda a probar la robustes de nuestra función. 
+
+```{python, eval=F, echo = T}
+assert get_at_content("ATGCNNNNNNNNNN") == 0.5
+```
+
+¿Cómo lo puedes arreglar?
+
+```{python, eval=F, echo = F}
+dna = dna.replace('N', '')
+```
+--
+Podemos definir varias pruebas para nuestra función
+
+```{python, eval=F, echo = F}
+assert get_at_content("A") == 1
+assert get_at_content("G") == 0
+assert get_at_content("ATGC") == 0.5
+assert get_at_content("AGG") == 0.33
+assert get_at_content("AGG", 1) == 0.3
+assert get_at_content("AGG", 5) == 0.33333
+```
+
+
+---
+## Ejercicio: Aminoácidos
+
+.content-box-blue[
+
+Escribe una función que calcule el porcentaje de un aminoácido. 
+
+]
+
+- Input: 1) Secuencia protéica, 2) Aminoácido.
+
+- Output: Porcentaje del aminoácido en la secuencia 
+
+Asegurate que pasen estas pruebas 
+
+```
+assert get_aa_percentage("MSRSLLLRFLLFLLLLPPLP", "M") == 5
+assert get_aa_percentage("MSRSLLLRFLLFLLLLPPLP", "r") == 10
+assert get_aa_percentage("msrslllrfllfllllpplp", "L") == 50
+assert get_aa_percentage("MSRSLLLRFLLFLLLLPPLP", "Y") == 0
+```
+
+
+---
+## Ejercicio: Lista de Aminoácidos 
+
+.content-box-blue[
+
+Escribe una función que calcule el porcentaje de una **lista** de aminoácidos. Y que el *default* sea aminoácidos hidrofílicos aa_list=['A','I','L','M','F','W','Y','V']
+
+]
+
+- Input: 1) Secuencia protéica, 2) Lista de aminoácidos.
+
+- Output: Porcentaje del aminoácido en la secuencia. 
+
+Asegurate que pasen estas pruebas 
+
+```
+assert get_aa_percentage("MSRSLLLRFLLFLLLLPPLP", ["M"]) == 5
+assert get_aa_percentage("MSRSLLLRFLLFLLLLPPLP", ['M', 'L']) == 55
+assert get_aa_percentage("MSRSLLLRFLLFLLLLPPLP", ['F', 'S', 'L']) == 70
+assert get_aa_percentage("MSRSLLLRFLLFLLLLPPLP") == 65
+```
+
+**Tip:* recuerda que podemos ocupar `for` en listas y contar.
+
+---
+# Encapsulación
+
+Se refiere en dividir programas complejos en pequeñas piezas que trabajen de forma independiente.
+
+--
+
+Vamos a dividir el código donde *definimos* la función y el código donde *ejecutamos* la función.
+
+--
+
+1. Guardamos nuestra función en el archivo `test.py`.
+
+```{python, eval=F, echo = T}
+# test.py>
+
+# function
+def displayText():
+    print( "Yes! you are importing a function")
+```
+
+---
+# Encapsulación
+
+Se refiere en dividir programas complejos en pequeñas piezas que trabajen de forma independiente.
+
+Vamos a dividir el código donde *definimos* la función y el código donde *ejecutamos* la función.
+
+2. Importamos la función en otro archivo.
+
+```{python, eval=F, echo = T}
+from test import displayText
+f.displayText()
+```
+
+
+---
+# Encapsulación
+
+Podemos importar todas las funciones.
+
+```{python, eval=F, echo = T}
+import test as f
+f.displayText()
+```
+
+--
+Pasar la ruta del archivo `test.py`.
+
+```{python, eval=F, echo = T}
+import scripts.ejemplos.test as f
+f.displayText()
+```
+
+
+

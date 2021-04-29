@@ -291,7 +291,7 @@ dna = 'AAGGTACGTCGCGCGTTATTAGCCTAAT'
 met_ini = 'TAC'
 
 # Codon de paro
-codon_paro = 'TAA'
+codon_paro = 'ATT'
 
 # Busqueda del patron
 inicio = dna.find(met_ini)
@@ -310,6 +310,15 @@ print(f'\nFragmento que será RNA  (codón inicio: {met_ini}, codón de paro ={c
 
 #print('El codon AUG empieza en la posicion: '+ str(inicio)) 
 ```
+
+---
+## DNA-RNA
+
+
+```{r, out.width = "600px", fig.align = "center"}
+knitr::include_graphics("https://www.genome.gov/sites/default/files/tg/es/illustration/Marco_abierto_de_lectura.jpg")
+```
+
 
 ---
 ### Secuencias de escape

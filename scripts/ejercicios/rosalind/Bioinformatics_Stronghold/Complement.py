@@ -1,6 +1,6 @@
-print("DNA sequence:")
-dna = input()
-#dna = "AAAACCCGGT"
+#print("DNA sequence:")
+#dna = input()
+dna = "AAAACCCGGT"
 rev = dna[::-1]
 rev = rev.replace("A","t")
 rev = rev.replace("T","a")

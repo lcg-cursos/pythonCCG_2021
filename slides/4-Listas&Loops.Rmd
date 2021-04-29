@@ -464,6 +464,7 @@ print(str(species))
 
 .center[.content-box-green[**Vamos a pyCharm**]]
 
+
 ---
 # Loops en archivos
 
@@ -514,6 +515,107 @@ for line in all_lines:
 ```
 
 ---
+
+## Ejercicio: trimmig
+
+.content-box-blue[
+Cortar adaptadores de la secuencia `4_input_adapters.txt`, sabiendo que se encuentran en la posición 14. 
+
+```
+ATTCGATTATAAGCTCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATC
+ATTCGATTATAAGCACTGATCGATCGATCGATCGATCGATGCTATCGTCGT
+ATTCGATTATAAGCATCGATCACGATCTATCGTACGTATGCATATCGATATCGATCGTAGTC
+ATTCGATTATAAGCACTATCGATGATCTAGCTACGATCGTAGCTGTA
+ATTCGATTATAAGCACTAGCTAGTCTCGATGCATGATCAGCTTAGCTGATGATGCTATGCA
+```
+
+]
+
+- Input: Archivo `4_input_adapters.txtt` con las secuencias.
+
+- Output: Archivo con las secuencias sin adaptadores
+
+
+
+
+---
+## Iteradores 
+
+Una variable puede ser iterable pero existen **iteradores** que son agentes que hacen realmente la iteración sobre un iterable. 
+
+Si no está en lista con `[]` se genera un iterador 
+
+```{python, eval=F, echo = T}
+numbers = [2, 4, 6] # Variable iterable
+iterador = iter(numbers) # Objeto Iterador
+```
+
+--
+
+Podemos usar `next` para avanzar en el loop.
+
+```{python, eval=F, echo = T}
+next(numbers)
+next(iterador) # Podemos avanzar en cada ciclo hasta el último sobre un iterador
+```
+
+
+---
+## Generadores
+
+Los generadores son iteradores y un objeto en python que podemos iterar.
+
+--
+
+Podemos crear un  loop con está sintaxis.
+
+```{python, eval=F, echo = T}
+numbers = [2, 4, 6]
+squares = [n**2 for n in numbers]
+```
+
+--
+
+Realmente lo que pasa es que creamos un generador y luego lo pasamos a una lista con `[]`.
+
+```{python, eval=F, echo = T}
+squares = (n**2 for n in numbers)
+squares
+```
+
+
+--
+
+Los generadores son iteradores y podemos avanzar con `next`.
+
+```{python, eval=F, echo = T}
+squares = (n**2 for n in numbers)
+next(squares)
+```
+
+---
+## Enumerate
+
+
+Con `enumarate` podemos obtener el contador y el valor
+
+```{python, eval=F, echo = T}
+numbers = [2, 4, 6] # Variable iterable
+e = enumerate(numbers)
+next(e)
+list(enumerate(numbers))
+```
+
+--
+Podemos incluirlo en `for` loops.
+
+```{python, eval=F, echo = T}
+numbers = [2, 4, 6] # Variable iterable
+for i, num  in enumerate(numbers):
+    print(i," valor: ", num)
+```
+
+---
 ## Ejercicio: fasta files
 
 .content-box-blue[
@@ -542,31 +644,10 @@ ACTGACACTGTACTGTACATGTG
 
 ---
 
-## Ejercicio: trimmig
-
-.content-box-blue[
-Cortar adaptadores de la secuencia `4_input_adapters.txt`, sabiendo que se encuentran en la posición 14. 
-
-```
-ATTCGATTATAAGCTCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATC
-ATTCGATTATAAGCACTGATCGATCGATCGATCGATCGATGCTATCGTCGT
-ATTCGATTATAAGCATCGATCACGATCTATCGTACGTATGCATATCGATATCGATCGTAGTC
-ATTCGATTATAAGCACTATCGATGATCTAGCTACGATCGTAGCTGTA
-ATTCGATTATAAGCACTAGCTAGTCTCGATGCATGATCAGCTTAGCTGATGATGCTATGCA
-```
-
-]
-
-- Input: Archivo `4_input_adapters.txtt` con las secuencias.
-
-- Output: Archivo con las secuencias sin adaptadores
-
----
-
 ## Ejercicio: exons
 
 .content-box-blue[
-Cortar los intrones y juntar los exones de un gen dada la secuenca en `4_genomic_dna.txt`. 
+Cortar los intrones y juntar los exones de un gen dada la secuencia en `4_genomic_dna.txt`. 
 
 ```
 TCGATCGTACCGTCGACGATGCTACGATCGTCGATCGTAGTCGATCATCGATCGATCGACTGATCGATCGATCGATCGATCGATATCGATCGATATCATCGATGCATCGATCATCGATCGATCGATCGATCGATCGATCATATGTCAGTCGATGCATCGTAGCATCGTATAGTAGCTACGTAGCTACGATCGATCGATCGATCGTAGCTAGCTAGCTAGATCGATCATCATCGTAGCTAGCTCGACTAGCTACGTACGATCGATGCATCGATCGTAGCTAGTACGATCGCGTAGCTAGCATGCTACGTAGATCGATCGATGCATGCTAGCTAGCTAGCTACGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGTAGCTAGCTACGATCGATGCTACGTAGATCGATCGCTAGTAGATCGATCGCTAGCTAGCTGACTAGTACGCTGCTAGTAGTCAGCTAGATCGATGCTAGTCA

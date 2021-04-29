@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>5. Funciones</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ana BVA" />
+    <script src="libs/header-attrs-2.7/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# 5. Funciones
+### Ana BVA
+### 29 April, 2021
+
+---
+
+
+
+
+# ¿Porqué necesitamos funciones?
+
+Ya sabemos contar el contenido de `AT` en na secuencia 
+
+
+
+```python
+my_dna = "ACTGATCGATTACGTATAGTATTTGCTATCATACATATATATCGATGCGTTCAT" 
+
+length = len(my_dna) 
+a_count = my_dna.count('A') 
+t_count = my_dna.count('T') 
+at_content = (a_count + t_count) / length 
+
+print("AT content is " + str(at_content))
+```
+
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+
+---
+# Sintaxis
+
+Podemos definir una función utilizando esta sintaxis:
+
+
+
+```python
+def my_function():
+    print("Hello From My Function!")
+```
+
+--
+
+- `def` viene de *define* o definir nuestra función.
+
+--
+
+- Importante cuidar la identación.
+
+--
+
+- Variables locales.
+
+--
+
+`return` nos regresa el valor que elijamos.
+
+--
+
+Es importante primero *definir* la función y luego *llamarla*.
+
+---
+
+Podemos crear una función que calcule el contenido de `AT`.
+
+
+```python
+def get_at_content(dna): 
+    length = len(dna) 
+    a_count = dna.count('A') 
+    t_count = dna.count('T') 
+    at_content = (a_count + t_count) / length 
+    return at_content
+```
+
+--
+Una función puede no tener argumentos como entrada, a veces es útil pero no en este momento. 
+
+
+```python
+def get_at_content():
+    dna = "ACTGATGCTAGCTA"
+    length = len(dna) 
+    a_count = dna.count('A') 
+    t_count = dna.count('T') 
+    at_content = (a_count + t_count) / length 
+    return at_content
+```
+
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Imprimir el resultado 
+
+Ejecutar la función no almacena la información, necesitamos almacenarla en una variable. 
+
+
+
+```python
+get_at_content("ATGACTGGACCA")
+
+at_content = get_at_content("ATGACTGGACCA")
+
+print("AT content is " + str(get_at_content("ATGACTGGACCA")))
+```
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Imprimir el resultado 
+
+Ni las variables locales.
+
+
+```python
+def get_at_content(dna): 
+    length = len(dna) 
+    a_count = dna.count('A')
+    t_count = dna.count('T') 
+    at_content = (a_count + t_count) / length 
+    return at_content 
+
+print(a_count)
+```
+
+--
+Probar el `Debug` en pyCharm.
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Probar la función
+
+Vamos a probar la función utilizando varias secuencias de DNA.
+
+
+```python
+print(get_at_content("ATGCGCGATCGATCGAATCG"))
+print(get_at_content("ATGCATGCAACTGTAGC"))
+print(get_at_content("aactgtagctagctagcagcgta"))
+```
+
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Redondear el output
+
+Podemos redondear el outputcon `round` para el resultado sea similar.
+
+
+
+```python
+def get_at_content(dna): 
+    length = len(dna) 
+    a_count = dna.upper().count('A')
+    t_count = dna.upper().count('T') 
+    at_content = (a_count + t_count) / length 
+    return round(at_content, 2) # usamos round()
+
+print(get_at_content("ATGCGCGATCGATCGAATCG"))
+print(get_at_content("ATGCATGCAACTGTAGC"))
+print(get_at_content("aactgtagctagctagcagcgta"))
+```
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Output de las funciones
+
+Las funciones no siempre necesitan regresar un valor con `return`, también podemos imprimir el resultado `print`.
+
+
+```python
+def print_at_content(dna): 
+    length = len(dna) 
+    a_count = dna.upper().count('A') 
+    t_count = dna.upper().count('T') 
+    at_content = (a_count + t_count) / length 
+    print(str(round(at_content, 2)))
+```
+
+---
+# Argumentos
+
+Podemos agregar más argumentos a nuestras funciones para poder cambiar el output.
+
+
+```python
+def get_at_content(dna, sig_figs): # declaramos una variable como argumento
+    length = len(dna) 
+    a_count = dna.upper().count('A') 
+    t_count = dna.upper().count('T') 
+    at_content = (a_count + t_count) / length 
+    return round(at_content, sig_figs) # la usamos
+
+test_dna = "ATGCATGCAACTGTAGC"
+print(get_at_content(test_dna, 1))
+print(get_at_content(test_dna, 2))
+print(get_at_content(test_dna, 3))
+```
+
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Argumentos
+
+Podemos llamar a los argumentos por su nombre.
+
+
+```python
+get_at_content("ATCGTGACTCG", 2)
+get_at_content(dna="ATCGTGACTCG", sig_figs=2)
+```
+
+--
+
+Y el orden no es necesario cuando se ocupa el nombre del argumento.
+
+
+```python
+get_at_content(dna="ATCGTGACTCG", sig_figs=2)
+get_at_content(sig_figs=2, dna="ATCGTGACTCG")
+```
+
+--
+
+¿Todos estas variaciones funcionan?
+
+
+```python
+get_at_content(dna="ATCGTGACTCG", sig_figs=2)
+get_at_content("ATCGTGACTCG", sig_figs=2)
+get_at_content(dna="ATCGTGACTCG", 2)
+```
+
+---
+# Argumentos
+
+Podemos definir valores *default*.
+
+
+```python
+def get_at_content(dna, sig_figs=2): # default value
+    length = len(dna) 
+    a_count = dna.upper().count('A') 
+    t_count = dna.upper().count('T') 
+    at_content = (a_count + t_count) / length 
+    return round(at_content, sig_figs)
+    
+get_at_content("ATCGTGACTCG")
+```
+
+
+---
+# Testing
+
+Es importante checar nuestro código, podemos hacerlo imprimiendo mensajes `print`.
+
+--
+
+También podemos probarlo para corroborar que nuestro resultado sea lo esperado con `assert`. El cual checa que el valor resultante sea al `==` al esperado.
+
+
+```python
+assert get_at_content("ATGC") == 0.5
+```
+
+--
+Si no es igual, arroja un error `AssertionError`.
+
+
+```python
+assert get_at_content("ATGC") == 0.4
+```
+
+---
+# Testing
+
+Nos ayuda a probar la robustes de nuestra función. 
+
+
+```python
+assert get_at_content("ATGCNNNNNNNNNN") == 0.5
+```
+
+¿Cómo lo puedes arreglar?
+
+
+--
+Podemos definir varias pruebas para nuestra función
+
+
+
+
+---
+## Ejercicio: Aminoácidos
+
+.content-box-blue[
+
+Escribe una función que calcule el porcentaje de un aminoácido. 
+
+]
+
+- Input: 1) Secuencia protéica, 2) Aminoácido.
+
+- Output: Porcentaje del aminoácido en la secuencia 
+
+Asegurate que pasen estas pruebas 
+
+```
+assert get_aa_percentage("MSRSLLLRFLLFLLLLPPLP", "M") == 5
+assert get_aa_percentage("MSRSLLLRFLLFLLLLPPLP", "r") == 10
+assert get_aa_percentage("msrslllrfllfllllpplp", "L") == 50
+assert get_aa_percentage("MSRSLLLRFLLFLLLLPPLP", "Y") == 0
+```
+
+
+---
+## Ejercicio: Lista de Aminoácidos 
+
+.content-box-blue[
+
+Escribe una función que calcule el porcentaje de una **lista** de aminoácidos. Y que el *default* sea aminoácidos hidrofílicos aa_list=['A','I','L','M','F','W','Y','V']
+
+]
+
+- Input: 1) Secuencia protéica, 2) Lista de aminoácidos.
+
+- Output: Porcentaje del aminoácido en la secuencia. 
+
+Asegurate que pasen estas pruebas 
+
+```
+assert get_aa_percentage("MSRSLLLRFLLFLLLLPPLP", ["M"]) == 5
+assert get_aa_percentage("MSRSLLLRFLLFLLLLPPLP", ['M', 'L']) == 55
+assert get_aa_percentage("MSRSLLLRFLLFLLLLPPLP", ['F', 'S', 'L']) == 70
+assert get_aa_percentage("MSRSLLLRFLLFLLLLPPLP") == 65
+```
+
+**Tip:* recuerda que podemos ocupar `for` en listas y contar.
+
+---
+# Encapsulación
+
+Se refiere en dividir programas complejos en pequeñas piezas que trabajen de forma independiente.
+
+--
+
+Vamos a dividir el código donde *definimos* la función y el código donde *ejecutamos* la función.
+
+--
+
+1. Guardamos nuestra función en el archivo `test.py`.
+
+
+```python
+# test.py&gt;
+
+# function
+def displayText():
+    print( "Yes! you are importing a function")
+```
+
+---
+# Encapsulación
+
+Se refiere en dividir programas complejos en pequeñas piezas que trabajen de forma independiente.
+
+Vamos a dividir el código donde *definimos* la función y el código donde *ejecutamos* la función.
+
+2. Importamos la función en otro archivo.
+
+
+```python
+from test import displayText
+f.displayText()
+```
+
+
+---
+# Encapsulación
+
+Podemos importar todas las funciones.
+
+
+```python
+import test as f
+f.displayText()
+```
+
+--
+Pasar la ruta del archivo `test.py`.
+
+
+```python
+import scripts.ejemplos.test as f
+f.displayText()
+```
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
