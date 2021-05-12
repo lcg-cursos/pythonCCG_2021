@@ -1,0 +1,475 @@
+---
+title: '6. Condicionales'
+author: "Ana BVA"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# True y False
+
+Código que produce `True` o `False`. Ejemplos:
+
+```{python eval=F, echo = T}
+print(3 == 5)
+print(3 > 5)
+print(3 <=5)
+print(len("ATGC") > 5)
+print("GAATTC".count("T") > 1)
+print("ATGCTT".startswith("ATG"))
+print("ATGCTT".endswith("TTT"))
+print("ATGCTT".isupper())
+print("ATGCTT".islower())
+print("V" in ["V", "W", "L"])
+```
+
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+
+---
+
+# True y False
+
+No son *strings* y no requieren comillas.
+
+```{python eval=F, echo = T}
+print(True) # Correcto
+print(T)
+print(TRUE)
+print(False) #Correcto
+print(false)
+print(f)
+```
+
+---
+
+# Operadores para True y False
+
+Estos operadores evaluan una codinción y regresan `True` o `False`:
+
+- Igualdad `==`.
+
+- Menor que y mayor que `<` o `>`.
+
+- No igual a (contrario) `!=`.
+
+- Prueba si un valor está en una lista `in`.
+
+- Prueba si dos objetos son los mismos (checa si dos vaiables apuntan al mismo objeto en memoria) `is`.
+
+- Existen funciones que evaluan una condición y regresan `True` o `False`. Como   `startswith()`, `isupper()`, `islower()`.
+
+---
+# Sentencia `if` 
+
+La forma más simple de una sentencia condicional es usando `if`. Requiere evualuar una condición y sigue está sintáxis:
+
+```{python eval=F, echo = T}
+if <expr>:
+    <statement>
+```
+
+--
+
+```{python eval=F, echo = T}
+expression_level = 125
+if expression_level > 100:
+    print("gene is highly expressed")
+```
+
+---
+# `if` dentro de loops
+
+Podemos evaluar toda una lista utilizando `for` e `if`.
+
+
+```{python eval=F, echo = T}
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+for accession in accs:
+    if accession.startswith('a'):
+        print(accession)
+```
+
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Sentencia `else`
+
+Generalmente `if` y `else` van de la mano ya que `if` nos ayuda a tomar una decisión evaluando una condición y `else` nos ayuda a tneer dos posibles acciones.
+
+`else` no necesita evaluar una condición. Se ejecuta cuando la condicional en `if` resulta `False`.
+
+```{python eval=F, echo = T}
+expression_level = 125
+if expression_level > 100:
+    print("gene is highly expressed")
+else:
+    print("gene is lowly expressed")
+```
+
+---
+## Diferencias entre `is` e `==`
+
+Vamos a ver las diferencias entre los dos operadores. 
+
+```{python eval=F, echo = T}
+list1 = []
+list2 = []
+list3=list1
+ 
+if (list1 == list2):
+    print("True")
+else:
+    print("False")
+ 
+if (list1 is list2):
+    print("True")
+else:
+    print("False")
+ 
+if (list1 is list3):
+    print("True")
+else:   
+    print("False")
+ 
+```
+
+---
+# Sentencia `elif`
+
+¿Qué pasa si tenemos más de dos posibilidades? 
+
+Veámos el ejemplo, la lista `['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']` inician con `a`, `b` o `h`. 
+
+- Si queremos separarlos, podemos hacer un `if-else` para `a`.
+
+```{python eval=F, echo = T}
+file1 = open("output/one.txt", "w")
+file2 = open("output/two.txt", "w")
+
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+
+for accession in accs:
+    if accession.startswith('a'):
+        file1.write(accession + "\n")
+    else:
+        file2.write(accession + "\n")
+```
+---
+# Sentencia `elif`
+
+
+-  Podemos crear otro `if-else` uno para `a`, otro para `b` y el `False` sería `h`.
+
+```{python eval=F, echo = T}
+file1 = open("output/one.txt", "w")
+file2 = open("output/two.txt", "w")
+file3 = open("output/three.txt", "w")
+
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+
+for accession in accs:
+    if accession.startswith('a'):
+        file1.write(accession + "\n")
+    else:
+        if accession.startswith('b'):
+            file2.write(accession + "\n")
+        else:
+            file3.write(accession + "\n")
+```
+
+---
+# Sentencia `elif`
+
+
+- Podemos usar la sentencia  `elif` que junta `if` y `else` y nos ayuda a ver rapidamente lo que está pasando. 
+
+```{python eval=F, echo = T}
+file1 = open("output/one.txt", "w")
+file2 = open("output/two.txt", "w")
+file3 = open("output/three.txt", "w")
+
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+
+for accession in accs:
+    if accession.startswith('a'):
+        file1.write(accession + "\n")
+    elif accession.startswith('b'):
+        file2.write(accession + "\n")
+    else:
+        file3.write(accession + "\n")
+```
+
+---
+# Sentencia `elif`
+
+Podemos agregar cuantas posibilidades se necesiten usando `if/elif/else`
+
+
+- Podemos usar la sentencia  `elif` que junta `if` y `else` y nos ayuda a ver rapidamente lo que está pasando. 
+
+```{python eval=F, echo = T}
+for accession in accs:
+    if accession.startswith('a'):
+        file1.write(accession + "\n")
+    elif accession.startswith('b'):
+        file2.write(accession + "\n")
+    elif accession.startswith('c'):
+        file3.write(accession + "\n")
+    elif accession.startswith('d'):
+        file4.write(accession + "\n")
+    elif accession.startswith('e'):
+        file5.write(accession + "\n")
+    else:
+        file6.write(accession + "\n")
+```
+
+---
+## Ejercicio: Piedra, papel o tijera 
+
+.content-box-blue[
+Escribe un script para jugar piedra, papel o tijera
+]
+
+
+
+```{python eval=F, echo = F}
+import random
+
+user_action = input("Enter a choice (rock, paper, scissors): ")
+possible_actions = ["rock", "paper", "scissors"]
+computer_action = random.choice(possible_actions)
+print(f"\nYou chose {user_action}, computer chose {computer_action}.\n")
+
+if user_action == computer_action:
+    print(f"Both players selected {user_action}. It's a tie!")
+elif user_action == "rock":
+    if computer_action == "scissors":
+        print("Rock smashes scissors! You win!")
+    else:
+        print("Paper covers rock! You lose.")
+elif user_action == "paper":
+    if computer_action == "rock":
+        print("Paper covers rock! You win!")
+    else:
+        print("Scissors cuts paper! You lose.")
+elif user_action == "scissors":
+    if computer_action == "paper":
+        print("Scissors cuts paper! You win!")
+    else:
+        print("Rock smashes scissors! You lose.")
+```
+
+
+---
+# `while` loops
+
+Podemos usar `while` para terminar o salir de un loop cuando la condición deseada se cumpla. 
+
+```{python eval=F, echo = T}
+count = 0
+while count <= 10:
+    print(count)
+    count = count + 1
+```
+
+---
+## Ejercicio: Piedra, papel o tijera 
+
+.content-box-blue[
+Escribe un script para jugar piedra, papel o tijera. Que te permita jugar más veces. 
+]
+
+
+
+```{python eval=F, echo = F}
+import random
+
+play_again = "y"
+
+while play_again.lower() == "y":
+    user_action = input("Enter a choice (rock, paper, scissors): ")
+    possible_actions = ["rock", "paper", "scissors"]
+    computer_action = random.choice(possible_actions)
+    print(f"\nYou chose {user_action}, computer chose {computer_action}.\n")
+
+    if user_action == computer_action:
+        print(f"Both players selected {user_action}. It's a tie!")
+    elif user_action == "rock":
+        if computer_action == "scissors":
+            print("Rock smashes scissors! You win!")
+        else:
+            print("Paper covers rock! You lose.")
+    elif user_action == "paper":
+        if computer_action == "rock":
+            print("Paper covers rock! You win!")
+        else:
+            print("Scissors cuts paper! You lose.")
+    elif user_action == "scissors":
+        if computer_action == "paper":
+            print("Scissors cuts paper! You win!")
+        else:
+            print("Rock smashes scissors! You lose.")
+
+    play_again = input("Play again? (y/n): ")
+```
+
+
+
+---
+# Condiciones complejas
+
+¿Qué pasa si queremos que se cumplan más de una condición?
+
+--
+Queremos obtener los que empiezan con `a` y terminan con `3`:
+
+```{python eval=F, echo = T}
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+for accession in accs:
+    if accession.startswith('a'):
+        if accession.endswith('3'):
+            print(accession)
+```
+
+---
+
+Podemos evitar una identación utilizando `and`, que requiere `True` y `True` en ambas condiciones.
+
+
+```{python eval=F, echo = T}
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+for accession in accs:
+    if accession.startswith('a') and accession.endswith('3'):
+        print(accession)
+```
+
+---
+# Condiciones complejas
+
+También podemos ocuapar `or`
+
+```{python eval=F, echo = T}
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+for accession in accs:
+    if accession.startswith('a') or accession.startswith('b'):
+        print(accession)
+```
+
+---
+# Condiciones complejas
+
+O ambas en una oración, jerarquizando con `()`, ej `(X or Y) and Z`
+
+```{python eval=F, echo = T}
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+for acc in accs:
+    if (acc.startswith('a') or acc.startswith('b')) and acc.endswith('4'):
+        print(acc)
+```
+
+---
+# Condiciones complejas
+
+También podemos negar con `not`. En el ejemplo se va a imrimir los que empiezan con `a` y **NO** terminan con `6`.
+
+
+```{python eval=F, echo = T}
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+for acc in accs:
+    if acc.startswith('a') and not acc.endswith('6'):
+        print(acc)
+```
+
+---
+# Funciones con True/False
+
+Podemos crear funciones que regresen `True` o `False`:
+
+```{python eval=F, echo = T}
+def is_at_rich(dna): 
+    length = len(dna) 
+    a_count = dna.upper().count('A') 
+    t_count = dna.upper().count('T') 
+    at_content = (a_count + t_count) / length 
+    if at_content > 0.65:
+        return True
+    else:
+        return False
+        
+
+print(is_at_rich("ATTATCTACTA"))
+print(is_at_rich("CGGCAGCGCT"))
+
+```
+
+---
+# Funciones con True/False
+
+Y las podemos agregar directamente en nuestra sentecia `if`
+
+
+```{python eval=F, echo = T}
+if is_at_rich(my_dna):
+    # do something with the sequence
+```
+
+---
+# Funciones con True/False
+
+Podemos mejorar nuestra última función, tendremos el mismo resultado pero no necesitamos la sentencia `if` en este caso. 
+
+```{python eval=F, echo = T}
+def is_at_rich(dna): 
+    length = len(dna) 
+    a_count = dna.upper().count('A') 
+    t_count = dna.upper().count('T') 
+    at_content = (a_count + t_count) / length 
+    return at_content > 0.65
+```
+
+---
+## Ejercicio: Drosophila
+
+.content-box-blue[
+Escribe un programa que dado el archivo `5-data.csv`: 
+
+- Imprima los nombres de los genes de todos los genes que pertenecen a *Drosophila melanogaster* o *Drosophila simulans*.
+
+- Imprima los nombres de los genes de todos los genes de entre 90 y 110 bases de longitud.
+
+- Imprima los nombres de los genes de todos los genes cuyo contenido de AT sea inferior a 0,5 y cuyo nivel de expresión sea superior a 200.
+
+- Imprima los nombres de los genes de todos los genes cuyo nombre comience con "k" o "h", excepto los que pertenecen a Drosophila melanogaster.
+
+- Para cada gen, imprima un mensaje dando el nombre del gen y diciendo si su contenido de AT es alto (mayor que 0,65), bajo (menos de 0,45) o medio (entre 0,45 y 0,65).
+
+]
+
+
+
+
+
+
+
+

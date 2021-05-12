@@ -16,3 +16,4 @@ Aquí encontrarás las slides del curso
 | 3   | [Lectura de archivos](slides/3-LecturaArchivos.html) 
 | 4   | [Listas y Loops](slides/4-Listas-Loops.html) 
 | 5   | [Funciones](slides/5-Funciones.html) 
+| 6   | [Condicionales](slides/6-Condicionales.html) 

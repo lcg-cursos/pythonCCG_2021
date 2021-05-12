@@ -31,7 +31,7 @@ EXAMPLES
 
 """
 
-dna = 'AAGGATGTAATCGCGCGTTATTAGCCTAA'
+dna = 'AAGGTACATTGTCGCGCGTTATTAGCCTAAT'
 met_ini = 'AUG'
 fin_seq = 'UAA'
 rna = dna.replace('T','U')

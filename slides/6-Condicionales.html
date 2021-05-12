@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>6. Condicionales</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ana BVA" />
+    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# 6. Condicionales
+### Ana BVA
+### 12 May, 2021
+
+---
+
+
+
+
+# True y False
+
+Código que produce `True` o `False`. Ejemplos:
+
+
+```python
+print(3 == 5)
+print(3 &gt; 5)
+print(3 &lt;=5)
+print(len("ATGC") &gt; 5)
+print("GAATTC".count("T") &gt; 1)
+print("ATGCTT".startswith("ATG"))
+print("ATGCTT".endswith("TTT"))
+print("ATGCTT".isupper())
+print("ATGCTT".islower())
+print("V" in ["V", "W", "L"])
+```
+
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+
+---
+
+# True y False
+
+No son *strings* y no requieren comillas.
+
+
+```python
+print(True) # Correcto
+print(T)
+print(TRUE)
+print(False) #Correcto
+print(false)
+print(f)
+```
+
+---
+
+# Operadores para True y False
+
+Estos operadores evaluan una codinción y regresan `True` o `False`:
+
+- Igualdad `==`.
+
+- Menor que y mayor que `&lt;` o `&gt;`.
+
+- No igual a (contrario) `!=`.
+
+- Prueba si un valor está en una lista `in`.
+
+- Prueba si dos objetos son los mismos (checa si dos vaiables apuntan al mismo objeto en memoria) `is`.
+
+- Existen funciones que evaluan una condición y regresan `True` o `False`. Como   `startswith()`, `isupper()`, `islower()`.
+
+---
+# Sentencia `if` 
+
+La forma más simple de una sentencia condicional es usando `if`. Requiere evualuar una condición y sigue está sintáxis:
+
+
+```python
+if &lt;expr&gt;:
+    &lt;statement&gt;
+```
+
+--
+
+
+```python
+expression_level = 125
+if expression_level &gt; 100:
+    print("gene is highly expressed")
+```
+
+---
+# `if` dentro de loops
+
+Podemos evaluar toda una lista utilizando `for` e `if`.
+
+
+
+```python
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+for accession in accs:
+    if accession.startswith('a'):
+        print(accession)
+```
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Sentencia `else`
+
+Generalmente `if` y `else` van de la mano ya que `if` nos ayuda a tomar una decisión evaluando una condición y `else` nos ayuda a tneer dos posibles acciones.
+
+`else` no necesita evaluar una condición. Se ejecuta cuando la condicional en `if` resulta `False`.
+
+
+```python
+expression_level = 125
+if expression_level &gt; 100:
+    print("gene is highly expressed")
+else:
+    print("gene is lowly expressed")
+```
+
+---
+## Diferencias entre `is` e `==`
+
+Vamos a ver las diferencias entre los dos operadores. 
+
+
+```python
+list1 = []
+list2 = []
+list3=list1
+ 
+if (list1 == list2):
+    print("True")
+else:
+    print("False")
+ 
+if (list1 is list2):
+    print("True")
+else:
+    print("False")
+ 
+if (list1 is list3):
+    print("True")
+else:   
+    print("False")
+```
+
+---
+# Sentencia `elif`
+
+¿Qué pasa si tenemos más de dos posibilidades? 
+
+Veámos el ejemplo, la lista `['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']` inician con `a`, `b` o `h`. 
+
+- Si queremos separarlos, podemos hacer un `if-else` para `a`.
+
+
+```python
+file1 = open("output/one.txt", "w")
+file2 = open("output/two.txt", "w")
+
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+
+for accession in accs:
+    if accession.startswith('a'):
+        file1.write(accession + "\n")
+    else:
+        file2.write(accession + "\n")
+```
+---
+# Sentencia `elif`
+
+
+-  Podemos crear otro `if-else` uno para `a`, otro para `b` y el `False` sería `h`.
+
+
+```python
+file1 = open("output/one.txt", "w")
+file2 = open("output/two.txt", "w")
+file3 = open("output/three.txt", "w")
+
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+
+for accession in accs:
+    if accession.startswith('a'):
+        file1.write(accession + "\n")
+    else:
+        if accession.startswith('b'):
+            file2.write(accession + "\n")
+        else:
+            file3.write(accession + "\n")
+```
+
+---
+# Sentencia `elif`
+
+
+- Podemos usar la sentencia  `elif` que junta `if` y `else` y nos ayuda a ver rapidamente lo que está pasando. 
+
+
+```python
+file1 = open("output/one.txt", "w")
+file2 = open("output/two.txt", "w")
+file3 = open("output/three.txt", "w")
+
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+
+for accession in accs:
+    if accession.startswith('a'):
+        file1.write(accession + "\n")
+    elif accession.startswith('b'):
+        file2.write(accession + "\n")
+    else:
+        file3.write(accession + "\n")
+```
+
+---
+# Sentencia `elif`
+
+Podemos agregar cuantas posibilidades se necesiten usando `if/elif/else`
+
+
+- Podemos usar la sentencia  `elif` que junta `if` y `else` y nos ayuda a ver rapidamente lo que está pasando. 
+
+
+```python
+for accession in accs:
+    if accession.startswith('a'):
+        file1.write(accession + "\n")
+    elif accession.startswith('b'):
+        file2.write(accession + "\n")
+    elif accession.startswith('c'):
+        file3.write(accession + "\n")
+    elif accession.startswith('d'):
+        file4.write(accession + "\n")
+    elif accession.startswith('e'):
+        file5.write(accession + "\n")
+    else:
+        file6.write(accession + "\n")
+```
+
+---
+## Ejercicio: Piedra, papel o tijera 
+
+.content-box-blue[
+Escribe un script para jugar piedra, papel o tijera
+]
+
+
+
+
+
+
+---
+# `while` loops
+
+Podemos usar `while` para terminar o salir de un loop cuando la condición deseada se cumpla. 
+
+
+```python
+count = 0
+while count &lt;= 10:
+    print(count)
+    count = count + 1
+```
+
+---
+## Ejercicio: Piedra, papel o tijera 
+
+.content-box-blue[
+Escribe un script para jugar piedra, papel o tijera. Que te permita jugar más veces. 
+]
+
+
+
+
+
+
+
+---
+# Condiciones complejas
+
+¿Qué pasa si queremos que se cumplan más de una condición?
+
+--
+Queremos obtener los que empiezan con `a` y terminan con `3`:
+
+
+```python
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+for accession in accs:
+    if accession.startswith('a'):
+        if accession.endswith('3'):
+            print(accession)
+```
+
+---
+
+Podemos evitar una identación utilizando `and`, que requiere `True` y `True` en ambas condiciones.
+
+
+
+```python
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+for accession in accs:
+    if accession.startswith('a') and accession.endswith('3'):
+        print(accession)
+```
+
+---
+# Condiciones complejas
+
+También podemos ocuapar `or`
+
+
+```python
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+for accession in accs:
+    if accession.startswith('a') or accession.startswith('b'):
+        print(accession)
+```
+
+---
+# Condiciones complejas
+
+O ambas en una oración, jerarquizando con `()`, ej `(X or Y) and Z`
+
+
+```python
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+for acc in accs:
+    if (acc.startswith('a') or acc.startswith('b')) and acc.endswith('4'):
+        print(acc)
+```
+
+---
+# Condiciones complejas
+
+También podemos negar con `not`. En el ejemplo se va a imrimir los que empiezan con `a` y **NO** terminan con `6`.
+
+
+
+```python
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+for acc in accs:
+    if acc.startswith('a') and not acc.endswith('6'):
+        print(acc)
+```
+
+---
+# Funciones con True/False
+
+Podemos crear funciones que regresen `True` o `False`:
+
+
+```python
+def is_at_rich(dna): 
+    length = len(dna) 
+    a_count = dna.upper().count('A') 
+    t_count = dna.upper().count('T') 
+    at_content = (a_count + t_count) / length 
+    if at_content &gt; 0.65:
+        return True
+    else:
+        return False
+        
+
+print(is_at_rich("ATTATCTACTA"))
+print(is_at_rich("CGGCAGCGCT"))
+```
+
+---
+# Funciones con True/False
+
+Y las podemos agregar directamente en nuestra sentecia `if`
+
+
+
+```python
+if is_at_rich(my_dna):
+    # do something with the sequence
+```
+
+---
+# Funciones con True/False
+
+Podemos mejorar nuestra última función, tendremos el mismo resultado pero no necesitamos la sentencia `if` en este caso. 
+
+
+```python
+def is_at_rich(dna): 
+    length = len(dna) 
+    a_count = dna.upper().count('A') 
+    t_count = dna.upper().count('T') 
+    at_content = (a_count + t_count) / length 
+    return at_content &gt; 0.65
+```
+
+---
+## Ejercicio: Drosophila
+
+.content-box-blue[
+Escribe un programa que dado el archivo `5-data.csv`: 
+
+- Imprima los nombres de los genes de todos los genes que pertenecen a *Drosophila melanogaster* o *Drosophila simulans*.
+
+- Imprima los nombres de los genes de todos los genes de entre 90 y 110 bases de longitud.
+
+- Imprima los nombres de los genes de todos los genes cuyo contenido de AT sea inferior a 0,5 y cuyo nivel de expresión sea superior a 200.
+
+- Imprima los nombres de los genes de todos los genes cuyo nombre comience con "k" o "h", excepto los que pertenecen a Drosophila melanogaster.
+
+- Para cada gen, imprima un mensaje dando el nombre del gen y diciendo si su contenido de AT es alto (mayor que 0,65), bajo (menos de 0,45) o medio (entre 0,45 y 0,65).
+
+]
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
