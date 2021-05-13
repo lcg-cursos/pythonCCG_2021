@@ -50,7 +50,7 @@ GITHUB LINK
 
 # 1. Se abre el archivo 4_dna_sequences.txt que se encuentra en la carpeta docs de python_class (con el directorio
 # "../docs/4_dna_sequence.txt").
-file = open("../docs/4_dna_sequences.txt")
+file = open("data/4_dna_sequences.txt")
 
 # 2. Se leen las líneas contenidas en el archivo, y se guardan en la variable all_lines.
 all_lines = file.readlines()

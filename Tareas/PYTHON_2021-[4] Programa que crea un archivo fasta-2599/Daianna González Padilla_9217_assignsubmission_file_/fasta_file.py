@@ -44,7 +44,7 @@ import re
 #Get the input file and create the output file
 input_file_name = input("Insert the name of your text file:\n")
 input_file=open(input_file_name,"r")
-output_file=open("../docs/dna_sequences.fasta", "x")
+output_file=open("output/dna_sequences.fasta", "x")
 # All lines of the input file are stored
 all_lines = input_file.readlines()
 # Close input file

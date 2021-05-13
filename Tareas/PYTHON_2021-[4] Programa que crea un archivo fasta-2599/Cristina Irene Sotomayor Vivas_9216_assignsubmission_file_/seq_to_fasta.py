@@ -35,13 +35,13 @@
         https://github.com/CrisSotomayor/python_class/tree/master/src/seq_to_fasta.py
 """
 #  Open file with dna sequences
-file = open('../../data/4_dna_sequences.txt')
+file = open('data/4_dna_sequences.txt')
 
 #  Save all lines in a list
 all_lines = file.readlines()
 
 #  Write output file, blank file ending with .fasta
-output = open('../output/dna_sequences.fasta', 'w')
+output = open('output/dna_sequences.fasta', 'w')
 for line in all_lines:
     #  Sequences split by ' = ' to separate name and sequence
     split_sequence = line.split(' = ')

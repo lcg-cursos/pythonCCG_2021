@@ -452,7 +452,7 @@ def is_at_rich(dna):
 ## Ejercicio: Drosophila
 
 .content-box-blue[
-Escribe un programa que dado el archivo `5-data.csv`: 
+Escribe un programa que dado el archivo `6-data.csv`: 
 
 - Imprima los nombres de los genes de todos los genes que pertenecen a *Drosophila melanogaster* o *Drosophila simulans*.
 

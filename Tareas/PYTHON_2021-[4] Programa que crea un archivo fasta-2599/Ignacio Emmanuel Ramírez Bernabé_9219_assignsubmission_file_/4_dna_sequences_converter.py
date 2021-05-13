@@ -41,7 +41,7 @@ EXAMPLES
 
 """
 # Guardar direccion del archivo 4_dna_sequences.txt
-file_path = "4_dna_sequences.txt"
+file_path = "data/4_dna_sequences.txt"
 
 # Abrir archivo
 input_file = open(file_path)
