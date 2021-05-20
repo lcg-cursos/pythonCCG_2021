@@ -9,11 +9,17 @@ output: html_document
 
 Aquí encontrarás las slides del curso
 
-| Día | Tema   |
-|:---:|:------:|
-| 1   | [Intro a python](slides/1-IntroPython.html)
-| 2   | [Strings](slides/2-Strings.html) 
-| 3   | [Lectura de archivos](slides/3-LecturaArchivos.html) 
-| 4   | [Listas y Loops](slides/4-Listas-Loops.html) 
-| 5   | [Funciones](slides/5-Funciones.html) 
-| 6   | [Condicionales](slides/6-Condicionales.html) 
+| Día| Tema   |
+|:--:|:------:|
+| 1  | [Intro a python](slides/1-IntroPython.html)
+| 2  | [Strings](slides/2-Strings.html) 
+| 3  | [Lectura de archivos](slides/3-LecturaArchivos.html) 
+| 4  | [Listas y Loops](slides/4-ListasLoops.html) 
+| 5  | [Funciones](slides/5-Funciones.html) 
+| 6  | [Condicionales](slides/6-Condicionales.html) 
+| 7  | [Manejo de errores	y Argumentos](slides/7-ManejoErroresArgumentos.html) 
+| 8  | [Módulos:	Tarea final](slides/) 
+| 9  | [Expresiones regulares](slides/) 
+| 10 | [Diccionarios](slides/) 
+| 11 | [POOP](slides/) 
+| 12 | [Presentación final](slides/) 

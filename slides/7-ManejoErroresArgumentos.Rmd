@@ -1,0 +1,766 @@
+---
+title: '7. Manejo de errores y argumentos'
+author: "Ana BVA"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Errores 
+
+Existen errores que rompen el código y evita que se ejecute.
+
+- `syntax errors`: ex. mala identación o falta de sintáxis
+
+```{python eval=F, echo = T}
+for base in dna
+print(base)
+```
+
+--
+
+Existen errores que rompen el código y se paran cuando llegan a ese punto en el código.
+
+- typos:  ex. errores en el nombre de variables, funciones 
+
+```{python eval=F, echo = T}
+print(dna.converttouppercase) # No existe esta función
+print('abc' + 3) # str + int
+```
+
+---
+# Errores
+
+Existen *bugs* en el código que no arrojan error y el código se ejecuta hasta el final **PERO** no está bien. 
+
+```{python eval=F, echo = T}
+dna = 'atctgcatattgcgtctgatg'
+a_count = dna.count('A') # no va a encontrar A's
+```
+
+--
+Los errores y los *bugs* anteriores tienen la propiedad intrinseca que depnden del código y son reproducibles. El problema será predecible.
+
+---
+# Errores 
+
+Existen otro tipo de error que no dependen del código, si no de una situación externa. 
+
+--
+
+Por ejemplo, cuando no encontramos un archivo. Esto depende de nuestros *PATHS*. El código de su tarea corre sin errores, mientras que en mi computadora arroja error si no cambio el nombre del archivo. 
+
+```{python eval=F, echo = T}
+IOError: [Errno 2] No such file or directory: 'missing.txt'
+```
+
+--
+
+A estas situaciones se les conoce como *exceptions* o *excepciones* y el control de ellas *exception handling* o *manejo de excepciones/errores* (pueden ser usadas en otros casos).
+
+
+
+---
+# Manejo de errores
+
+ex. Python maneja el **no encontrar un archivo** (`IOError: [Errno 2] No such file or directory`) devolviendo un mensaje y parando el código (útil para el programador, no tanto para el usuario). 
+
+--
+
+Si sabemos que **leer un archivo** puede causar problemas, podemos identificarlo y agregar un mensaje para el usuario.
+
+```{python eval=F, echo = T}
+try:
+    f = open('misssing.txt')
+    print('file contents: ' + f.read())
+except:
+    print("sorry, couldn't find the file")
+```
+
+---
+# Manejo de errores
+
+`try` y `except` funcionan igual que `for/if` pero ayudan con la legibildad del código (y (ligeramente más rápido) [https://www.geeksforgeeks.org/try-except-vs-if-in-python/]).
+
+Utilizar *manejo de errores* previene que Python rompa el código y permite que siga. 
+
+--
+
+- Sin *manejo de errores*
+```{python eval=F, echo = T}
+f = open('misssing')
+print('file contents: ' + f.read())
+print("continuing....")
+```
+
+- Con *manejo de errores*
+```{python eval=F, echo = T}
+try:
+    f = open('misssing')
+    print('file contents: ' + f.read())
+except:
+    print("sorry, couldn't find the file")
+print("continuing....")
+```
+
+---
+# Manejo de errores específicos
+
+Es importante reconoer que el código en `try` aplicará `except` siempre que haya **UN** error (el que sea). 
+
+--
+Asumamos que `data/7-file_num.txt` tiene números:
+
+```{python eval=F, echo = T}
+try:
+  f = open('data/7-file_num.txt')
+  my_number = int(f.read())
+  print(my_number + 5) # sumar
+except:
+    print("sorry, couldn't find the file")
+```
+
+--
+
+Intentar `data/7-file_num.txt` con texto.
+
+¿Qué error/mensaje te da?
+--
+
+<br><br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Manejo de errores específicos
+
+Con el ejemplo anterior podemos tener dos tipos de errores:
+
+1. `IOError`: cuando no encuentra el archivo
+
+2. `ValueError`: cuando intenta convertir texto en númerico.
+
+--
+
+Podemos manejar los errores indicando especificamente cual error es la *excepción*.
+
+
+```{python eval=F, echo = T}
+try:
+    f = open('data/7-file_num.txt')
+    my_number = int(f.read())
+    print(my_number + 5)
+except IOError:
+    print("sorry, couldn't find the file")
+```
+
+---
+# Manejo de errores específicos
+
+Podemos especificar ambos tipos de error y controlar mensajes para cada caso.
+
+```{python eval=F, echo = T}
+try:
+    f = open('data/7-file_num.txt')
+    my_number = int(f.read())
+    print(my_number + 5)
+except IOError:
+    print("sorry, couldn't find the file")
+except ValueError:
+    print("sorry, couldn't parse the number")
+```
+
+--
+
+Podemos manejar varios errores a la vez.
+
+```{python eval=F, echo = T}
+try:
+    f = open('data/7-file_num.txt')
+    my_number = int(f.read())
+    print(my_number + 5)
+except (IOError, ValueError):
+    print("sorry, something went wrong")
+```
+
+
+---
+# Obtener información del error
+
+Podemos obtener información del error. Por ejemplo `IOError` aparecerá cuando no existe el archivo o no podemos abrirlo por permisos por lo que sería útil saber cual es el error. 
+
+
+```{python eval=F, echo = T}
+try:
+    f = open('data/7-file_num.txt')
+    my_number = int(f.read())
+    print(my_number + 5)
+except IOError as ex:
+    print("sorry, couldn't open the file: " + ex.strerror)
+except ValueError:
+    print("sorry, couldn't parse the number")
+```
+
+---
+# Obtener información del error
+
+Los objetos `exception` (errores o excepciones) tienen un campo llamado `args`.
+
+
+```{python eval=F, echo = T}
+try:
+    f = open('data/7-file_num.txt')
+    my_number = int(f.read())
+    print(my_number + 5)
+except IOError as ex:
+    print("sorry, couldn't find the file: " + ex.strerror)
+except ValueError as ex:
+    print("sorry, couldn't parse the number: " +  ex.args[0])
+```
+
+
+---
+# `else` en manejo de errores
+
+Si existieran más errores pero solo estamos interesados en `IOError` y `ValueError` para agregar un mensaje. Podemos usar un `else` para que se ejecute `print(my_number + 5)` solo en caso de que no haya más errores. 
+
+Sirve cuando necesitamos asegurarnos que no habrá ningún error.
+
+```{python eval=F, echo = T}
+try:
+    f = open('data/7-file_num.txt')
+    my_number = int(f.read())
+except IOError as ex:
+    print("sorry, couldn't find the file: " + ex.strerror)
+except ValueError as ex:
+    print("sorry, couldn't parse the number: " +  ex.args[0])
+else:
+    print(my_number + 5)
+```
+
+---
+# `finally` en manejo de errores
+
+Podemos agregar `finally` para correr una linea de código sin importar si hubo excepcón. Estas lineas se correran en todos los casos. 
+
+Supongamos que tenemos un archivo temporal:
+
+```{python eval=F, echo = T}
+import os
+t = open('data/temp.txt', 'w')
+t.write('8')
+t.close()
+try:
+    f = open('data/temp.txt')
+    my_number = int(f.read())
+    print(my_number + 5)
+    os.remove('data/temp.txt') # delete the temp file
+except IOError as ex:
+    print("sorry, couldn't find the file: " + ex.strerror)
+    os.remove('data/temp.txt') # delete the temp file
+except ValueError as ex:
+    print("sorry, couldn't parse the number: " +  ex.args[0])
+    os.remove('data/temp.txt') # delete the temp file
+```
+
+¡Tenemos código repetido!
+
+---
+# `finally` en manejo de errores
+
+Podemos sacarlo de `try` pero si existe algún otro error que no contemplamos, no sé borrará el archivo temporal.
+
+
+```{python eval=F, echo = T}
+import os
+t = open('data/temp.txt', 'w')
+t.write('8')
+t.close()
+try:
+    f = open('data/temp.txt')
+    my_number = int(f.read())
+    print(my_number + 5)
+except IOError as ex:
+    print("sorry, couldn't find the file: " + ex.strerror)
+except ValueError as ex:
+    print("sorry, couldn't parse the number: " +  ex.args[0])
+
+os.remove('data/temp.txt') # delete the temp file
+```
+
+---
+# `finally` en manejo de errores
+
+Podemos agregar `finally` para eliminar el archivo `data/temp.txt` sin importar si hay errores.
+
+```{python eval=F, echo = T}
+import os
+t = open('data/temp.txt', 'w')
+t.write('8')
+t.close()
+try:
+    f = open('data/temp.txt')
+    my_number = int(f.read())
+    print(my_number + 5)
+except IOError as ex:
+    print("sorry, couldn't find the file: " + ex.strerror)
+except ValueError as ex:
+    print("sorry, couldn't parse the number: " +  ex.args[0])
+finally:
+os.remove('data/temp.txt') # delete the temp file
+```
+
+---
+# Manejo de errores
+
+Podemos tener está sintaxis:
+
+```{python eval=F, echo = T}
+try:
+    # el código aquí se ejecutará hasta que se genere una excepción
+except ExceptionTypeOne:
+    # código aquí se ejecutará si hay una excepción ExceptionTypeOne
+    # está dentro del bloque try
+except ExceptionTypeTwo:
+    # código aquí se ejecutará si hay una excepción ExceptionTypeTwo
+    # está dentro del bloque try
+else:
+    # el código aquí se ejecutará después del bloque try
+    # si no genera una excepción
+finally:
+    # el código aquí siempre se ejecutará
+  
+```
+
+---
+# `try` anidados
+
+Al igual que `if`, podemos anidar `try`.
+
+Considera que queremos cerrar nuestro archivo a pesar de que surgan errores
+
+
+```{python eval=F, echo = T}
+try:
+    f = open('data/7-file_num.txt'') # this line might raise an IOError
+    my_number = int(f.read()) # this line might raise a ValueError
+except IOError:
+    print('cannot open file!')
+except ValueError:
+    print('not an integer!')
+finally:
+    f.close()
+```
+
+Esté código no cerrará porque `f` está definido dentro del bloque de `try` (aka variable local). 
+
+---
+# `try` anidados
+
+Podemos anidar `try`.
+
+```{python eval=F, echo = T}
+try:
+    f = open('data/7-file_num.txt')
+    try:
+        my_number = int(f.read())
+    except ValueError:
+        print('not an integer!')
+    finally:
+        f.close()
+        print("the file was closed")
+except IOError:
+    print('cannot open file')
+```
+
+---
+# Manejo de errores
+
+Se recomienda el manejo de excepciones cuando se puede hacer algo al respecto y lo podemos hacerlo con `try/except`.
+
+Pero para detectar *bugs* (errores en el manejo pero no en código) necesitamos evocar/generar un error y poder *hacer algo*. 
+
+Para ello Python usa `raise`.
+
+
+---
+# `raise`
+
+`raise` nos permite generar un error en nuestro código (ayuda a identificar *bugs*).
+
+--
+
+Podemos generar una variable con clase de error (`ValueError`) y evocar el error con `raise`.
+
+```{python eval=F, echo = T}
+e = ValueError("this is a description of the problem")
+raise e
+```
+
+--
+Otra sintaxis (más común):
+
+```{python eval=F, echo = T}
+raise ValueError()
+
+```
+
+---
+
+Supongamos nuestra función `get_at_content`. 
+
+```{python eval=F, echo = T}
+
+def get_at_content(dna):
+    length = len(dna)
+    a_count = dna.count('A')
+    t_count = dna.count('T')
+    at_content = (a_count + t_count) / length
+    return at_content
+```
+
+--
+
+Está función está diseñada cuando `dna` son `ATGC` y podemos generar un `ValueError` cuando sean `N`s.
+
+```{python eval=F, echo = T}
+def get_at_content(dna):
+    if dna.count("N") > 0:
+        raise ValueError(f'Sequence contains {dna.count("N")} N\'s')
+    length = len(dna)
+    a_count = dna.count('A')
+    t_count = dna.count('T')
+    at_content = (a_count + t_count) / length
+    return at_content
+
+print(get_at_content('ACGTACGTGAC'))
+print(get_at_content('ACTGCTNAACT'))
+```
+
+---
+# Manejo de errores
+
+Podemos ahora incorporar `try/except` para **hacer algo** cuando tengamos un error en nuestro código.
+
+```{python eval=F, echo = T}
+sequences = ['ACGTACGTGAC', 'ACTGCTNAACT', 'ATGGCGCTAGC']
+for seq in sequences:
+    try:
+        print('AT content for ' + seq + ' is ' + str(get_at_content(seq)))
+    except ValueError as ex:
+        print('skipping invalid sequence '+ ex.args[0])
+```
+
+---
+
+Se pueden crear errores especiales para no esconder errores con `AmbiguousBaseError`
+
+```{python eval=F, echo = T}
+class AmbiguousBaseError(Exception):
+    pass
+
+def get_at_content(dna):
+    if dna.count("N") > 0:
+        raise AmbiguousBaseError(f'Sequence contains {dna.count("N")} N\'s')
+    length = len(dna)
+    a_count = dna.count('A')
+    t_count = dna.count('T')
+    at_content = (a_count + t_count) / length
+    return at_content
+
+sequences = ['ACGTACGTGAC', 'ACTGCTNAACT', 'ATGGCGCTAGC']
+for seq in sequences:
+    try:
+        print('AT content for ' + seq + ' is ' + str(get_at_content(seq)))
+    except AmbiguousBaseError as ex:
+        print('skipping invalid sequence '+ ex.args[0])
+```
+
+---
+class: inverse, center, middle
+
+# Argumentos 
+---
+# Argumentos 
+
+- ¿Qué es un argumento?
+
+Valores que se pueden utilizar dentro del programa y que son especificados en la terminal después del nombre del programa
+
+- ¿Cómo pasar argumentos desde línea de comando?
+
+```{r, out.width = "600px", fig.align = "center"}
+knitr::include_graphics("https://robocrop.realpython.net/?url=https%3A//files.realpython.com/media/Python-argparse-Guide_Watermarked.a7affa701ed5.jpg&w=960&sig=e7e753776dbbaab6f6b7e1f66cb045e7974487df")
+```
+
+---
+# Argumentos en línea de comando
+
+Ejemplos
+
+```{bash eval=F, echo = T}
+mkdir new_directory
+cd folder/
+```
+
+--
+
+Ventajas: 
+
+- No se necesitan valores fijos en el script.py
+
+- Se puede correr desde terminal
+
+```{bash eval=F, echo = T}
+# sin opciones, 1 argumento
+python3 get_at_content.py src/gene_sequences.txt
+```
+
+--
+Otras formas de utilizarlos
+
+```{bash eval=F, echo = T}
+# sin opciones, 2 argumentos (es necesario respetar el orden en que se ingresan los argumentos)
+python get_at_content.py src/gene_sequences.txt output/gene_at_content.txt
+
+# con opciones, n argumentos, no importa el orden en que se ingresan los argumentos
+python get_at_content.py -input src/gene_sequences.txt -output output/gene_at_content.txt
+```
+
+
+---
+# Utiliar dentro del script
+
+Para usar argumentos en nuestro script, utilizaremos `argv`. `sys.argv` es un arreglo con los argumentos que se le dan al programa y la posición 0 es el nombre del programa.
+
+
+```{python eval=F, echo = T}
+import sys
+
+arguments = sys.argv
+print (arguments)
+```
+
+--
+
+```{python eval=F, echo = T}
+import sys
+
+# save the arguments
+arguments = sys.argv
+
+# get the file path
+file_path = arguments[1]
+
+with open(file_path, 'r') as f:
+  for line in f:
+    print (line)
+
+```
+
+---
+# Ayuda (--help)
+
+Podemos decirle al usuario lo que hace falta usando `if`. Ejemplo: imprimir los archivos de un dir `os.listdir("data/")`.
+
+```{python eval=F, echo = T}
+# 7-argumentos.py
+import os
+import sys
+
+if len(sys.argv) < 2:
+    print('You need to specify the path to be listed')
+    sys.exit()
+
+input_path = sys.argv[1]
+
+if not os.path.isdir(input_path):
+    print('The path specified does not exist')
+    sys.exit()
+
+print('\n'.join(os.listdir(input_path)))
+```
+
+--
+Ejecutando el script
+
+```{bash eval=F, echo = T}
+python3 scripts/ejemplos/7-argumentos.py
+python3 scripts/ejemplos/7-argumentos.py data/noexiste.txt
+```
+
+
+---
+# Utilizando `argparse`
+
+Podemos utilizar el paquete de `argparse` para manejar nuestros argumentos.
+
+--
+
+Checar que tengamos la paquetería necesaria.
+
+
+```{python eval=F, echo = T}
+import argparse
+```
+
+---
+# Utilizando `argparse`
+
+```{python eval=F, echo = T}
+import argparse
+import os
+import sys
+
+# Create the parser
+my_parser = argparse.ArgumentParser(description='List the content of a folder')
+
+# Add the arguments
+my_parser.add_argument('Path',
+                       metavar='path',
+                       type=str,
+                       help='the path to list')
+
+# Execute the parse_args() method
+args = my_parser.parse_args()
+
+input_path = args.Path
+
+if not os.path.isdir(input_path):
+    print('The path specified does not exist')
+    sys.exit()
+
+print('\n'.join(os.listdir(input_path)))
+```
+
+---
+Podemos agregar esto argumentos a nuestra función de `get_at_content`.
+
+```{python eval=F, echo = T}
+import argparse
+
+# Create the parser
+parser = argparse.ArgumentParser(description="Script that calculates AT content using command line arguments")
+
+# Add the arguments
+parser.add_argument("-i", "--input",
+                    metavar="path/to/file",
+                    help="File with gene sequences",
+                    required=True)
+
+```
+
+--
+
+```{python eval=F, echo = T}
+# Add optional arguments
+parser.add_argument("-o", "--output",
+                    help="Path for the output file",
+                    required=False)
+```
+
+--
+
+```{python eval=F, echo = T}
+# Add an argument and change it to numeric
+parser.add_argument("-r", "--round",
+                    help="Number of digits to round",
+                    type=int,
+                    required=False
+)
+```
+
+---
+.tiny[
+```{python eval=F, echo = T}
+import argparse
+
+# Create the parser
+parser = argparse.ArgumentParser(description="Script that calculates AT content using command line arguments")
+
+# Add the arguments
+parser.add_argument("-i", "--input",
+                    metavar="path/to/file",
+                    help="File with gene sequences",
+                    required=True)
+
+# Add optional arguments
+parser.add_argument("-o", "--output",
+                    help="Path for the output file",
+                    required=False)
+
+# Add an argument and change it to numeric
+parser.add_argument("-r", "--round",
+                    help="Number of digits to round",
+                    type=int,
+                    required=False
+)
+
+# Execute the parse_args() method
+args = parser.parse_args()
+
+# Print arguments
+print(args.input, args.output, args.round)
+
+```
+]
+
+---
+## Ejercicio: argumentos_at
+
+.content-box-blue[
+
+Un programa que calcule el contenido de AT y que reciba argumentos en lína de comando. A demás que tenga manejo de errores cuando se incorporan Ns 
+
+.small[
+
+Usando la función `get_at_content()`, crear un programa que:
+
+- Se pueda usar argumentos desde línea de comando (ex. que lean un archivo de texto, `4_dna_sequences.txt`). 
+
+- Que el programa maneje errores si no se encuentra el archivo y que se solicite con `input()`.
+
+- Que la función `get_at_content()` calcule el contendo de AT.
+
+- Que la función `get_at_content()` evoque error si se agrega `N`s.
+
+- Que el programa maneje errores e imprima en pantalla si se tiene `N`s.
+
+- Que el resultado se guarde en un archivo diferente.
+
+OJO: No es necesario pasar el argumento `--round` pero la función `get_at_content()` requiere un *valor default* de `2`.
+
+]]
+
+---
+## Ejercicio: argumentos_at
+
+.content-box-blue[
+Un programa que calcule el contenido de AT y que reciba argumentos en lína de comando. A demás que tenga manejo de errores cuando se incorporan Ns 
+]
+
+
+```
+seq_1 = "ATCGTACGATCGATCGATCGCTAGACGTATCG"
+seq_2 = "actgatcgacgatcgatcgatcacgact"
+seq_3 = "ACTGAC-ACTGT—ACTGTA----CATGTG"
+seq_4 = "ATTCTGNNNNNNNNNNNNNGTC"
+```
+
+
+- Input: Archivo `4_dna_sequences.txt` con las secuencias.
+
+- Output: Archivo con el contenido de AT (argumento opcional).

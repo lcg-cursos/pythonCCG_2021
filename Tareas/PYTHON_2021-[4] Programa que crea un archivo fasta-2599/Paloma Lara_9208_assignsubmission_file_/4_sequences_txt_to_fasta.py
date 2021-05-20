@@ -39,14 +39,14 @@ LOCALIZACION EN GIT https://github.com/larafp86/Templates
 
 '''
 #abre el archivo con secuencias en formato txt
-my_file = open("../docs/ejercicios/4_dna_sequences.txt")
+my_file = open("data/4_dna_sequences.txt")
 #lee las lineas y las guarda en la variable all_lines
 all_lines= my_file.readlines()
 #cierra el archivo con secuencias en formato txt
 my_file.close
 #Crea un nuevo archivo llamado 4_dna_sequences.fasta con el argumento a
 #para que agregue 
-my_newfile= open("../output/4_dna_sequences.fasta", "a")
+my_newfile= open("output/4_dna_sequences.fasta", "a")
 #Ciclo for para que linea por linea se modifique el formato a fasta y
 #se escriba en el archivo 4_dna_sequences.fasta"
 for line in all_lines:

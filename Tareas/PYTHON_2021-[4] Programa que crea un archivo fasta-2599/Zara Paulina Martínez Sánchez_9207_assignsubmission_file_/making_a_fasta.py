@@ -48,7 +48,7 @@
 
 """
 # Acceder al archivo a utilizar
-file = open("../../Desktop/python_class/data/4_dna_sequences.txt")
+file = open("data/4_dna_sequences.txt")
 
 # Generar una lista con las lineas del archivo
 all_lines = file.readlines()
@@ -57,7 +57,7 @@ all_lines = file.readlines()
 file.close()
 
 # Abrir el archivo file.fasta donde se va a escribir el resultado
-archivo = open("file.fasta","w")
+archivo = open("output/file.fasta","w")
 
 # For para todas las lineas
 for line in all_lines:
@@ -67,13 +67,11 @@ for line in all_lines:
     name = line1[0]
     seq1 = line1[1]
 #    Quitar las lineas "-" de la secuencia
-    seq2 = (seq1.replace('-',''))
-#    Quitar comillas de la secuencia
-    seq3 = (seq2.replace('"',''))
+    seq1 = seq1.replace('-','').replace('"','')
 #    Cambiar los nucleotidos a mayusculas
-    seq4 = seq3.upper()
+    seq1 = seq1.upper()
 #    Escribir en el archivo en formato fasta
-    archivo.write("> " + name + "\n" + seq4)
+    archivo.write("> " + name + "\n" + seq1)
 
 # Cerrar el archivo que se utilizó
 archivo.close()

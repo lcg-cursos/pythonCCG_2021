@@ -46,7 +46,7 @@ EXAMPLES
 Abrimos el archivo 4_dna_sequences.txt ubicado en la carpeta data haciendo
 uso de open(), guardamos el contenido dentro de file.
 '''
-file = open("../data/4_dna_sequences.txt")
+file = open("data/4_dna_sequences.txt")
 
 '''
 mediante el metodo readlines() leeremos todas las lineas en el archivo en forma de lista separando los 
@@ -60,7 +60,7 @@ file.close()
 para crear el archivo fasta abriremos un nuevo archivo con open(), y con el
 argumento w indicamos que escribiremos en ese nuevo archivo que hemos creado
 '''
-fasta = open("../docs/dna_sequences.fasta", "w")
+fasta = open("output/dna_sequences.fasta", "w")
 
 '''
 Dado que nuestro archivo input consta de una lista que contiene las secuencias

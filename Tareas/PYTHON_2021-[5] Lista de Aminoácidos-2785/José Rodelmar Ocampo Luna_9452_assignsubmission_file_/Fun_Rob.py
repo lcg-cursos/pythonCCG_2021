@@ -65,3 +65,8 @@ def amino_per(protein_seq, amino):
 aa_list=['A','I','L','M','F','W','Y','V']
 for hi_a in aa_list:
     amino_per("MSRSLLLRFLLFLLLLPPLP", hi_a)
+
+assert amino_per('MSRSLLLRFLLFLLLLPPLP', ['M']) == 5
+assert amino_per('MSRSLLLRFLLFLLLLPPLP', ['M', 'L']) == 55
+assert amino_per('MSRSLLLRFLLFLLLLPPLP', ['F', 'S', 'L']) == 70
+assert amino_per('MSRSLLLRFLLFLLLLPPLP') == 65

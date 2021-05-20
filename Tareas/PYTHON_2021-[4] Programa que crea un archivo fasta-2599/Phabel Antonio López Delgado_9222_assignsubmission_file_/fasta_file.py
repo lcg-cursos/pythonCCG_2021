@@ -51,13 +51,13 @@
 '''
 
 ## Abrir archivo como lectura con open("","r+")
-data = open("../Listas_y_loops/4_dna_sequences.txt", "r+") ## Recordar comprobar la ruta del archivo input.
+data = open("data/4_dna_sequences.txt", "r+") ## Recordar comprobar la ruta del archivo input.
 
 lines = data.readlines() ## Leer cada linea.
 
 data.close() ## Cerrar el archivo, pues ya no es necesario.
 
-file = open("dna_sequences.fasta", "w") ## Crear el archivo output.
+file = open("output/dna_sequences.fasta", "w") ## Crear el archivo output.
 
 for line in lines: ## Iterar sobre cada linea y anexar lo necesario al nuevo archivo fasta
     file.write(">" + line[:5] + "\n") ## Escribir encabezado

@@ -44,7 +44,7 @@ all_lines = input_file.readlines()
 input_file.close()
 
 # The fasta file is created in the output folder
-fasta_file = open("output/dna_sequences.fasta", "x")
+fasta_file = open("output/dna_sequences.fasta", "w")
 
 ''' For each line a head and the sequence are added in the output file.
 In this for 'enumerate' is implemented which gives us the opportunity
