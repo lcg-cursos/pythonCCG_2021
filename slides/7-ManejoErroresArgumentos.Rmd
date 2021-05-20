@@ -52,7 +52,7 @@ a_count = dna.count('A') # no va a encontrar A's
 ```
 
 --
-Los errores y los *bugs* anteriores tienen la propiedad intrinseca que depnden del código y son reproducibles. El problema será predecible.
+Los errores y los *bugs* anteriores tienen la propiedad intrinseca que dependen del código y son reproducibles. El problema será predecible.
 
 ---
 # Errores 
@@ -93,7 +93,7 @@ except:
 ---
 # Manejo de errores
 
-`try` y `except` funcionan igual que `for/if` pero ayudan con la legibildad del código (y (ligeramente más rápido) [https://www.geeksforgeeks.org/try-except-vs-if-in-python/]).
+`try` y `except` funcionan igual que `for/if` pero ayudan con la legibildad del código y [ligeramente más rápido](https://www.geeksforgeeks.org/try-except-vs-if-in-python/).
 
 Utilizar *manejo de errores* previene que Python rompa el código y permite que siga. 
 
