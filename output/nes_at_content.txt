@@ -1,0 +1,3 @@
+SEQ_1 has 0.5 AT content
+SEQ_2 has 0.5 AT content
+SEQ_3 has 0.57 AT content
