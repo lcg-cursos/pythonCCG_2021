@@ -18,7 +18,7 @@ Aquí encontrarás las slides del curso
 | 5  | [Funciones](slides/5-Funciones.html) 
 | 6  | [Condicionales](slides/6-Condicionales.html) 
 | 7  | [Manejo de errores	y Argumentos](slides/7-ManejoErroresArgumentos.html) 
-| 8  | [Módulos:	Tarea final](slides/) 
+| 8  | [Módulos:	Tarea final](slides/8-Modulos.html) 
 | 9  | [Expresiones regulares](slides/) 
 | 10 | [Diccionarios](slides/) 
 | 11 | [POOP](slides/) 

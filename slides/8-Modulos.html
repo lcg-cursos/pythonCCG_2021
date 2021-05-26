@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>8. Módulos</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ana BVA" />
+    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# 8. Módulos
+### Ana BVA
+### 26 May, 2021
+
+---
+
+
+
+
+# Programación modular
+
+"La **programación modular** es un paradigma de programación que consiste en dividir un programa en módulos o subprogramas con el fin de hacerlo más legible y manejable."[Wikipedia](https://es.wikipedia.org/wiki/Programaci%C3%B3n_modular)
+
+**Divide y vencerás**. 
+
+
+&lt;img src="https://atalayar.com/sites/default/files/styles/foto_/public/opinion/Divide-y-Venceras.jpg?itok=ViqPnurS" width="550px" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Programación modular
+
+
+ Ventajas:
+
+- Simple
+
+- Fácilita su mantenimiento
+
+- Reusable
+
+
+&lt;img src="https://hi-static.z-dn.net/files/d03/9870a48eb374a30f5f2905d53c7ba036.jpg" width="600px" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Módulos
+
+Los módulos son bloques de código con funciones y clases, almacenadas en ficheros separados, con extensión .py y sirven para realizar tareas comunes. 
+
+
+&lt;img src="https://files.realpython.com/media/Python-Modules-and-Packages-An-Introduction_Watermarked.20936240a94d.jpg" width="600px" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Overview
+
+Hay varias formas de definir un módulo en Python, entre ellas:
+
+1. Escribir un módulo en Python
+
+2. Escribir un módulo en C y cargarlo en Python
+
+Nos enfocaremos en el primero pero en todos los casos necesitamos `import`.
+
+---
+# Importar módulos
+
+Para importar módulos neceistamos:
+
+- `import`
+
+-  nombre del módulo
+
+--
+El script .py que tiene el módulo
+
+
+```python
+# test.py
+# function
+def displayText():
+    print( "Yes! you are importing a function")
+```
+
+Tenemos varias sintáxis que podemos ocupar para importarlo. Detallaremos más adelante.
+
+
+```python
+import test
+from test import displayText
+import test as f
+```
+
+
+--
+
+&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# ¿Qué dice PEP-8 sobre los imports?
+
+Los imports siempre se deben de poner al principio del archivo, después de los comentarios del módulo y los docstrings y antes de las variables globales o constantes del módulo.
+
+
+Se deberán agrupar en el siguiente orden:
+
+1. Standard library imports.
+
+2. Related third party imports.
+
+3. Local application/library specific imports.
+
+4. Separados por un saltó de línea entre cada grupo.
+
+---
+# PEP-8 sobre imports
+
+Ejemplo
+
+
+```python
+# 1. Standard library imports.
+import random
+
+# 2. Related third party imports.
+from flask import Flask
+from flask_restful import Api
+from flask_sqlalchemy import SQLAlchemy
+
+# 3. Local application/library specific imports.
+from lib import at_content
+```
+
+---
+# PEP-8 sobre imports
+
+No sé recomienda:
+
+
+```python
+# No se sugiere
+from random import randint
+from random import funcion2
+from random import funcion3
+randint()
+ 
+# No se sugiere
+from random import *
+randint()
+
+# No se sugiere
+from random import randint as numero_random
+numero_random()
+```
+
+---
+# ¿Qué son los docstrings?
+
+--
+Dada una función podemos tener:
+
+&lt;img src="https://www.stechies.com//userfiles/images/python-docstrings.webp" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+# Docstrings en funciones
+
+Descripción simple:
+
+
+```python
+def square(n):
+    '''Takes in a number n, returns the square of n'''
+    return n**2
+
+print(square.__doc__)
+```
+
+---
+# Docstrings en funciones
+
+Descripción simple:
+
+
+```python
+def add_binary(a, b):
+    '''
+    Returns the sum of two decimal numbers in binary digits.
+
+            Parameters:
+                    a (int): A decimal integer
+                    b (int): Another decimal integer
+
+            Returns:
+                    binary_sum (str): Binary string of the sum of a and b
+    '''
+    binary_sum = bin(a+b)[2:]
+    return binary_sum
+
+
+print(add_binary.__doc__)
+```
+
+--
+También podemos acceder a los docstrings de las funciones de Python 
+
+
+```python
+print(print.__doc__)
+```
+
+---
+# ¿En que se diferencia con un comentario?
+
+--
+
+Los **comentarios** son descripciones que ayudan a los programadores a entender el código y su funcionalidad. 
+
+--
+
+Los **docstrings** son usados para documentar el código después de definir una función, método, clase o  módulo. 
+
+--
+
+Como convención, no son descriptivas más bien son puntuales "Haz esto, regresa aquello". 
+
+--
+
+Otras convenciones son: terminan con `.`, no tienen lineas en blanco antes o después.
+
+--
+
+
+```python
+print(print.__doc__)
+```
+
+---
+#  Docstrings para Módulos
+
+Los docstrings de los módulos de Python deben listar todas las clases, funciones, objetos y excepciones disponibles que se importan cuando se importa el módulo.
+
+--
+
+También deben tener un resumen de una línea para cada elemento.
+
+--
+
+Se escriben al principio del archivo Python.
+
+--
+
+
+
+```python
+import random
+print(random.__doc__)
+```
+
+---
+
+Es lo mismo que hacer 
+
+
+```python
+help(random)
+```
+
+---
+# Módulos
+
+Los módulos pueden contener variables, clases, funciones.
+
+
+```python
+# test.py
+# function
+
+def displayText():
+    print( "Yes! you are importing a function")
+
+class AmbiguousBaseError(Exception):
+    '''A new error class object'''
+    pass
+    
+def get_at_content(dna):
+    '''Takes a DNA seq and calculates AT content'''
+    if dna.count("N") &gt; 0:
+        raise AmbiguousBaseError(f'Sequence contains {dna.count("N")} N\'s')
+    length = len(dna)
+    a_count = dna.count('A')
+    t_count = dna.count('T')
+    at_content = (a_count + t_count) / length
+    return at_content
+
+dna = 'ATGCCCTATACGTA' 
+```
+
+---
+# Módulos
+
+Podemos pasar variables y acceder a ellas
+
+
+```python
+import test
+
+print(test.dna)
+```
+
+¿Qué es diferente?
+
+&lt;br&gt;&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Ubicación
+
+¿Porqué me sale error cuando ejecuto en consola (`alt + shift + E`)?
+
+--
+
+
+
+```python
+import os
+from scripts.ejemplos import test
+
+print(os.getcwd())
+print(test.dna)
+```
+
+--
+Otra sintáxis
+
+
+```python
+import scripts.ejemplos.test as t
+```
+
+---
+# Paths en Python
+
+Cuando el intérprete ejecuta `import`, busca en los siguientes paths:
+
+- `.`: en el directorio en el cual es ejecturó el intérpetre o el script `.py`.
+
+- En la lista de directorios contenidos en la variable de entorno `PYTHONPATH` y se puede consultar a traés de `sys.path`.
+
+
+
+```python
+import sys
+sys.path
+```
+
+---
+# Paths en Python
+
+Para poder acceder a los modulos podemos:
+
+- Poner el `test.py` en el mismo directorio donde está el script.
+
+- Poner el `test.py` en algún directorio de `PYTHONPATH`.
+
+- Modificar la variable de entorno `PYTHONPATH`. También puedes modificar la variable de entorno en el momento de ejecutar el script.
+
+
+```python
+sys.path.append(r'/Users/user/Documents/Doctorado/Courses/Taught/pythonCCG_2021/scripts/ejemplos)
+```
+
+
+---
+# Ubicación de los módulos
+
+Podemos checar la ubicación de los módulos con `__file__`
+
+
+```python
+# Local module
+import test
+print(test.__file__)
+
+# Check location of python modules
+import random
+print(random.__file__)
+```
+
+---
+# Sintáxis en módulos
+
+Recordemos que hay varias sintáxis para acceder al módulo:
+
+
+```python
+import test
+print(test.dna)
+print(dna)
+```
+
+¿Qué es diferente?
+
+--
+
+¿Qué pasa ahora?
+
+
+```python
+from test import dna
+print(dna)
+```
+
+--
+
+Tener cuidado, razón para poner todos los `import` al inicio.
+
+
+```python
+dna = 'ATG'
+
+from test import dna
+print(dna)
+```
+
+
+---
+# Sintáxis en módulos
+
+Otra sintáxis para acceder al módulo:
+
+
+```python
+import test as t
+print(t.dna)
+```
+
+Tambien permite renombrar funciones/variables
+
+```python
+from test import dna as dna_example
+print(dna_example)
+```
+
+
+---
+# Variables 
+
+Podemos checar las variables utilizando `dir`
+
+
+
+```python
+dir()
+```
+
+--
+
+
+```python
+import test
+dir(test)
+```
+
+---
+# Ejecutar un módulo
+
+Un módulo es un script de python que podríamos ejecutar si se desea.
+
+En el archivo `test.py` guardaremos el código y lo importaremos en `hello.py`
+
+---
+`test.py`
+
+
+```python
+def displayText():
+    print("Yes! you are importing a function")
+
+
+class AmbiguousBaseError(Exception):
+    '''A new error class object'''
+    pass
+
+def get_at_content(dna):
+    '''Takes a DNA seq and calculates AT content'''
+    if dna.count("N") &gt; 0:
+        raise AmbiguousBaseError(f'Sequence contains {dna.count("N")} N\'s')
+    length = len(dna)
+    a_count = dna.count('A')
+    t_count = dna.count('T')
+    at_content = (a_count + t_count) / length
+    return at_content
+
+dna = 'ATGCCCTATACGTA' 
+
+displayText()
+print(get_at_content(dna))
+```
+
+---
+
+`hello.py`
+
+
+```python
+import test
+```
+
+--
+
+¿Cómo  podríamos distinguir entre el output del módulo descargado y el nuevo script?
+
+---
+# Variable `__name__`
+
+En una sesión de Python podemos encontrar la variable `__name__`, la cual está definida como `__main__`. 
+
+
+```python
+print(__name__)
+print(f'Variable __name__: {__name__}')
+```
+
+--
+
+Cuando un archivo .py se importa como un módulo, Python establece la variable especial `__name__` con el nombre del módulo.
+
+Checar con el archivo `test.py`.
+
+
+```python
+import test
+```
+
+
+---
+
+
+```python
+def displayText():
+    print("Yes! you are importing a function")
+
+class AmbiguousBaseError(Exception):
+    '''A new error class object'''
+    pass
+
+def get_at_content(dna):
+    '''Takes a DNA seq and calculates AT content'''
+    if dna.count("N") &gt; 0:
+        raise AmbiguousBaseError(f'Sequence contains {dna.count("N")} N\'s')
+    length = len(dna)
+    a_count = dna.count('A')
+    t_count = dna.count('T')
+    at_content = (a_count + t_count) / length
+    return at_content
+
+dna = 'ATGCCCTATACGTA'
+
+print(f'Variable __name__: {__name__}')
+
+if (__name__ == '__main__'):
+    displayText()
+    print(get_at_content(dna))
+```
+
+---
+# Paquetes en Python
+
+- **Módulos**: Archivo de python `.py`
+
+- **Paquetes**: Directorio que contiene uno o más módulos y el archivo `__init__.py`
+
+&lt;img src="https://files.realpython.com/media/pkg1.9af1c7aea48f.png" width="200px" style="display: block; margin: auto;" /&gt;
+
+---
+# Paquetes en Python
+
+- Crear un dir que se llame `pkg`
+
+- Crear dos modulos: `mod1.py` y `mod2.py`
+
+`mod1.py`
+
+
+```python
+def fun1():
+    print("This is module 1")
+```
+
+---
+
+Importar el módulo 1 (como ya sabemos).
+
+
+```python
+import pkg.mod1
+
+pkg.mod1.fun1()
+```
+
+--
+Importar el paquete `pkg` (los dos módulos). ¿Qué error da?
+
+
+```python
+import pkg 
+pkg.mod1()
+```
+
+&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+# Inicializar el paquete
+
+Nos falta el `__init__.py`
+
+
+```python
+print(f'Invoking __init__.py for {__name__}')
+```
+
+--
+En el archivo `hello.py`, checar el paquete.
+
+
+```python
+import pkg.mod1
+
+pkg.mod1.fun1()
+pkg.mod2.fun2()
+```
+
+--
+
+¿Qué falta?
+
+--
+
+
+```python
+print(f'Invoking __init__.py for {__name__}')
+import pkg.mod1
+import pkg.mod2 
+```
+
+
+
+---
+class: inverse, center, middle
+
+# Tarea final
+
+---
+# Tarea final
+
+El módulo de Python se remplzará el exámen por una presentación. 
+
+.content-box-blue[
+
+Dicha presentación deberá ser de un paquete creado por ustedes, el cual contenga:
+
+- Documentación 
+
+- Comentarios
+
+- Buenas prácticas 
+
+- Al menos dos módulos (ex. *mod1* = Trabajar con la secuencia de DNA, *mod2* = Leer, crear, manejar secuencias fasta)
+
+- En la presentación mostrar y explicar el código de **una función**.
+
+Nota: Pueden usar las tareas pasadas, los ejercicios de Rosalind o crear nuevas funciones. 
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
