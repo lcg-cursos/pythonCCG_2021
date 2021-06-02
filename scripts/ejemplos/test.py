@@ -1,10 +1,10 @@
+# test.py
+# function
 def displayText():
-    print("Yes! you are importing a function")
-
+    print( "Yes! you are importing a function")
 class AmbiguousBaseError(Exception):
     '''A new error class object'''
     pass
-
 def get_at_content(dna):
     '''Takes a DNA seq and calculates AT content'''
     if dna.count("N") > 0:
@@ -17,7 +17,6 @@ def get_at_content(dna):
 
 dna = 'ATGCCCTATACGTA'
 
-print(f'Variable __name__: {__name__}')
 
 if (__name__ == '__main__'):
     displayText()

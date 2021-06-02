@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>9. Expresiones regulares</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ana BVA" />
+    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# 9. Expresiones regulares
+### Ana BVA
+### 02 June, 2021
+
+---
+
+
+
+
+# Patrones en biología
+
+¿Qué patrones en biología conoces?
+
+Ex. `ATG` codón de inicio de la transcripción
+
+---
+# Patrones en bioinformática
+
+¿Qué patrones tenemos en bioinformática?
+
+---
+# Patrones en genes
+
+Recordando la tarea de condicionales: 
+
+`Genes: kdy647, jdg766, kdy533, hdt739, hdu045, teg436`
+
+--
+
+.content-box-blue[
+- Imprima los nombres de los genes de todos los genes cuyo nombre comience con "k" o "h"
+]
+
+--
+
+¿Qué patrones hay en los genes?
+
+---
+# Expresiones regulares
+
+En cómputo teórico y teoría de lenguajes formales, una expresión regular, o expresión racional, también son conocidas como regex o regexp, por  *regular expression*, **es una secuencia de caracteres que conforma un patrón de búsqueda**. - [Wikipedia](https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular#:~:text=En%20c%C3%B3mputo%20te%C3%B3rico%20y%20teor%C3%ADa,conforma%20un%20patr%C3%B3n%20de%20b%C3%BAsqueda.)
+
+--
+
+Es todo un tema en programación:
+
+
+&lt;img src="https://images-na.ssl-images-amazon.com/images/I/51QMf2mTyBL._AC_UL600_SR366,600_.jpg" width="250px" style="display: block; margin: auto;" /&gt;
+
+---
+# Expresiones regulares en Python
+
+
+Python maneja *regexp* pero desde el módulo `re`. 
+
+
+
+```python
+import re
+```
+--
+
+Anteriormente vimos caracteres especiales como `\n` (salto de línea) o `\t` (tabular). 
+
+
+
+```python
+print("\t\n")
+```
+
+--
+
+A veces los caracteres especiales chocan con caracteres que ya tienen significado en Python. Para que Python ignore estos caracteres, podemos ocupar `r` (*raw*), y cualquier caracter especial dentro del *string* se ignorará. 
+
+--
+
+
+```python
+print(r"\t\n")
+```
+
+
+---
+# Busqueda de patrones en un *string*
+
+¿Cómo buscar `GAATTC` en `ATCGCGAATTCAC`?
+
+
+--
+
+&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+
+---
+# Busqueda de patrones en un *string*
+
+¿Cómo buscar `GGACC` en `ATCGCGAATTCACGGACC` usando el módulo `re`?
+
+--
+
+Con el módulo de `re` podemos usar `search`.
+
+
+```python
+import re
+re.search("GGACC","ATCGCGAATTCACGGACC")
+```
+
+--
+
+En caso de requerirlo, podemos agregar `r`.
+
+
+
+---
+# Busqueda de patrones en un *string*
+
+Podemos ocupar condicionales para buscar más patrones en una secuencia.
+
+--
+
+¿Cómo sería para buscar `GGACC` o `GGTCC`?
+
+
+```python
+dna = "ATCGCGAATTCACGGACC"
+```
+
+--
+
+&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+class: inverse, center, middle
+
+# Caracteres 
+
+---
+# Regexp
+
+Si vemos el patrón: `GGxCC` es igual y solo cambia `A` o `T`. 
+
+--
+
+Lo podemos describirlo como: `GG(A|T)CC`, escribiendo las posibilidades en `()` y separando las opciones por un `|`.
+
+--
+
+
+```python
+dna = "ATCGCGAATTCACGGACC"
+if re.search(r"GG(A|T)CC", dna):
+    print("site found!")
+```
+
+--
+
+Otra forma de escribirlo es:
+
+
+```python
+dna = "ATCGCGAATTCACGGACC"
+if re.search(r"GG[AT]CC", dna):
+    print("site found!")
+```
+
+---
+# Regexp `.`
+
+`.` el uso de un punto representa **cualquier caracter**.
+
+--
+
+Si `x` en el patrón `GGxCC` puede ser cualquier caracter, se puede escribir como:
+
+
+
+```python
+dna = "ATCGCGAATTCACGGACC"
+if re.search(r"GG.CC", dna):
+    print("site found!")
+```
+
+--
+
+Pero también identificará caracteres diferentes a `ATGC`, como `n, $`, etc.
+
+
+```python
+dna = "ATCGCGAATTCACGGnCC"
+```
+
+---
+# Regex `[^]` (negación)
+
+Para negar caracteres podemos usar `[^]`. 
+
+Si queremos cualquier bp `ATGC`, se puede indicar con:
+
+
+```python
+dna = "ATCGCGAATTCACGGnCC"
+if re.search(r"[^ATGC]", dna):
+    print("ambiguous base found!")
+```
+
+--
+¿Cómo podemos generar un error si eso ocurre? (Tip: `raise`)
+
+--
+
+&lt;br&gt;
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+class: inverse, center, middle
+
+# Cuantificadores 
+
+---
+# Regexp `?`
+
+El símbolo `?` identifica cero o una vez el caracter. 
+
+--
+
+En `GAT?C`, la `T` es opcional.
+
+--
+
+Podemos pedir que sea un grupo de caracteres sea opcional: `GGG(AAA)?TTT`, buscará `GGGAAATTT` o `GGGTTT`.
+
+
+```python
+dna = "GGGTTT"
+if re.search(r"GGG(AAA)?TTT", dna):
+    print("found!")
+```
+
+---
+# Regexp `+`
+
+El símbolo `+` identifica  una o más vez el caracter. 
+
+--
+
+`GGGA+TTT` buscará `GGGATTT` o `GGGAATTT` o `GGGAAATTT`, etc. PERO NO o `GGGTTT`
+
+
+```python
+dna = "GGGAATTT"
+if re.search(r"GGGA+TTT", dna):
+    print("found!")
+```
+
+---
+# Regexp `*`
+
+El símbolo `*` indica que es opcional pero también puede estar repetido.
+
+--
+
+`GGGA*TTT` buscará `GGGTTT` o `GGGATTT` o `GGGAATTT` o `GGGAAATTT`, etc. 
+
+
+
+```python
+dna = "GGGTTT"
+if re.search(r"GGGA*TTT", dna):
+    print("found!")
+```
+
+---
+# Regexp `*`
+
+Si queremos especificar el número de repetidos usamos  `{5}`.
+
+--
+
+`GA{5}T` buscará `GAAAAAT` PERO NO `GAAAAT` o `GAAT` o `GAT`, etc. 
+
+--
+
+Podemos especificar un rango `{2,4}`
+
+`GA{2,4}T` buscará `GAAAAT` o `GAAAT` o `GAAT` PERO NO `GAAAAT` o `GAT`. 
+
+--
+
+`{5,}` Indica 5 ó más.
+
+
+
+```python
+dna = "GGGAAATTT"
+if re.search(r"GGGA{2,4}TTT", dna):
+    print("found!")
+```
+
+---
+class: inverse, center, middle
+
+# Posición 
+
+---
+# Regexp: Posición
+
+
+Anteriormente vimos: `[^]` que nos sirve para negar. Ejemplo `[^ATGC]`. Ahora veremos como usarlo  para indicar posición.
+
+--
+
+- El símbolo `^` indica el inicio.  `^AAA` identifica `AAATTT` PERO NO `GGGAAATTT`
+
+--
+
+- El símbolo `$` indica el final. `GGG$` identifica `AAAGGG` PERO NO `AAAGGGTTT`.
+
+
+
+```python
+dna = "AAATTT"
+if re.search(r"^AAA", dna):
+    print("found!")
+```
+
+
+---
+class: inverse, center, middle
+
+# Combinar 
+
+---
+# Regexp
+
+&lt;img src="https://miro.medium.com/max/1838/1*hjsbL45MhT2Tw5DGAYoAUg.png" width="550px" style="display: block; margin: auto;" /&gt;
+
+---
+# Regexp: Combinar
+
+¿Qué se busca con la siguiente expresión?
+
+`^AUG[AUGC]{30,1000}A{5,10}$`
+
+---
+class: inverse, center, middle
+
+# Métodos de re
+
+---
+# Extraer la información
+
+¿Qué tipo de clase resulta de `re.search()`?
+
+--
+
+
+```python
+type(re.search(r"[^ATGC]", dna))
+```
+
+--
+
+Podemos usar el método `group()` para obtener el patrón deseado
+
+
+```python
+dna = "ATCGCGAATTCACGGnCC"
+m = re.search(r"[^ATGC]", dna)
+
+if m:
+    print("ambiguous base found!")
+    ambig = m.group()
+    print("the base is " + ambig)
+```
+
+
+---
+## Ejercicio: Función que verifique que la secuencia
+
+.content-box-blue[
+
+- Crea una función que verifique que la secuencia tenga [ATGC]
+
+- Que arroje error si no es [ATGC] y que muestre los caracteres incorrectos.
+
+
+]
+
+
+```
+dna = "ATCGCGAATTCACGGnCC"
+```
+
+---
+# Extraer la información 
+
+¿Qué se busca con la siguiente expresión?
+
+`.+ .+`
+
+---
+# Extraer la información 
+
+Para guardar la información en variables separadas podemos usar `()`
+
+`(.+) (.+)`
+
+--
+
+
+```python
+scientific_name = "Homo sapiens" 
+
+m = re.search(r"(.+) (.+)", scientific_name) 
+
+if m: 
+    genus = m.group(1) 
+    species = m.group(2) 
+    print("genus is " + genus + ", species is " + species)
+```
+
+---
+# Extraer la posición
+
+Podemos extraer la posición en la que se encuentra el string buscado con `start()`.
+
+- Recuerda que Python cuenta desde cero
+
+
+```python
+dna = "CGATnCGAACGATC" 
+m = re.search(r"[^ATGC]", dna) 
+
+if m: 
+    print("ambiguous base found!") 
+    print("at position " + str(m.start()))
+```
+
+---
+# Múltiples matches
+
+Para identificar varios casos podemos ocupar `finditer()` que regresa una lista de los matches identificados.
+
+
+
+```python
+dna = "CGCTCnTAGATGCGCrATGACTGCAyTGC" 
+matches = re.finditer(r"[^ATGC]", dna)
+
+for m in matches: 
+    base = m.group() 
+    pos  = m.start() 
+    print(base + " found at position " + str(pos))
+```
+
+---
+# Múltiples matches
+
+También podemos ocupar `findall()` para extraer la información.
+
+
+```python
+dna = "CGCTCnTAGATGCGCrATGACTGCAyTGC" 
+result = re.findall(r"[^ATGC]", dna) 
+print(result)
+```
+
+---
+## Ejercicio: Regiones de AT
+
+.content-box-blue[
+
+Encuentra las regiones que tengan más de 5 As o Ts
+
+]
+
+
+```
+dna = "CTGCATTATATCGTACGAAATTATACGCGCG"
+```
+---
+# Dividir 
+
+También podemos dividir el string con `re.split()`
+
+
+```python
+dna = "CGCTCnTAGATGCGCrATGACTGCAyTGC" 
+result = re.split(r"[^ATGC]", dna) 
+print(result)
+```
+
+---
+## Ejercicio: Función que verifique que la secuencia
+
+.content-box-blue[
+
+- Crea una función que verifique que la secuencia tenga [ATGC]
+
+- Que arroje error si no es [ATGC] y que muestre los caracteres incorrectos.
+
+- Usa `try/except` para manejo de errores
+
+- Sino tiene otros caracteres que imprima las regiones ricas en AT
+
+]
+
+
+```
+dna = "CTGCATTATATCGTACGAAATTATACGCGCG"
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -3,7 +3,12 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.Rproj.user" />
+      <excludeFolder url="file://$MODULE_DIR$/Ejercicios" />
       <excludeFolder url="file://$MODULE_DIR$/PythonForBiologist" />
+      <excludeFolder url="file://$MODULE_DIR$/References" />
+      <excludeFolder url="file://$MODULE_DIR$/Tareas" />
+      <excludeFolder url="file://$MODULE_DIR$/scripts/ejercicios" />
+      <excludeFolder url="file://$MODULE_DIR$/slides" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.9" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

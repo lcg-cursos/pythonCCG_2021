@@ -1,0 +1,525 @@
+---
+title: '9. Expresiones regulares'
+author: "Ana BVA"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Patrones en biología
+
+¿Qué patrones en biología conoces?
+
+Ex. `ATG` codón de inicio de la transcripción
+
+---
+# Patrones en bioinformática
+
+¿Qué patrones tenemos en bioinformática?
+
+---
+# Patrones en genes
+
+Recordando la tarea de condicionales: 
+
+`Genes: kdy647, jdg766, kdy533, hdt739, hdu045, teg436`
+
+--
+
+.content-box-blue[
+- Imprima los nombres de los genes de todos los genes cuyo nombre comience con "k" o "h"
+]
+
+--
+
+¿Qué patrones hay en los genes?
+
+---
+# Expresiones regulares
+
+En cómputo teórico y teoría de lenguajes formales, una expresión regular, o expresión racional, también son conocidas como regex o regexp, por  *regular expression*, **es una secuencia de caracteres que conforma un patrón de búsqueda**. - [Wikipedia](https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular#:~:text=En%20c%C3%B3mputo%20te%C3%B3rico%20y%20teor%C3%ADa,conforma%20un%20patr%C3%B3n%20de%20b%C3%BAsqueda.)
+
+--
+
+Es todo un tema en programación:
+
+
+```{r, out.width = "250px", fig.align = "center"}
+knitr::include_graphics("https://images-na.ssl-images-amazon.com/images/I/51QMf2mTyBL._AC_UL600_SR366,600_.jpg")
+```
+
+---
+# Expresiones regulares en Python
+
+
+Python maneja *regexp* pero desde el módulo `re`. 
+
+
+```{python, eval=T, echo = T}
+import re
+```
+--
+
+Anteriormente vimos caracteres especiales como `\n` (salto de línea) o `\t` (tabular). 
+
+
+```{python, eval=F, echo = T}
+print("\t\n")
+```
+
+--
+
+A veces los caracteres especiales chocan con caracteres que ya tienen significado en Python. Para que Python ignore estos caracteres, podemos ocupar `r` (*raw*), y cualquier caracter especial dentro del *string* se ignorará. 
+
+--
+
+```{python, eval=F, echo = T}
+print(r"\t\n")
+```
+
+
+---
+# Busqueda de patrones en un *string*
+
+¿Cómo buscar `GAATTC` en `ATCGCGAATTCAC`?
+
+
+--
+
+<br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+
+---
+# Busqueda de patrones en un *string*
+
+¿Cómo buscar `GGACC` en `ATCGCGAATTCACGGACC` usando el módulo `re`?
+
+--
+
+Con el módulo de `re` podemos usar `search`.
+
+```{python, eval=F, echo = T}
+import re
+re.search("GGACC","ATCGCGAATTCACGGACC")
+```
+
+--
+
+En caso de requerirlo, podemos agregar `r`.
+
+
+
+---
+# Busqueda de patrones en un *string*
+
+Podemos ocupar condicionales para buscar más patrones en una secuencia.
+
+--
+
+¿Cómo sería para buscar `GGACC` o `GGTCC`?
+
+```{python, eval=F, echo = T}
+dna = "ATCGCGAATTCACGGACC"
+```
+
+--
+
+<br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+class: inverse, center, middle
+
+# Caracteres 
+
+---
+# Regexp
+
+Si vemos el patrón: `GGxCC` es igual y solo cambia `A` o `T`. 
+
+--
+
+Lo podemos describirlo como: `GG(A|T)CC`, escribiendo las posibilidades en `()` y separando las opciones por un `|`.
+
+--
+
+```{python, eval=F, echo = T}
+dna = "ATCGCGAATTCACGGACC"
+if re.search(r"GG(A|T)CC", dna):
+    print("site found!")
+```
+
+--
+
+Otra forma de escribirlo es:
+
+```{python, eval=F, echo = T}
+dna = "ATCGCGAATTCACGGACC"
+if re.search(r"GG[AT]CC", dna):
+    print("site found!")
+```
+
+---
+# Regexp `.`
+
+`.` el uso de un punto representa **cualquier caracter**.
+
+--
+
+Si `x` en el patrón `GGxCC` puede ser cualquier caracter, se puede escribir como:
+
+
+```{python, eval=F, echo = T}
+dna = "ATCGCGAATTCACGGACC"
+if re.search(r"GG.CC", dna):
+    print("site found!")
+```
+
+--
+
+Pero también identificará caracteres diferentes a `ATGC`, como `n, $`, etc.
+
+```{python, eval=F, echo = T}
+dna = "ATCGCGAATTCACGGnCC"
+```
+
+---
+# Regex `[^]` (negación)
+
+Para negar caracteres podemos usar `[^]`. 
+
+Si queremos cualquier bp `ATGC`, se puede indicar con:
+
+```{python, eval=F, echo = T}
+dna = "ATCGCGAATTCACGGnCC"
+if re.search(r"[^ATGC]", dna):
+    print("ambiguous base found!")
+```
+
+--
+¿Cómo podemos generar un error si eso ocurre? (Tip: `raise`)
+
+--
+
+<br>
+
+.center[.content-box-green[**Vamos a pyCharm**]]
+
+---
+class: inverse, center, middle
+
+# Cuantificadores 
+
+---
+# Regexp `?`
+
+El símbolo `?` identifica cero o una vez el caracter. 
+
+--
+
+En `GAT?C`, la `T` es opcional.
+
+--
+
+Podemos pedir que sea un grupo de caracteres sea opcional: `GGG(AAA)?TTT`, buscará `GGGAAATTT` o `GGGTTT`.
+
+```{python, eval=F, echo = T}
+dna = "GGGTTT"
+if re.search(r"GGG(AAA)?TTT", dna):
+    print("found!")
+```
+
+---
+# Regexp `+`
+
+El símbolo `+` identifica  una o más vez el caracter. 
+
+--
+
+`GGGA+TTT` buscará `GGGATTT` o `GGGAATTT` o `GGGAAATTT`, etc. PERO NO o `GGGTTT`
+
+```{python, eval=F, echo = T}
+dna = "GGGAATTT"
+if re.search(r"GGGA+TTT", dna):
+    print("found!")
+```
+
+---
+# Regexp `*`
+
+El símbolo `*` indica que es opcional pero también puede estar repetido.
+
+--
+
+`GGGA*TTT` buscará `GGGTTT` o `GGGATTT` o `GGGAATTT` o `GGGAAATTT`, etc. 
+
+
+```{python, eval=F, echo = T}
+dna = "GGGTTT"
+if re.search(r"GGGA*TTT", dna):
+    print("found!")
+```
+
+---
+# Regexp `*`
+
+Si queremos especificar el número de repetidos usamos  `{5}`.
+
+--
+
+`GA{5}T` buscará `GAAAAAT` PERO NO `GAAAAT` o `GAAT` o `GAT`, etc. 
+
+--
+
+Podemos especificar un rango `{2,4}`
+
+`GA{2,4}T` buscará `GAAAAT` o `GAAAT` o `GAAT` PERO NO `GAAAAT` o `GAT`. 
+
+--
+
+`{5,}` Indica 5 ó más.
+
+
+```{python, eval=F, echo = T}
+dna = "GGGAAATTT"
+if re.search(r"GGGA{2,4}TTT", dna):
+    print("found!")
+```
+
+---
+class: inverse, center, middle
+
+# Posición 
+
+---
+# Regexp: Posición
+
+
+Anteriormente vimos: `[^]` que nos sirve para negar. Ejemplo `[^ATGC]`. Ahora veremos como usarlo  para indicar posición.
+
+--
+
+- El símbolo `^` indica el inicio.  `^AAA` identifica `AAATTT` PERO NO `GGGAAATTT`
+
+--
+
+- El símbolo `$` indica el final. `GGG$` identifica `AAAGGG` PERO NO `AAAGGGTTT`.
+
+
+```{python, eval=F, echo = T}
+dna = "AAATTT"
+if re.search(r"^AAA", dna):
+    print("found!")
+```
+
+
+---
+class: inverse, center, middle
+
+# Combinar 
+
+---
+# Regexp
+
+```{r, out.width = "550px", fig.align = "center"}
+knitr::include_graphics("https://miro.medium.com/max/1838/1*hjsbL45MhT2Tw5DGAYoAUg.png")
+```
+
+---
+# Regexp: Combinar
+
+¿Qué se busca con la siguiente expresión?
+
+`^AUG[AUGC]{30,1000}A{5,10}$`
+
+---
+class: inverse, center, middle
+
+# Métodos de re
+
+---
+# Extraer la información
+
+¿Qué tipo de clase resulta de `re.search()`?
+
+--
+
+```{python, eval=F, echo = T}
+type(re.search(r"[^ATGC]", dna))
+```
+
+--
+
+Podemos usar el método `group()` para obtener el patrón deseado
+
+```{python, eval=F, echo = T}
+dna = "ATCGCGAATTCACGGnCC"
+m = re.search(r"[^ATGC]", dna)
+
+if m:
+    print("ambiguous base found!")
+    ambig = m.group()
+    print("the base is " + ambig)
+```
+
+
+---
+## Ejercicio: Función que verifique que la secuencia
+
+.content-box-blue[
+
+- Crea una función que verifique que la secuencia tenga [ATGC]
+
+- Que arroje error si no es [ATGC] y que muestre los caracteres incorrectos.
+
+
+]
+
+
+```
+dna = "ATCGCGAATTCACGGnCC"
+```
+
+---
+# Extraer la información 
+
+¿Qué se busca con la siguiente expresión?
+
+`.+ .+`
+
+---
+# Extraer la información 
+
+Para guardar la información en variables separadas podemos usar `()`
+
+`(.+) (.+)`
+
+--
+
+```{python, eval=F, echo = T}
+scientific_name = "Homo sapiens" 
+
+m = re.search(r"(.+) (.+)", scientific_name) 
+
+if m: 
+    genus = m.group(1) 
+    species = m.group(2) 
+    print("genus is " + genus + ", species is " + species)
+```
+
+---
+# Extraer la posición
+
+Podemos extraer la posición en la que se encuentra el string buscado con `start()`.
+
+- Recuerda que Python cuenta desde cero
+
+```{python, eval=F, echo = T}
+dna = "CGATnCGAACGATC" 
+m = re.search(r"[^ATGC]", dna) 
+
+if m: 
+    print("ambiguous base found!") 
+    print("at position " + str(m.start()))
+```
+
+---
+# Múltiples matches
+
+Para identificar varios casos podemos ocupar `finditer()` que regresa una lista de los matches identificados.
+
+
+```{python, eval=F, echo = T}
+dna = "CGCTCnTAGATGCGCrATGACTGCAyTGC" 
+matches = re.finditer(r"[^ATGC]", dna)
+
+for m in matches: 
+    base = m.group() 
+    pos  = m.start() 
+    print(base + " found at position " + str(pos))
+```
+
+---
+# Múltiples matches
+
+También podemos ocupar `findall()` para extraer la información.
+
+```{python, eval=F, echo = T}
+dna = "CGCTCnTAGATGCGCrATGACTGCAyTGC" 
+result = re.findall(r"[^ATGC]", dna) 
+print(result)
+```
+
+---
+## Ejercicio: Regiones de AT
+
+.content-box-blue[
+
+Encuentra las regiones que tengan más de 5 As o Ts
+
+]
+
+
+```
+dna = "CTGCATTATATCGTACGAAATTATACGCGCG"
+```
+---
+# Dividir 
+
+También podemos dividir el string con `re.split()`
+
+```{python, eval=F, echo = T}
+dna = "CGCTCnTAGATGCGCrATGACTGCAyTGC" 
+result = re.split(r"[^ATGC]", dna) 
+print(result)
+```
+
+---
+## Ejercicio: Función que verifique que la secuencia
+
+.content-box-blue[
+
+- Crea una función que verifique que la secuencia tenga [ATGC]
+
+- Que arroje error si no es [ATGC] y que muestre los caracteres incorrectos.
+
+- Usa `try/except` para manejo de errores
+
+- Sino tiene otros caracteres que imprima las regiones ricas en AT
+
+]
+
+
+```
+dna = "CTGCATTATATCGTACGAAATTATACGCGCG"
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
