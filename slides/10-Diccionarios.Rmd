@@ -1,0 +1,486 @@
+---
+title: '10. Diccionarios'
+author: "Ana BVA"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Diccionarios
+
+Un diccionario es una estructura de datos y un tipo de dato en Python con características especiales que nos permite almacenar cualquier tipo de valor como enteros, cadenas, listas e incluso otras funciones. 
+
+Estos diccionarios nos permiten además identificar cada elemento por una clave o *key*. [Devcode, 2019](https://devcode.la/tutoriales/diccionarios-en-python/)
+
+
+```{r, out.width = "550px", fig.align = "center"}
+knitr::include_graphics("https://files.realpython.com/media/How-to-Iterate-Through-A-Dictionary-in-Python_Watermarked.06d6547f531b.jpg")
+```
+
+
+---
+# Creando un diccionario 
+
+La sintaxis es similar a crear una lista pero usamos `{}` y tendá una llave (`key`) y un valor (`item`) separados por comas. 
+
+Las llaves (`keys`) tienen que ser únicas.
+
+--
+
+Supongamos que tenemos el código donde las enzimas de restrición cortan.
+
+```{python, eval=F, echo = T}
+enzymes = { 
+    'EcoRI' : r'GAATTC', 
+    'AvaII' : r'GG(A|T)CC', 
+    'BisI'  : r'GC[ATGC]GC' 
+}
+```
+
+--
+
+Podemos acceder a los valores usando la llave (`key`) en `[]` o con el método `get()`.
+
+```{python, eval=F, echo = T}
+print(enzymes['BisI'])
+print(enzymes.get('BisI'))
+```
+
+---
+# Creando un diccionario 
+
+Podemos crear un diccionario vacio e ir incorporando valores:
+
+```{python, eval=F, echo = T}
+enzymes = {}
+enzymes['EcoRI'] = r'GAATTC'
+enzymes['AvaII'] =  r'GG(A|T)CC'
+enzymes['BisI'] =  r'GC[ATGC]GC'
+```
+
+---
+# Eliminar elementos
+
+Podemos eliminar un elemento usando `pop()`.
+
+
+```{python, eval=F, echo = T}
+# remove the EcoRI enzyme from the dict
+enzymes.pop('EcoRI')
+```
+
+---
+## Ejercicio 
+
+.content-box-blue[
+
+Resuelve el problema de [Rosalind: Dictionaries](http://rosalind.info/problems/ini6/)
+
+]
+
+
+
+
+---
+class: inverse, center, middle
+
+# Ejemplo
+
+---
+# Contar bases
+
+Supongamos que queremos contar la cantidad de `A`s.
+
+```{python, eval=F, echo = T}
+dna = "ATCGATCGATCGTACGCTGA"
+a_count = dna.count("A")
+```
+
+--
+
+¿Y para cada base?
+
+
+```{python, eval=F, echo = T}
+a_count = dna.count("A")
+t_count = dna.count("T")
+g_count = dna.count("G")
+c_count = dna.count("C")
+```
+
+--
+
+¿Para dinucleótidos?
+
+```{python, eval=F, echo = T}
+aa_count = dna.count("AA")
+at_count = dna.count("AT")
+ag_count = dna.count("AG")
+```
+
+--
+
+¡REPETITIVO!
+
+---
+# Contar bases
+
+
+¿Para trinucleótidos?
+
+```{python, eval=F, echo = T}
+aaa_count = dna.count("AAA")
+aat_count = dna.count("AAT")
+aag_count = dna.count("AAG")
+...
+```
+
+
+--
+
+¿Cuántos trinucleótidos posibles existen?
+
+--
+
+¿Cómo le harían para contar trinucleótidos?
+
+---
+# Versión con listas
+
+Veámos una versión utilizando listas y dinucleótidos.
+
+--
+
+Definimos las variables:
+
+```{python, eval=F, echo = T}
+dna = "ATGATCGATCGAGTGA"
+dinucleotides = ['AA','AT','AG','AC',
+                 'TA','TT','TG','TC',
+                 'GA','GT','GG','GC',
+                 'CA','CT','CG','CC']
+all_counts = []
+```
+
+--
+
+Iteramos para cada dinucleótido, contamos cuantos existen y los guardamos en una lista `all_counts`.
+
+```{python, eval=F, echo = T}
+for dinucleotide in dinucleotides:
+    count = dna.count(dinucleotide)
+    print("count is " + str(count) + " for " + dinucleotide)
+    all_counts.append(count)
+print(all_counts)
+```
+
+--
+
+¿Cuál es la cuenta del dinucleótido `TG`?
+
+```{python, eval=F, echo = F}
+print("count for TG is " + str(all_counts[6]))
+
+i = dinucleotides.index('TG') 
+print("count for TG is " + all_counts[i])
+```
+
+---
+# Versión con diccionarios
+
+Ahora cambiaremos la lista por un diccionario
+
+```{python, eval=F, echo = T}
+dna = "AATGATGAACGAC" 
+dinucleotides = ['AA','AT','AG','AC', 
+                 'TA','TT','TG','TC', 
+                 'GA','GT','GG','GC', 
+                 'CA','CT','CG','CT'] 
+all_counts = {}  # dictionary
+```
+--
+
+Hacemos lo  mismo, iteramos y contamos:
+
+```{python, eval=F, echo = T}
+for dinucleotide in dinucleotides: 
+    count = dna.count(dinucleotide) 
+    print("count is " + str(count) + " for " + dinucleotide) 
+    all_counts[dinucleotide] = count 
+print(all_counts)
+```
+
+--
+
+¿Cuál es la cuenta del dinucleótido `TG`?
+
+```{python, eval=F, echo = F}
+print(all_counts['TG'])
+```
+
+---
+
+Hay muchos datos con ceros, con `if` podemos evitar guardarlos en `all_counts`.
+
+¿Cómo lo harías?
+
+--
+Resultado esperado:
+
+```{python, eval=T, echo = F}
+dna = "AATGATGAACGAC" 
+dinucleotides = ['AA','AT','AG','AC', 
+                 'TA','TT','TG','TC', 
+                 'GA','GT','GG','GC', 
+                 'CA','CT','CG','CT'] 
+all_counts = {} 
+for dinucleotide in dinucleotides: 
+    count = dna.count(dinucleotide) 
+    if count > 0: 
+        all_counts[dinucleotide] = count 
+print(all_counts)
+```
+
+--
+
+¿Qué pasa si pedimos un nucleótido que no existe?
+
+
+```{python, eval=F, echo = T}
+print(all_counts['TC'])
+```
+
+--
+
+Podemos evitar el error `KeyError` checando que `TC` exista en el diccionario:
+
+
+```{python, eval=F, echo = T}
+if 'TC' in all_counts:
+    print(all_counts('TC'))
+else
+    print(0)
+```
+
+--
+O podemos usar el método `get()`.
+
+```{python, eval=F, echo = T}
+print(all_counts['TC'])
+print(all_counts.get('TC'))
+print(all_counts.get('TC', 0))
+```
+
+--
+¿Cuál es la diferencia entre `[]` y `get()`?
+
+---
+# Iterando sobre diccionarios
+
+Podemos iterar sobre un diccionario e imprimir solo los dinucleótidos que tienen una cuenta igual a 2.
+
+```{python, eval=F, echo = T}
+for dinucleotide in dinucleotides: 
+    if all_counts.get(dinucleotide, 0) == 2: 
+        print(dinucleotide)
+```
+
+--
+Podemos generar los dinucleótidos usando un `for`.
+
+--
+
+
+```{python, eval=F, echo = T}
+# Variables
+dna = "AATGATGAACGAC" 
+bases = ['A','T','G','C'] 
+all_counts = {} 
+
+# Creating dinucleotides and counting
+for base1 in bases: 
+    for base2 in bases: 
+        dinucleotide = base1 + base2 
+        count = dna.count(dinucleotide) 
+        if count > 0: 
+            all_counts[dinucleotide] = count
+```
+
+---
+# Iterando sobre `keys`
+
+El método `keys()` regresa las llaves (`keys`) de un diccionario y podemos iterar el resultado.
+
+```{python, eval=F, echo = T}
+for dinucleotide in all_counts.keys():
+    if all_counts.get(dinucleotide) == 2:
+        print(dinucleotide)
+```
+
+--
+
+Podemos ordenar alfabeticamente las llaves con la función `sorted()`.
+
+```{python, eval=F, echo = T}
+for dinucleotide in sorted(all_counts.keys()):
+    if all_counts.get(dinucleotide) == 2:
+        print(dinucleotide)
+```
+
+---
+# Iterar sobre `items`
+
+¿Cómo podemos obtener el valor de una llave?
+
+--
+
+```{python, eval=F, echo = T}
+for key in my_dict.keys():
+    value = my_dict.get(key)
+    # do something with key and value
+```
+
+--
+
+En vez de hacer eso, podemos usar el método `items()` que itera sobre los valores pares:
+
+```{python, eval=F, echo = T}
+for key, value in my_dict.items():
+    # do something with key and value
+```
+
+--
+
+¿Qué hace `items()`?
+
+--
+
+¿Cómo podemos imprimir los dinucleótidos con cuentas mayores a dos usando `items()`?
+
+
+```{python, eval=F, echo = F}
+for dinucleotide, count in all_counts.items():
+    if count == 2:
+        print(dinucleotide)
+```
+
+---
+# Buscar vs Iterar
+
+¿Por qué el siguiente código está mal?
+
+
+```{python, eval=F, echo = T}
+for dinucleotide, count in all_counts.items():
+    if dinucleotide == 'AT':
+        print(count)
+```
+
+
+---
+## Tarea 
+
+.content-box-blue[
+
+Resuelve el problema de [Rosalind: Translating RNA into Protein](http://rosalind.info/problems/prot/)
+
+Traduce una secuencia de DNA en Proteína.
+
+]
+
+.tiny[
+
+```{python, eval=F, echo = T}
+gencode = {
+    'ATA':'I', 'ATC':'I', 'ATT':'I', 'ATG':'M', 'ACA':'T', 
+    'ACC':'T', 'ACG':'T', 'ACT':'T', 'AAC':'N', 'AAT':'N', 
+    'AAA':'K', 'AAG':'K', 'AGC':'S', 'AGT':'S', 'AGA':'R', 
+    'AGG':'R', 'CTA':'L', 'CTC':'L', 'CTG':'L', 'CTT':'L',
+    'CCA':'P', 'CCC':'P', 'CCG':'P', 'CCT':'P', 'CAC':'H', 
+    'CAT':'H', 'CAA':'Q', 'CAG':'Q', 'CGA':'R', 'CGC':'R', 
+    'CGG':'R', 'CGT':'R', 'GTA':'V', 'GTC':'V', 'GTG':'V', 
+    'GTT':'V', 'GCA':'A', 'GCC':'A', 'GCG':'A', 'GCT':'A',
+    'GAC':'D', 'GAT':'D', 'GAA':'E', 'GAG':'E', 'GGA':'G', 
+    'GGC':'G', 'GGG':'G', 'GGT':'G', 'TCA':'S', 'TCC':'S', 
+    'TCG':'S', 'TCT':'S', 'TTC':'F', 'TTT':'F', 'TTA':'L', 
+    'TTG':'L', 'TAC':'Y', 'TAT':'Y', 'TAA':'_', 'TAG':'_',
+    'TGC':'C', 'TGT':'C', 'TGA':'_', 'TGG':'W'}
+```
+
+]
+
+---
+class: inverse, center, middle
+
+# BioPython
+
+---
+# BioPython
+
+Consulta su documentación en [Biopython Cookbook](http://biopython.org/DIST/docs/tutorial/Tutorial.html)
+
+BioPython tiene clases específicas para manejar datos biológicos. 
+
+```{python, eval=F, echo = T}
+###### Objeto Seq
+dna = Seq("ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG")
+print('Objeto tipo\n', type(dna))
+```
+
+--
+
+```{python, eval=F, echo = T}
+print("3'", dna, "5'")
+print("  ", "|" * len(dna))
+```
+
+---
+# Métodos
+
+Tiene métodos con los cuales podemos realizar diferentes operaciones como:
+
+```{python, eval=F, echo = T}
+print("5'", dna.complement(), "3'")  # dna[::-1]
+print("3'", dna.reverse_complement(), "5'")
+print('Contenido GC: ', GC(dna))
+```
+
+---
+# Transcripción
+
+Podemos transcribir la secuencia a RNA.
+
+```{python, eval=F, echo = T}
+rna = dna.transcribe()
+print('Objeto tipo\n', type(rna))
+
+print("RNA: \n3'", rna, "5'")
+print("  ", "|" * len(rna))
+print("5'", rna.reverse_complement_rna(), "5'")
+```
+
+---
+# Tradución 
+
+O a proteína
+
+```{python, eval=F, echo = T}
+protein = dna.translate(to_stop=True)
+print("Proteina:\n", protein)
+
+```
+
+

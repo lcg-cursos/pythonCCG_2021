@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>10. Diccionarios</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ana BVA" />
+    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# 10. Diccionarios
+### Ana BVA
+### 10 June, 2021
+
+---
+
+
+
+
+# Diccionarios
+
+Un diccionario es una estructura de datos y un tipo de dato en Python con características especiales que nos permite almacenar cualquier tipo de valor como enteros, cadenas, listas e incluso otras funciones. 
+
+Estos diccionarios nos permiten además identificar cada elemento por una clave o *key*. [Devcode, 2019](https://devcode.la/tutoriales/diccionarios-en-python/)
+
+
+&lt;img src="https://files.realpython.com/media/How-to-Iterate-Through-A-Dictionary-in-Python_Watermarked.06d6547f531b.jpg" width="550px" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Creando un diccionario 
+
+La sintaxis es similar a crear una lista pero usamos `{}` y tendá una llave (`key`) y un valor (`item`) separados por comas. 
+
+Las llaves (`keys`) tienen que ser únicas.
+
+--
+
+Supongamos que tenemos el código donde las enzimas de restrición cortan.
+
+
+```python
+enzymes = { 
+    'EcoRI' : r'GAATTC', 
+    'AvaII' : r'GG(A|T)CC', 
+    'BisI'  : r'GC[ATGC]GC' 
+}
+```
+
+--
+
+Podemos acceder a los valores usando la llave (`key`) en `[]` o con el método `get()`.
+
+
+```python
+print(enzymes['BisI'])
+print(enzymes.get('BisI'))
+```
+
+---
+# Creando un diccionario 
+
+Podemos crear un diccionario vacio e ir incorporando valores:
+
+
+```python
+enzymes = {}
+enzymes['EcoRI'] = r'GAATTC'
+enzymes['AvaII'] =  r'GG(A|T)CC'
+enzymes['BisI'] =  r'GC[ATGC]GC'
+```
+
+---
+# Eliminar elementos
+
+Podemos eliminar un elemento usando `pop()`.
+
+
+
+```python
+# remove the EcoRI enzyme from the dict
+enzymes.pop('EcoRI')
+```
+
+---
+## Ejercicio 
+
+.content-box-blue[
+
+Resuelve el problema de [Rosalind: Dictionaries](http://rosalind.info/problems/ini6/)
+
+]
+
+
+
+
+---
+class: inverse, center, middle
+
+# Ejemplo
+
+---
+# Contar bases
+
+Supongamos que queremos contar la cantidad de `A`s.
+
+
+```python
+dna = "ATCGATCGATCGTACGCTGA"
+a_count = dna.count("A")
+```
+
+--
+
+¿Y para cada base?
+
+
+
+```python
+a_count = dna.count("A")
+t_count = dna.count("T")
+g_count = dna.count("G")
+c_count = dna.count("C")
+```
+
+--
+
+¿Para dinucleótidos?
+
+
+```python
+aa_count = dna.count("AA")
+at_count = dna.count("AT")
+ag_count = dna.count("AG")
+```
+
+--
+
+¡REPETITIVO!
+
+---
+# Contar bases
+
+
+¿Para trinucleótidos?
+
+
+```python
+aaa_count = dna.count("AAA")
+aat_count = dna.count("AAT")
+aag_count = dna.count("AAG")
+...
+```
+
+
+--
+
+¿Cuántos trinucleótidos posibles existen?
+
+--
+
+¿Cómo le harían para contar trinucleótidos?
+
+---
+# Versión con listas
+
+Veámos una versión utilizando listas y dinucleótidos.
+
+--
+
+Definimos las variables:
+
+
+```python
+dna = "ATGATCGATCGAGTGA"
+dinucleotides = ['AA','AT','AG','AC',
+                 'TA','TT','TG','TC',
+                 'GA','GT','GG','GC',
+                 'CA','CT','CG','CC']
+all_counts = []
+```
+
+--
+
+Iteramos para cada dinucleótido, contamos cuantos existen y los guardamos en una lista `all_counts`.
+
+
+```python
+for dinucleotide in dinucleotides:
+    count = dna.count(dinucleotide)
+    print("count is " + str(count) + " for " + dinucleotide)
+    all_counts.append(count)
+print(all_counts)
+```
+
+--
+
+¿Cuál es la cuenta del dinucleótido `TG`?
+
+
+
+---
+# Versión con diccionarios
+
+Ahora cambiaremos la lista por un diccionario
+
+
+```python
+dna = "AATGATGAACGAC" 
+dinucleotides = ['AA','AT','AG','AC', 
+                 'TA','TT','TG','TC', 
+                 'GA','GT','GG','GC', 
+                 'CA','CT','CG','CT'] 
+all_counts = {}  # dictionary
+```
+--
+
+Hacemos lo  mismo, iteramos y contamos:
+
+
+```python
+for dinucleotide in dinucleotides: 
+    count = dna.count(dinucleotide) 
+    print("count is " + str(count) + " for " + dinucleotide) 
+    all_counts[dinucleotide] = count 
+print(all_counts)
+```
+
+--
+
+¿Cuál es la cuenta del dinucleótido `TG`?
+
+
+
+---
+
+Hay muchos datos con ceros, con `if` podemos evitar guardarlos en `all_counts`.
+
+¿Cómo lo harías?
+
+--
+Resultado esperado:
+
+
+```
+## {'AA': 2, 'AT': 2, 'AC': 2, 'TG': 2, 'GA': 3, 'CG': 1}
+```
+
+--
+
+¿Qué pasa si pedimos un nucleótido que no existe?
+
+
+
+```python
+print(all_counts['TC'])
+```
+
+--
+
+Podemos evitar el error `KeyError` checando que `TC` exista en el diccionario:
+
+
+
+```python
+if 'TC' in all_counts:
+    print(all_counts('TC'))
+else
+    print(0)
+```
+
+--
+O podemos usar el método `get()`.
+
+
+```python
+print(all_counts['TC'])
+print(all_counts.get('TC'))
+print(all_counts.get('TC', 0))
+```
+
+--
+¿Cuál es la diferencia entre `[]` y `get()`?
+
+---
+# Iterando sobre diccionarios
+
+Podemos iterar sobre un diccionario e imprimir solo los dinucleótidos que tienen una cuenta igual a 2.
+
+
+```python
+for dinucleotide in dinucleotides: 
+    if all_counts.get(dinucleotide, 0) == 2: 
+        print(dinucleotide)
+```
+
+--
+Podemos generar los dinucleótidos usando un `for`.
+
+--
+
+
+
+```python
+# Variables
+dna = "AATGATGAACGAC" 
+bases = ['A','T','G','C'] 
+all_counts = {} 
+
+# Creating dinucleotides and counting
+for base1 in bases: 
+    for base2 in bases: 
+        dinucleotide = base1 + base2 
+        count = dna.count(dinucleotide) 
+        if count &gt; 0: 
+            all_counts[dinucleotide] = count
+```
+
+---
+# Iterando sobre `keys`
+
+El método `keys()` regresa las llaves (`keys`) de un diccionario y podemos iterar el resultado.
+
+
+```python
+for dinucleotide in all_counts.keys():
+    if all_counts.get(dinucleotide) == 2:
+        print(dinucleotide)
+```
+
+--
+
+Podemos ordenar alfabeticamente las llaves con la función `sorted()`.
+
+
+```python
+for dinucleotide in sorted(all_counts.keys()):
+    if all_counts.get(dinucleotide) == 2:
+        print(dinucleotide)
+```
+
+---
+# Iterar sobre `items`
+
+¿Cómo podemos obtener el valor de una llave?
+
+--
+
+
+```python
+for key in my_dict.keys():
+    value = my_dict.get(key)
+    # do something with key and value
+```
+
+--
+
+En vez de hacer eso, podemos usar el método `items()` que itera sobre los valores pares:
+
+
+```python
+for key, value in my_dict.items():
+    # do something with key and value
+```
+
+--
+
+¿Qué hace `items()`?
+
+--
+
+¿Cómo podemos imprimir los dinucleótidos con cuentas mayores a dos usando `items()`?
+
+
+
+
+---
+# Buscar vs Iterar
+
+¿Por qué el siguiente código está mal?
+
+
+
+```python
+for dinucleotide, count in all_counts.items():
+    if dinucleotide == 'AT':
+        print(count)
+```
+
+
+---
+## Tarea 
+
+.content-box-blue[
+
+Resuelve el problema de [Rosalind: Translating RNA into Protein](http://rosalind.info/problems/prot/)
+
+Traduce una secuencia de DNA en Proteína.
+
+]
+
+.tiny[
+
+
+```python
+gencode = {
+    'ATA':'I', 'ATC':'I', 'ATT':'I', 'ATG':'M', 'ACA':'T', 
+    'ACC':'T', 'ACG':'T', 'ACT':'T', 'AAC':'N', 'AAT':'N', 
+    'AAA':'K', 'AAG':'K', 'AGC':'S', 'AGT':'S', 'AGA':'R', 
+    'AGG':'R', 'CTA':'L', 'CTC':'L', 'CTG':'L', 'CTT':'L',
+    'CCA':'P', 'CCC':'P', 'CCG':'P', 'CCT':'P', 'CAC':'H', 
+    'CAT':'H', 'CAA':'Q', 'CAG':'Q', 'CGA':'R', 'CGC':'R', 
+    'CGG':'R', 'CGT':'R', 'GTA':'V', 'GTC':'V', 'GTG':'V', 
+    'GTT':'V', 'GCA':'A', 'GCC':'A', 'GCG':'A', 'GCT':'A',
+    'GAC':'D', 'GAT':'D', 'GAA':'E', 'GAG':'E', 'GGA':'G', 
+    'GGC':'G', 'GGG':'G', 'GGT':'G', 'TCA':'S', 'TCC':'S', 
+    'TCG':'S', 'TCT':'S', 'TTC':'F', 'TTT':'F', 'TTA':'L', 
+    'TTG':'L', 'TAC':'Y', 'TAT':'Y', 'TAA':'_', 'TAG':'_',
+    'TGC':'C', 'TGT':'C', 'TGA':'_', 'TGG':'W'}
+```
+
+]
+
+---
+class: inverse, center, middle
+
+# BioPython
+
+---
+# BioPython
+
+Consulta su documentación en [Biopython Cookbook](http://biopython.org/DIST/docs/tutorial/Tutorial.html)
+
+BioPython tiene clases específicas para manejar datos biológicos. 
+
+
+```python
+###### Objeto Seq
+dna = Seq("ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG")
+print('Objeto tipo\n', type(dna))
+```
+
+--
+
+
+```python
+print("3'", dna, "5'")
+print("  ", "|" * len(dna))
+```
+
+---
+# Métodos
+
+Tiene métodos con los cuales podemos realizar diferentes operaciones como:
+
+
+```python
+print("5'", dna.complement(), "3'")  # dna[::-1]
+print("3'", dna.reverse_complement(), "5'")
+print('Contenido GC: ', GC(dna))
+```
+
+---
+# Transcripción
+
+Podemos transcribir la secuencia a RNA.
+
+
+```python
+rna = dna.transcribe()
+print('Objeto tipo\n', type(rna))
+
+print("RNA: \n3'", rna, "5'")
+print("  ", "|" * len(rna))
+print("5'", rna.reverse_complement_rna(), "5'")
+```
+
+---
+# Tradución 
+
+O a proteína
+
+
+```python
+protein = dna.translate(to_stop=True)
+print("Proteina:\n", protein)
+```
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
