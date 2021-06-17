@@ -1,0 +1,572 @@
+---
+title: '11. Programación Orientada a Objetos (POO)'
+author: "Ana BVA"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+# Programación Orientada a Objetos (POO)
+
+.content-box-green[
+
+*Object Oriented Programming* or OOP
+
+*Professional Object Oriented Programmer* or POOP
+
+]
+
+¿Qué es POO?
+
+```{r, out.width = "550px", fig.align = "center"}
+knitr::include_graphics("https://files.realpython.com/media/Object-Oriented-Programming-OOP-in-Python-3_Watermarked.0d29780806d5.jpg")
+```
+
+
+---
+## Ejercicio 
+
+.content-box-blue[
+
+Cada uno tendrá que decir una ventaja-desventaja
+
+]
+
+.pull-left[
+### Ventajas
+
+-
+
+]
+
+.pull-right[
+### Desventajas
+
+-
+
+]
+
+---
+# Programación Orientada a Objetos (POO)
+
+- POO puede verse como ["aprendiendo a escribir funciones"](https://pythonforbiologists.com/advanced-python-for-biologists).
+
+--
+
+- Es una forma de ordenar y estructurar nuestro código.
+
+
+--
+
+Vocabulario:
+
+$$
+type = class
+$$
+
+$$
+data frame, string, file = objeto
+$$
+
+--
+
+**Un objeto es una instancia de una clase**: Una *cosa* es de un *tipo* partícular.
+
+---
+# Clases y objetos
+
+
+Dado:
+
+```{python, eval=F, echo = T}
+input = open("somedata.txt")
+```
+
+--
+
+Identifica:
+
+- objeto: 
+
+- clase:
+
+--
+
+Describe con tus palabras:
+
+- objeto:
+
+- clase:
+
+
+--
+
+Crear una clase es describir como se verá la instancia.
+
+Podemos usar esa descripción para crear varios objetos.
+
+A demás, sabemos que una pieza de código (e.i. una función) que pertenece a o*bjetos* de una *clase* en particular se llama *método*. 
+
+---
+# DNA class
+
+Veámos las siguientes funciones
+
+```{python, eval=F, echo = T}
+def get_AT(my_dna):
+    length = len(my_dna)
+    a_count = my_dna.count('A')
+    t_count = my_dna.count('T')
+    at_content = (a_count + t_count) / length
+    return at_content
+
+def complement(my_dna):
+    replacement1 = my_dna.replace('A', 't')
+    replacement2 = replacement1.replace('T', 'a')
+    replacement3 = replacement2.replace('C', 'g')
+    replacement4 = replacement3.replace('G', 'c')
+    return replacement4.upper()
+    
+```
+
+--
+
+Podemos calcular el contenido de AT y la secuencia complementaria
+
+```{python, eval=F, echo = T}
+dna_sequence = "ACTGATCGTTACGTACGAGTCAT"
+print(get_AT(dna_sequence))
+print(complement(dna_sequence))
+```
+
+---
+# DNA class
+
+¿Cómo podemos almancenar metainformación? (nombre del gen, especie)
+
+--
+
+1. Con nuevas variables
+
+--
+
+2. Usando diccionarios
+
+--
+
+3. Usando listas de diccionarios
+
+--
+
+4. Creando una *clase* que tenga:
+
+- 3 variables de instancia* i) seq DNA, ii) nombre del gen, iii) especie.
+
+- 2 métodos i) `get_AT()` ii) `complement()`
+
+--
+
+*Variables de instancia son variables que pertenecen a un objeto en particular 
+
+---
+
+
+*self*: variable para refiernos a un objeto dentro del método
+
+```{python, eval=F, echo = T}
+class DNARecord(object):
+    sequence = 'ACGTAGCTGACGATC' # attribute 1
+    gene_name = 'ABC1' # attribute 2
+    species_name = 'Drosophila melanogaster' # attribute 3
+
+    def complement(self): # method 1
+        replacement1 = self.sequence.replace('A', 't')
+        replacement2 = replacement1.replace('T', 'a')
+        replacement3 = replacement2.replace('C', 'g')
+        replacement4 = replacement3.replace('G', 'c')
+        return replacement4.upper()
+
+    def get_AT(self): # method 2
+        length = len(self.sequence)
+        a_count = self.sequence.count('A')
+        t_count = self.sequence.count('T')
+        at_content = (a_count + t_count) / length
+        return at_content
+
+d = DNARecord()
+print('Created a record for ' + d.gene_name + ' from ' + d.species_name)
+print('AT is ' + str(d.get_AT()))
+print('complement is ' + d.complement())
+```
+
+--
+
+¿Qué problema ven en este código?
+
+---
+
+Para guarar otras secuencias podemos:
+
+```{python, eval=F, echo = T}
+# DNA seq 1
+d1 = DNARecord()
+d1.sequence = 'ATATATTATTATATTATA'
+d1.gene_name = 'COX1'
+d1.species_name = 'Homo sapiens'
+
+# DNA seq 2
+d2 = DNARecord()
+d2.sequence = 'CGGCGGCGCGGCGCGGCG'
+d2.gene_name = 'ATP6'
+d2.species_name = 'Gorilla gorilla'
+
+# Print both DNA seq information
+for r in [d1, d2]:
+    print('Created ' + r.gene_name + ' from ' + r.species_name)
+    print('AT is ' + str(r.get_AT()))
+    print('complement is ' + r.complement())
+```
+
+--
+
+¿Cómo podemos mejorar el código y evitar que sea repetitivo?
+
+---
+
+Crear un nuevo método `set_variables()` que sea más eficiente
+
+```{python, eval=F, echo = T}
+class DNARecord(object):
+    sequence = 'ACGTAGCTGACGATC'
+    gene_name = 'ABC1'
+    species_name = 'Drosophila melanogaster'
+
+    def complement(self):
+        replacement1 = self.sequence.replace('A', 't')
+        replacement2 = replacement1.replace('T', 'a')
+        replacement3 = replacement2.replace('C', 'g')
+        replacement4 = replacement3.replace('G', 'c')
+        return replacement4.upper()
+
+    def get_AT(self):
+        length = len(self.sequence)
+        a_count = self.sequence.count('A')
+        t_count = self.sequence.count('T')
+        at_content = (a_count + t_count) / length
+        return at_content
+
+    def set_variables(self, new_seq, new_gene_name, new_species_name):
+        self.sequence = new_seq
+        self.gene_name = new_gene_name
+        self.species_name = new_species_name
+
+
+```
+
+---
+Y podemos usar `set_variables()` para guardar nueva información.
+
+```{python, eval=F, echo = T}
+d1 = DNARecord()
+d1.set_variables('ATATATTATTATATTATA','COX1','Homo sapiens')
+
+d2 = DNARecord()
+d2.set_variables('CGGCGGCGCGGCGCGGCG','ATP6','Gorilla gorilla')
+
+for r in [d1, d2]:
+    print('Created ' + r.gene_name + ' from ' + r.species_name)
+    print('AT is ' + str(r.get_AT()))
+    print('complement is ' + r.complement())
+```
+
+--
+
+¿Qué pasa si olvido usarlo?
+
+```{python, eval=F, echo = T}
+d1 = DNARecord()
+print(d1.complement())
+```
+
+
+---
+# Constructores
+
+El objetivo de un constructor `__init__` es crear un nuevo objeto y sus variables en una sentencia.
+
+---
+
+```{python, eval=F, echo = T}
+
+class DNARecord(object):
+    # Using a constructor 
+    def __init__(self, sequence, gene_name, species_name):
+        self.sequence = sequence
+        self.gene_name = gene_name
+        self.species_name = species_name
+
+    def complement(self):
+        replacement1 = self.sequence.replace('A', 't')
+        replacement2 = replacement1.replace('T', 'a')
+        replacement3 = replacement2.replace('C', 'g')
+        replacement4 = replacement3.replace('G', 'c')
+        return replacement4.upper()
+
+    def get_AT(self):
+        length = len(self.sequence)
+        a_count = self.sequence.count('A')
+        t_count = self.sequence.count('T')
+        at_content = (a_count + t_count) / length
+        return at_content
+
+d1 = DNARecord('ATATATTATTATATTATA', 'COX1', 'Homo sapiens')
+print(d1.complement())
+
+```
+
+--
+
+¿Qué error da?
+
+
+```{python, eval=F, echo = T}
+d2 = DNARecord()
+```
+
+---
+# Formato fasta
+
+Podemos también crear un método para obtener el formato fasta
+
+---
+
+```{python, eval=F, echo = T}
+
+class DNARecord(object):
+    def __init__(self, sequence, gene_name, species_name):
+        self.sequence = sequence
+        self.gene_name = gene_name
+        self.species_name = species_name
+
+    def complement(self):
+        replacement1 = self.sequence.replace('A', 't')
+        replacement2 = replacement1.replace('T', 'a')
+        replacement3 = replacement2.replace('C', 'g')
+        replacement4 = replacement3.replace('G', 'c')
+        return replacement4.upper()
+
+    def get_AT(self):
+        length = len(self.sequence)
+        a_count = self.sequence.count('A')
+        t_count = self.sequence.count('T')
+        at_content = (a_count + t_count) / length
+        return at_content
+
+    def get_fasta(self):
+        safe_species_name = self.species_name.replace(' ', '_')
+        header = '>' + self.gene_name + '_' + safe_species_name
+        return header + '\n' + self.sequence + '\n'
+
+d1 = DNARecord('ATATATTATTATATTATA', 'COX1', 'Homo sapiens')
+print(d1.get_fasta())
+
+
+
+```
+
+
+---
+
+## Ejercicio 
+
+.content-box-blue[
+
+Crea una clase `ProteinRecord` que imprima la secuencia de proteina en formato fasta.
+
+]
+
+
+```{python, eval=F, echo = F}
+class ProteinRecord(object):
+    def __init__(self, sequence, gene_name, species_name):
+        self.sequence = sequence
+        self.gene_name = gene_name
+        self.species_name = species_name
+    def get_fasta(self):
+        safe_species_name = self.species_name.replace(' ','_')
+        header = '>' + self.gene_name + '_' + safe_species_name
+        return header + '\n' + self.sequence + '\n'
+```
+
+Prueba la clase `ProteinRecord` y el método `get_fasta`
+
+```{python, eval=F, echo = T}
+d1 = ProteinRecord('MSRSLLLRFLLFLLLLPPLP', 'COX1', 'Homo sapiens')
+print(d1.get_fasta())
+```
+
+---
+# Herencia (Inheritance)
+
+¿Qué problema ven con el código de la  clase `DNARecord` y `ProteinRecord`?
+
+---
+## Superclases
+
+Podemos tener una tercera clase llamada *superclase* o *clase base* llamada `SequenceRecord`.
+
+```{python, eval=F, echo = T}
+class SequenceRecord(object):
+    def __init__(self, sequence, gene_name, species_name):
+        self.sequence = sequence
+        self.gene_name = gene_name
+        self.species_name = species_name
+    def get_fasta(self):
+        safe_species_name = self.species_name.replace(' ','_')
+        header = '>' + self.gene_name + '_' + safe_species_name
+        return header + '\n' + self.sequence + '\n'
+```
+
+---
+## Superclases
+
+`DNARecord` y `ProteinRecord` serán *subclases* o *clases derivadas* de `SequenceRecord`.
+
+
+```{python, eval=F, echo = T}
+class DNARecord(SequenceRecord):
+    def complement(self):
+        replacement1 = self.sequence.replace('A', 't')
+        replacement2 = replacement1.replace('T', 'a')
+        replacement3 = replacement2.replace('C', 'g')
+        replacement4 = replacement3.replace('G', 'c')
+        return replacement4.upper()
+
+    def get_AT(self):
+        length = len(self.sequence)
+        a_count = self.sequence.count('A')
+        t_count = self.sequence.count('T')
+        at_content = (a_count + t_count) / length
+        return at_content
+```
+
+---
+
+```{python, eval=F, echo = T}
+class ProteinRecord(SequenceRecord):
+    def get_hydrophobic(self):
+        aa_list = ['A', 'I', 'L', 'M', 'F', 'W', 'Y', 'V']
+        protein_length = len(self.sequence)
+        total = 0
+        for aa in aa_list:
+            aa = aa.upper()
+            aa_count = self.sequence.count(aa)
+            total = total + aa_count
+        percentage = total * 100 / protein_length
+        return percentage
+
+```
+
+--
+
+¿Qué clases estoy usando? 
+
+
+```{python, eval=F, echo = T}
+p1 = ProteinRecord('MSRSLLLRFLLFLLLLPPLP', 'COX1', 'Homo sapiens')
+print(p1.get_fasta())
+print(p1.get_hydrophobic())
+
+d1 = DNARecord('ATCGCGTACGTGATCGTAG', 'COX1', 'Homo sapiens')
+print(d1.get_fasta())
+print(d1.complement())
+```
+
+--
+
+¿Y cómo puedo modificar la `DNARecord` para que tenga argumentos específicos? (*e.i.* las bp que debe contener, inicio, fin, cromosoma, etc.)
+
+---
+# Overriding
+
+Supongmos que queremos añadir la información del cromosoma lo podemos hacer usando `__init__` y después llamar al constructor de `SequenceRecord` con `SequenceRecord.__init__`
+
+--
+
+```{python, eval=F, echo = T}
+class DNARecord(SequenceRecord):
+    def __init__(self, sequence, gene_name, species_name, chr):
+        SequenceRecord.__init__(self, sequence, gene_name, species_name)
+        self.chr = chr
+
+    def complement(self):
+        replacement1 = self.sequence.replace('A', 't')
+        replacement2 = replacement1.replace('T', 'a')
+        replacement3 = replacement2.replace('C', 'g')
+        replacement4 = replacement3.replace('G', 'c')
+        return replacement4.upper()
+
+    def get_AT(self):
+        length = len(self.sequence)
+        a_count = self.sequence.count('A')
+        t_count = self.sequence.count('T')
+        at_content = (a_count + t_count) / length
+        return at_content
+
+```
+
+---
+# Polimorfismos
+
+Supongamos que queremos obtener la longitud de la proteía `DNARecord` y `ProteinRecord`.
+
+--
+
+¿Cómo le harían?
+
+--
+
+¿Cuál es el problema de usar el método `get_protein_length()` en `SequenceRecord`?
+
+---
+# Polimorfismos
+
+`get_protein_length()` servirá tanto para `DNARecord` como `ProteinRecord`.
+
+```{python, eval=F, echo = T}
+class ProteinRecord(SequenceRecord):
+    def get_protein_length(self):
+        return len(self.sequence)
+   ...
+class DNARecord(SequenceRecord):
+    def get_protein_length(self):
+        return len(self.sequence) / 3
+...
+```
+
+```{python, eval=F, echo = T}
+
+```
+
+```{python, eval=F, echo = T}
+
+```
+
+```{python, eval=F, echo = T}
+
+```
+

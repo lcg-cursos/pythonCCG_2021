@@ -397,9 +397,11 @@ for dinucleotide, count in all_counts.items():
 
 Resuelve el problema de [Rosalind: Translating RNA into Protein](http://rosalind.info/problems/prot/)
 
-Traduce una secuencia de DNA en Proteína.
+Traduce una secuencia de RNA en Proteína.
 
 ]
+
+Si te sirve, aquí está el código de DNA-Protrína
 
 .tiny[
 

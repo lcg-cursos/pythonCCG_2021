@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>11. Programación Orientada a Objetos (POO)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ana BVA" />
+    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# 11. Programación Orientada a Objetos (POO)
+### Ana BVA
+### 17 June, 2021
+
+---
+
+
+
+
+
+# Programación Orientada a Objetos (POO)
+
+.content-box-green[
+
+*Object Oriented Programming* or OOP
+
+*Professional Object Oriented Programmer* or POOP
+
+]
+
+¿Qué es POO?
+
+&lt;img src="https://files.realpython.com/media/Object-Oriented-Programming-OOP-in-Python-3_Watermarked.0d29780806d5.jpg" width="550px" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Ejercicio 
+
+.content-box-blue[
+
+Cada uno tendrá que decir una ventaja-desventaja
+
+]
+
+.pull-left[
+### Ventajas
+
+-
+
+]
+
+.pull-right[
+### Desventajas
+
+-
+
+]
+
+---
+# Programación Orientada a Objetos (POO)
+
+- POO puede verse como ["aprendiendo a escribir funciones"](https://pythonforbiologists.com/advanced-python-for-biologists).
+
+--
+
+- Es una forma de ordenar y estructurar nuestro código.
+
+
+--
+
+Vocabulario:
+
+$$
+type = class
+$$
+
+$$
+data frame, string, file = objeto
+$$
+
+--
+
+**Un objeto es una instancia de una clase**: Una *cosa* es de un *tipo* partícular.
+
+---
+# Clases y objetos
+
+
+Dado:
+
+
+```python
+input = open("somedata.txt")
+```
+
+--
+
+Identifica:
+
+- objeto: 
+
+- clase:
+
+--
+
+Describe con tus palabras:
+
+- objeto:
+
+- clase:
+
+
+--
+
+Crear una clase es describir como se verá la instancia.
+
+Podemos usar esa descripción para crear varios objetos.
+
+A demás, sabemos que una pieza de código (e.i. una función) que pertenece a o*bjetos* de una *clase* en particular se llama *método*. 
+
+---
+# DNA class
+
+Veámos las siguientes funciones
+
+
+```python
+def get_AT(my_dna):
+    length = len(my_dna)
+    a_count = my_dna.count('A')
+    t_count = my_dna.count('T')
+    at_content = (a_count + t_count) / length
+    return at_content
+
+def complement(my_dna):
+    replacement1 = my_dna.replace('A', 't')
+    replacement2 = replacement1.replace('T', 'a')
+    replacement3 = replacement2.replace('C', 'g')
+    replacement4 = replacement3.replace('G', 'c')
+    return replacement4.upper()
+```
+
+--
+
+Podemos calcular el contenido de AT y la secuencia complementaria
+
+
+```python
+dna_sequence = "ACTGATCGTTACGTACGAGTCAT"
+print(get_AT(dna_sequence))
+print(complement(dna_sequence))
+```
+
+---
+# DNA class
+
+¿Cómo podemos almancenar metainformación? (nombre del gen, especie)
+
+--
+
+1. Con nuevas variables
+
+--
+
+2. Usando diccionarios
+
+--
+
+3. Usando listas de diccionarios
+
+--
+
+4. Creando una *clase* que tenga:
+
+- 3 variables de instancia* i) seq DNA, ii) nombre del gen, iii) especie.
+
+- 2 métodos i) `get_AT()` ii) `complement()`
+
+--
+
+*Variables de instancia son variables que pertenecen a un objeto en particular 
+
+---
+
+
+*self*: variable para refiernos a un objeto dentro del método
+
+
+```python
+class DNARecord(object):
+    sequence = 'ACGTAGCTGACGATC' # attribute 1
+    gene_name = 'ABC1' # attribute 2
+    species_name = 'Drosophila melanogaster' # attribute 3
+
+    def complement(self): # method 1
+        replacement1 = self.sequence.replace('A', 't')
+        replacement2 = replacement1.replace('T', 'a')
+        replacement3 = replacement2.replace('C', 'g')
+        replacement4 = replacement3.replace('G', 'c')
+        return replacement4.upper()
+
+    def get_AT(self): # method 2
+        length = len(self.sequence)
+        a_count = self.sequence.count('A')
+        t_count = self.sequence.count('T')
+        at_content = (a_count + t_count) / length
+        return at_content
+
+d = DNARecord()
+print('Created a record for ' + d.gene_name + ' from ' + d.species_name)
+print('AT is ' + str(d.get_AT()))
+print('complement is ' + d.complement())
+```
+
+--
+
+¿Qué problema ven en este código?
+
+---
+
+Para guarar otras secuencias podemos:
+
+
+```python
+# DNA seq 1
+d1 = DNARecord()
+d1.sequence = 'ATATATTATTATATTATA'
+d1.gene_name = 'COX1'
+d1.species_name = 'Homo sapiens'
+
+# DNA seq 2
+d2 = DNARecord()
+d2.sequence = 'CGGCGGCGCGGCGCGGCG'
+d2.gene_name = 'ATP6'
+d2.species_name = 'Gorilla gorilla'
+
+# Print both DNA seq information
+for r in [d1, d2]:
+    print('Created ' + r.gene_name + ' from ' + r.species_name)
+    print('AT is ' + str(r.get_AT()))
+    print('complement is ' + r.complement())
+```
+
+--
+
+¿Cómo podemos mejorar el código y evitar que sea repetitivo?
+
+---
+
+Crear un nuevo método `set_variables()` que sea más eficiente
+
+
+```python
+class DNARecord(object):
+    sequence = 'ACGTAGCTGACGATC'
+    gene_name = 'ABC1'
+    species_name = 'Drosophila melanogaster'
+
+    def complement(self):
+        replacement1 = self.sequence.replace('A', 't')
+        replacement2 = replacement1.replace('T', 'a')
+        replacement3 = replacement2.replace('C', 'g')
+        replacement4 = replacement3.replace('G', 'c')
+        return replacement4.upper()
+
+    def get_AT(self):
+        length = len(self.sequence)
+        a_count = self.sequence.count('A')
+        t_count = self.sequence.count('T')
+        at_content = (a_count + t_count) / length
+        return at_content
+
+    def set_variables(self, new_seq, new_gene_name, new_species_name):
+        self.sequence = new_seq
+        self.gene_name = new_gene_name
+        self.species_name = new_species_name
+```
+
+---
+Y podemos usar `set_variables()` para guardar nueva información.
+
+
+```python
+d1 = DNARecord()
+d1.set_variables('ATATATTATTATATTATA','COX1','Homo sapiens')
+
+d2 = DNARecord()
+d2.set_variables('CGGCGGCGCGGCGCGGCG','ATP6','Gorilla gorilla')
+
+for r in [d1, d2]:
+    print('Created ' + r.gene_name + ' from ' + r.species_name)
+    print('AT is ' + str(r.get_AT()))
+    print('complement is ' + r.complement())
+```
+
+--
+
+¿Qué pasa si olvido usarlo?
+
+
+```python
+d1 = DNARecord()
+print(d1.complement())
+```
+
+
+---
+# Constructores
+
+El objetivo de un constructor `__init__` es crear un nuevo objeto y sus variables en una sentencia.
+
+---
+
+
+```python
+class DNARecord(object):
+    # Using a constructor 
+    def __init__(self, sequence, gene_name, species_name):
+        self.sequence = sequence
+        self.gene_name = gene_name
+        self.species_name = species_name
+
+    def complement(self):
+        replacement1 = self.sequence.replace('A', 't')
+        replacement2 = replacement1.replace('T', 'a')
+        replacement3 = replacement2.replace('C', 'g')
+        replacement4 = replacement3.replace('G', 'c')
+        return replacement4.upper()
+
+    def get_AT(self):
+        length = len(self.sequence)
+        a_count = self.sequence.count('A')
+        t_count = self.sequence.count('T')
+        at_content = (a_count + t_count) / length
+        return at_content
+
+d1 = DNARecord('ATATATTATTATATTATA', 'COX1', 'Homo sapiens')
+print(d1.complement())
+```
+
+--
+
+¿Qué error da?
+
+
+
+```python
+d2 = DNARecord()
+```
+
+---
+# Formato fasta
+
+Podemos también crear un método para obtener el formato fasta
+
+---
+
+
+```python
+class DNARecord(object):
+    def __init__(self, sequence, gene_name, species_name):
+        self.sequence = sequence
+        self.gene_name = gene_name
+        self.species_name = species_name
+
+    def complement(self):
+        replacement1 = self.sequence.replace('A', 't')
+        replacement2 = replacement1.replace('T', 'a')
+        replacement3 = replacement2.replace('C', 'g')
+        replacement4 = replacement3.replace('G', 'c')
+        return replacement4.upper()
+
+    def get_AT(self):
+        length = len(self.sequence)
+        a_count = self.sequence.count('A')
+        t_count = self.sequence.count('T')
+        at_content = (a_count + t_count) / length
+        return at_content
+
+    def get_fasta(self):
+        safe_species_name = self.species_name.replace(' ', '_')
+        header = '&gt;' + self.gene_name + '_' + safe_species_name
+        return header + '\n' + self.sequence + '\n'
+
+d1 = DNARecord('ATATATTATTATATTATA', 'COX1', 'Homo sapiens')
+print(d1.get_fasta())
+```
+
+
+---
+
+## Ejercicio 
+
+.content-box-blue[
+
+Crea una clase `ProteinRecord` que imprima la secuencia de proteina en formato fasta.
+
+]
+
+
+
+
+Prueba la clase `ProteinRecord` y el método `get_fasta`
+
+
+```python
+d1 = ProteinRecord('MSRSLLLRFLLFLLLLPPLP', 'COX1', 'Homo sapiens')
+print(d1.get_fasta())
+```
+
+---
+# Herencia (Inheritance)
+
+¿Qué problema ven con el código de la  clase `DNARecord` y `ProteinRecord`?
+
+---
+## Superclases
+
+Podemos tener una tercera clase llamada *superclase* o *clase base* llamada `SequenceRecord`.
+
+
+```python
+class SequenceRecord(object):
+    def __init__(self, sequence, gene_name, species_name):
+        self.sequence = sequence
+        self.gene_name = gene_name
+        self.species_name = species_name
+    def get_fasta(self):
+        safe_species_name = self.species_name.replace(' ','_')
+        header = '&gt;' + self.gene_name + '_' + safe_species_name
+        return header + '\n' + self.sequence + '\n'
+```
+
+---
+## Superclases
+
+`DNARecord` y `ProteinRecord` serán *subclases* o *clases derivadas* de `SequenceRecord`.
+
+
+
+```python
+class DNARecord(SequenceRecord):
+    def complement(self):
+        replacement1 = self.sequence.replace('A', 't')
+        replacement2 = replacement1.replace('T', 'a')
+        replacement3 = replacement2.replace('C', 'g')
+        replacement4 = replacement3.replace('G', 'c')
+        return replacement4.upper()
+
+    def get_AT(self):
+        length = len(self.sequence)
+        a_count = self.sequence.count('A')
+        t_count = self.sequence.count('T')
+        at_content = (a_count + t_count) / length
+        return at_content
+```
+
+---
+
+
+```python
+class ProteinRecord(SequenceRecord):
+    def get_hydrophobic(self):
+        aa_list = ['A', 'I', 'L', 'M', 'F', 'W', 'Y', 'V']
+        protein_length = len(self.sequence)
+        total = 0
+        for aa in aa_list:
+            aa = aa.upper()
+            aa_count = self.sequence.count(aa)
+            total = total + aa_count
+        percentage = total * 100 / protein_length
+        return percentage
+```
+
+--
+
+¿Qué clases estoy usando? 
+
+
+
+```python
+p1 = ProteinRecord('MSRSLLLRFLLFLLLLPPLP', 'COX1', 'Homo sapiens')
+print(p1.get_fasta())
+print(p1.get_hydrophobic())
+
+d1 = DNARecord('ATCGCGTACGTGATCGTAG', 'COX1', 'Homo sapiens')
+print(d1.get_fasta())
+print(d1.complement())
+```
+
+--
+
+¿Y cómo puedo modificar la `DNARecord` para que tenga argumentos específicos? (*e.i.* las bp que debe contener, inicio, fin, cromosoma, etc.)
+
+---
+# Overriding
+
+Supongmos que queremos añadir la información del cromosoma lo podemos hacer usando `__init__` y después llamar al constructor de `SequenceRecord` con `SequenceRecord.__init__`
+
+--
+
+
+```python
+class DNARecord(SequenceRecord):
+    def __init__(self, sequence, gene_name, species_name, chr):
+        SequenceRecord.__init__(self, sequence, gene_name, species_name)
+        self.chr = chr
+
+    def complement(self):
+        replacement1 = self.sequence.replace('A', 't')
+        replacement2 = replacement1.replace('T', 'a')
+        replacement3 = replacement2.replace('C', 'g')
+        replacement4 = replacement3.replace('G', 'c')
+        return replacement4.upper()
+
+    def get_AT(self):
+        length = len(self.sequence)
+        a_count = self.sequence.count('A')
+        t_count = self.sequence.count('T')
+        at_content = (a_count + t_count) / length
+        return at_content
+```
+
+---
+# Polimorfismos
+
+Supongamos que queremos obtener la longitud de la proteía `DNARecord` y `ProteinRecord`.
+
+--
+
+¿Cómo le harían?
+
+--
+
+¿Cuál es el problema de usar el método `get_protein_length()` en `SequenceRecord`?
+
+---
+# Polimorfismos
+
+`get_protein_length()` servirá tanto para `DNARecord` como `ProteinRecord`.
+
+
+```python
+class ProteinRecord(SequenceRecord):
+    def get_protein_length(self):
+        return len(self.sequence)
+   ...
+class DNARecord(SequenceRecord):
+    def get_protein_length(self):
+        return len(self.sequence) / 3
+...
+```
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

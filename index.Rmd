@@ -21,5 +21,5 @@ Aquí encontrarás las slides del curso
 | 8  | [Módulos:	Tarea final](slides/8-Modulos.html) 
 | 9  | [Expresiones regulares](slides/9-Regexp.html) 
 | 10 | [Diccionarios](slides/10-Diccionarios.html) 
-| 11 | [POOP](slides/) 
-| 12 | [Presentación final](slides/) 
+| 11 | [POO](slides/11-POO.html) 
+| 12 | [Presentación final](slides/8-Modulos.html#58) 
